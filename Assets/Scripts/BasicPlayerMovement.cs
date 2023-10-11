@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BasicPlayerMovement : MonoBehaviour
@@ -9,14 +11,16 @@ public class BasicPlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private float _xInput;
     private bool _performJump;
-    private bool _isGrounded;
+    public bool _isGrounded;
     
     [SerializeField] private float _speed = 10;
     [SerializeField] private float _jumpForce = 10;
+
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponentInParent<Rigidbody2D>();
     }
+
 
     // Update is called once per frame
     private void Update()
@@ -40,13 +44,4 @@ public class BasicPlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        _isGrounded = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D col)
-    {
-        _isGrounded = false;
-    }
 }
