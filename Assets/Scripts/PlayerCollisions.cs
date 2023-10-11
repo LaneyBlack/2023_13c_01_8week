@@ -15,12 +15,20 @@ namespace DefaultNamespace
         private void OnCollisionEnter2D(Collision2D col)
         {
             _movement._isGrounded = true;
+          
         }
 
       
         private void OnCollisionExit2D(Collision2D col)
         {
             _movement._isGrounded = false;
+           
         }
     }
 }
+
+
+// if (Input.GetAxis("Horizontal") < 0)
+// {
+//     transform.localScale = new Vector3(-5,5,0);
+// }
