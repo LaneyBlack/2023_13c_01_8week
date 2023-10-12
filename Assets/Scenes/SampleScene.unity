@@ -291,6 +291,18 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4467412915754967072, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: Animator
+      value: 
+      objectReference: {fileID: 2117190665}
+    - target: {fileID: 4467412915754967072, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: _keyCode
+      value: 323
+      objectReference: {fileID: 0}
+    - target: {fileID: 4467412915754967072, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 2117190665}
     - target: {fileID: 7692184426016728822, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -450,6 +462,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2117190665 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1774417578219501813, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+  m_PrefabInstance: {fileID: 1150064490}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

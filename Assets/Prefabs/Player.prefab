@@ -168,6 +168,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4055546083740710647, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6622981418515736071, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
       propertyPath: m_Name
       value: PlayerVisuals
