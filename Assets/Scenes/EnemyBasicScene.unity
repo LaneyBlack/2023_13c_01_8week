@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 758813109}
   - component: {fileID: 758813108}
   - component: {fileID: 758813107}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.10090646}
+  m_Offset: {x: 0, y: -0.010174692}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -200,7 +200,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.7981871}
+  m_Size: {x: 1, y: 1.020349}
   m_EdgeRadius: 0
 --- !u!50 &758813109
 Rigidbody2D:
@@ -290,7 +290,7 @@ Transform:
   m_GameObject: {fileID: 758813106}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5024, y: -1.5091, z: 0}
+  m_LocalPosition: {x: 1.497, y: -1.478, z: 0}
   m_LocalScale: {x: 1.0013075, y: 0.99464464, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 1832589457}
   - component: {fileID: 1832589456}
   - component: {fileID: 1832589455}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MeleeEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -599,8 +599,8 @@ Transform:
   m_GameObject: {fileID: 1832589452}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.525, y: -2.4468, z: 0}
-  m_LocalScale: {x: 4.1157446, y: 4.1157446, z: 4.1157446}
+  m_LocalPosition: {x: 2.361, y: -2.4468, z: 0}
+  m_LocalScale: {x: 4.115745, y: 4.1157446, z: 4.1157446}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -617,10 +617,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2029978e5b9ed48a97fb3b77d90284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 0
-  damage: 0
-  speed: 0
-  boxCollider: {fileID: 0}
+  damage: 2
+  movementSpeed: 0
+  boxCollider: {fileID: 1832589456}
+  hitFovRange: 1.4
+  hitFovDistance: -0.05
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  attackCooldown: 1
 --- !u!61 &1832589456
 BoxCollider2D:
   m_ObjectHideFlags: 0
