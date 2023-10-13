@@ -14,7 +14,7 @@ public class BasicPlayerMovement : MonoBehaviour
     private float _currentSpeed;
     private bool _performJump;
     public bool _isGrounded;
-    public Animator Animator;
+    //public Animator _animator;
     
     [SerializeField] private float _walkSpeed = 10;
     [SerializeField] private float _jumpForce = 10;
@@ -25,7 +25,7 @@ public class BasicPlayerMovement : MonoBehaviour
         _rigidbody = GetComponentInParent<Rigidbody2D>();
         // _transform = GetComponentInParent<Transform>();
         _transform = transform.parent;
-        Animator = GetComponentInParent<Animator>();
+        //_animator = GetComponent<Animator>();
     }
 
 
@@ -44,6 +44,8 @@ public class BasicPlayerMovement : MonoBehaviour
         {
             _currentSpeed *= _runMultiplier;
         }
+
+        //_animator.SetBool("Run", _xInput != 0);
 
         if (_xInput > 0)
         {
