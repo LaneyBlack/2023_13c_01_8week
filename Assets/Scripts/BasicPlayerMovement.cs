@@ -11,12 +11,14 @@ public class BasicPlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Transform _transform;
     private float _xInput;
+    private float _currentSpeed;
     private bool _performJump;
     public bool _isGrounded;
     public Animator Animator;
     
-    [SerializeField] private float _speed = 10;
+    [SerializeField] private float _walkSpeed = 10;
     [SerializeField] private float _jumpForce = 10;
+    [SerializeField] private float _runMultiplier = 1.5f;
 
     private void Awake()
     {
@@ -31,9 +33,16 @@ public class BasicPlayerMovement : MonoBehaviour
     private void Update()
     {
         _xInput = Input.GetAxis("Horizontal");
+
         if (Input.GetKey(KeyCode.Space))
         {
             _performJump = true;
+        }
+
+        _currentSpeed = _walkSpeed;
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            _currentSpeed *= _runMultiplier;
         }
 
         if (_xInput > 0)
@@ -49,7 +58,7 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody.velocity = new Vector2(_xInput * _speed, _rigidbody.velocity.y);
+        _rigidbody.velocity = new Vector2(_xInput * _currentSpeed, _rigidbody.velocity.y);
 
         if (_performJump && _isGrounded)
         {
