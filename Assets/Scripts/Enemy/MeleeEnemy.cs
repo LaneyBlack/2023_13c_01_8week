@@ -5,60 +5,66 @@ using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour
 {
-
     // Follow Player
     [SerializeField] private float movementSpeed;
     [SerializeField] private GameObject player;
-    [SerializeField] private float viewDistance;
+    [SerializeField] private float maxFollowDistance;
+    [SerializeField] private float minFollowDistance;
     private float _distance;
-    private bool _moveTowards = false;
 
     // Hit Fov
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private float hitFovRange;
     [SerializeField] private float hitFovDistance;
+
     [SerializeField] private LayerMask layerMask;
+
     // Damage player
     [SerializeField] private float damage;
     [SerializeField] private float attackCooldown;
     private float _cooldownTimer;
 
     private Rigidbody2D _rigidbody;
+    private SpriteRenderer _sprite;
     private Animator _animator;
-    
+
     private static readonly int MeleeAttack = Animator.StringToHash("meleeAttack");
+    private static readonly int IsMoving = Animator.StringToHash("isMoving");
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        _sprite = GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
     private void Update()
     {
         _distance = Vector2.Distance(transform.position, player.transform.position);
-        
+
         _cooldownTimer -= Time.deltaTime;
         if (_cooldownTimer < 0 && HasPlayerInSight())
         {
             // Attack
             _cooldownTimer = attackCooldown;
-            _animator.SetTrigger(MeleeAttack);
+            _animator.SetTrigger(MeleeAttack); // attack animation
         }
-        else
-        {
-            // Move towards player
-            _moveTowards = _distance < viewDistance;
-        }
+        // Move towards player if distance is not too small and not to big
+        var moving = _distance < maxFollowDistance && _distance > minFollowDistance;
+        _animator.SetBool(IsMoving, moving); // moving animation value
+        if(moving)
+            _sprite.flipX = _rigidbody.velocity.x > .1f;
     }
 
     private void FixedUpdate()
     {
-        if (_moveTowards)
+        if (_animator.GetBool(IsMoving))
         {
-            var direction = player.transform.position - transform.position;
-            _rigidbody.velocity = new Vector2( movementSpeed * direction.x, _rigidbody.velocity.y);
+            var direction = player.transform.position - transform.position; // Get direction to move in
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y);
+            _rigidbody.velocity = new Vector2(movementSpeed * Math.Sign(direction.x), _rigidbody.velocity.y);
         }
     }
 
@@ -86,11 +92,11 @@ public class MeleeEnemy : MonoBehaviour
             new Vector2(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y));
     }
 
-     
+
     private void DamagePlayer()
     {
         // prep for the merge with player
-        
+
         //if (HasPlayerInSight()) {
         //playerHealth.TakeDamage(damage);
         //}

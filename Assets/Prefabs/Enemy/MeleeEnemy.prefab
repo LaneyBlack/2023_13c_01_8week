@@ -180,7 +180,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3468579476201465116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,9 +193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2029978e5b9ed48a97fb3b77d90284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
+  movementSpeed: 4.5
   player: {fileID: 0}
-  viewDistance: 10
+  maxFollowDistance: 7
+  minFollowDistance: 0.5
   boxCollider: {fileID: 4204869501052483391}
   hitFovRange: 1.4
   hitFovDistance: -0.05
@@ -203,4 +204,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   damage: 2
-  attackCooldown: 1
+  attackCooldown: 2
