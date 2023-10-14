@@ -5,22 +5,28 @@ using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    [SerializeField] private float damage;
-    [SerializeField] private float movementSpeed;
 
-    // Hit Fov ---
+    // Follow Player
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private GameObject player;
+    [SerializeField] private float viewDistance;
+    private float _distance;
+    private bool _moveTowards = false;
+
+    // Hit Fov
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private float hitFovRange;
     [SerializeField] private float hitFovDistance;
     [SerializeField] private LayerMask layerMask;
-
+    // Damage player
+    [SerializeField] private float damage;
     [SerializeField] private float attackCooldown;
     private float _cooldownTimer;
 
     private Rigidbody2D _rigidbody;
     private Animator _animator;
-
-    // private Health playerHealth;  // prep for the merge with player
+    
+    private static readonly int MeleeAttack = Animator.StringToHash("meleeAttack");
 
     private void Awake()
     {
@@ -31,18 +37,29 @@ public class MeleeEnemy : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        _distance = Vector2.Distance(transform.position, player.transform.position);
+        
         _cooldownTimer -= Time.deltaTime;
         if (_cooldownTimer < 0 && HasPlayerInSight())
         {
             // Attack
             _cooldownTimer = attackCooldown;
-            _animator.SetTrigger("meleeAttack");
+            _animator.SetTrigger(MeleeAttack);
+        }
+        else
+        {
+            // Move towards player
+            _moveTowards = _distance < viewDistance;
         }
     }
 
     private void FixedUpdate()
     {
-        // _rigidbody.velocity = new Vector2( _speed, _rigidbody.velocity.y);
+        if (_moveTowards)
+        {
+            var direction = player.transform.position - transform.position;
+            _rigidbody.velocity = new Vector2( movementSpeed * direction.x, _rigidbody.velocity.y);
+        }
     }
 
     private bool HasPlayerInSight()
@@ -60,7 +77,7 @@ public class MeleeEnemy : MonoBehaviour
         return hitFov.collider != null;
     }
 
-    // For Debugging purposes
+    // For Debugging purposes only
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -69,9 +86,11 @@ public class MeleeEnemy : MonoBehaviour
             new Vector2(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y));
     }
 
-    // prep for the merge with player (DO NOT DELETE)
+     
     private void DamagePlayer()
     {
+        // prep for the merge with player
+        
         //if (HasPlayerInSight()) {
         //playerHealth.TakeDamage(damage);
         //}
