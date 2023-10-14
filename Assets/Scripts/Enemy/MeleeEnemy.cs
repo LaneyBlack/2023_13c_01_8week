@@ -13,13 +13,14 @@ public class MeleeEnemy : MonoBehaviour
     [SerializeField] private float hitFovRange;
     [SerializeField] private float hitFovDistance;
     [SerializeField] private LayerMask layerMask;
-    
+
     [SerializeField] private float attackCooldown;
     private float _cooldownTimer;
 
     private Rigidbody2D _rigidbody;
-    
     private Animator _animator;
+
+    // private Health playerHealth;  // prep for the merge with player
 
     private void Awake()
     {
@@ -31,27 +32,32 @@ public class MeleeEnemy : MonoBehaviour
     private void Update()
     {
         _cooldownTimer -= Time.deltaTime;
-        if (_cooldownTimer < 0 && IsPlayerInSight())
+        if (_cooldownTimer < 0 && HasPlayerInSight())
         {
             // Attack
             _cooldownTimer = attackCooldown;
             _animator.SetTrigger("meleeAttack");
         }
     }
-    
+
     private void FixedUpdate()
     {
         // _rigidbody.velocity = new Vector2( _speed, _rigidbody.velocity.y);
     }
 
-    private bool IsPlayerInSight()
+    private bool HasPlayerInSight()
     {
-        // Origin, Size, Angle, direction
-        var hitFov = Physics2D.BoxCast(boxCollider.bounds.center + transform.right * (hitFovDistance * transform.localScale.x), //
-            new Vector3(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y, boxCollider.bounds.size.z), // size x depends on range
-            0,Vector2.left,
-            0,layerMask);
-        return hitFov.collider!=null;
+        var hitFov = Physics2D.BoxCast(
+            boxCollider.bounds.center + transform.right * (hitFovDistance * transform.localScale.x), //
+            new Vector3(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y,
+                boxCollider.bounds.size.z), // size x depends on range
+            0, Vector2.left,
+            0, layerMask);
+        // if (hitFov.collider != null) // prep for the merge with player (DO NOT DELETE)
+        //     playerHealth = hitFov.transform.GetComponent<Health>();
+
+        // If get collider is not null there is player in it
+        return hitFov.collider != null;
     }
 
     // For Debugging purposes
@@ -62,5 +68,12 @@ public class MeleeEnemy : MonoBehaviour
         Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * (hitFovDistance * transform.localScale.x),
             new Vector2(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y));
     }
-    
+
+    // prep for the merge with player (DO NOT DELETE)
+    private void DamagePlayer()
+    {
+        //if (HasPlayerInSight()) {
+        //playerHealth.TakeDamage(damage);
+        //}
+    }
 }
