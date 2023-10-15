@@ -34,7 +34,7 @@ public class BasicPlayerMovement : MonoBehaviour
     {
         _xInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetButton("Jump"))
         {
             _performJump = true;
         }
