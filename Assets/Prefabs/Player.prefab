@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5024, y: -1.5091, z: 0}
-  m_LocalScale: {x: 1.0013075, y: 0.99464464, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3632066200173324281}
@@ -62,7 +62,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1769528676917067484
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.10090646}
+  m_Offset: {x: -0.002717957, y: 0.016651295}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -106,7 +106,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.7981871}
+  m_Size: {x: 0.2444211, y: 0.29265583}
   m_EdgeRadius: 0
 --- !u!114 &8846545357501609067
 MonoBehaviour:
@@ -168,6 +168,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3202996084485060879, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
+      propertyPath: _keyCode
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 3202996084485060879, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1774417578219501813}
     - target: {fileID: 4055546083740710647, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
       propertyPath: animator
       value: 
@@ -199,6 +207,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6622981418515736071, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1774417578219501813}
+    - targetCorrespondingSourceObject: {fileID: 6622981418515736071, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3442535908350572603}
   m_SourcePrefab: {fileID: 100100000, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
 --- !u!4 &3632066200173324281 stripped
 Transform:
@@ -231,6 +242,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3442535908350572603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5360881240524685096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0746e11968e550f4a8655270abccbb92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Animator: {fileID: 1774417578219501813}
 --- !u!1001 &2531677779259147195
 PrefabInstance:
   m_ObjectHideFlags: 0
