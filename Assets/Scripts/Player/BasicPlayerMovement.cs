@@ -67,7 +67,6 @@ public class BasicPlayerMovement : MonoBehaviour
             _performJump = false;
             _rigidbody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
         }
-        
     }
 
 }
