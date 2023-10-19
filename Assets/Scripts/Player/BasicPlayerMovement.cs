@@ -34,7 +34,7 @@ public class BasicPlayerMovement : MonoBehaviour
     {
         _xInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && _isGrounded)
         {
             _performJump = true;
         }
@@ -62,7 +62,7 @@ public class BasicPlayerMovement : MonoBehaviour
     {
         _rigidbody.velocity = new Vector2(_xInput * _currentSpeed, _rigidbody.velocity.y);
 
-        if (_performJump && _isGrounded)
+        if (_performJump)
         {
             _performJump = false;
             _rigidbody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
