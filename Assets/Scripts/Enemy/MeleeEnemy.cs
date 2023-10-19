@@ -30,13 +30,13 @@ public class MeleeEnemy : MonoBehaviour
 
     private static readonly int MeleeAttack = Animator.StringToHash("meleeAttack");
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
+    private static readonly int IsFalling = Animator.StringToHash("isFalling");
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _sprite = GetComponent<SpriteRenderer>();
-
     }
 
     // Update is called once per frame
@@ -52,10 +52,13 @@ public class MeleeEnemy : MonoBehaviour
             _animator.SetTrigger(MeleeAttack); // attack animation
         }
         // Move towards player if distance is not too small and not to big
-        var moving = _distance < maxFollowDistance && _distance > minFollowDistance;
+        var moving = (_distance < maxFollowDistance && _distance > minFollowDistance) && !_animator.GetBool(IsFalling);
         _animator.SetBool(IsMoving, moving); // moving animation value
         if(moving)
-            _sprite.flipX = _rigidbody.velocity.x > .1f;
+            _sprite.flipX = _rigidbody.velocity.x > .1f; // face forward
+        // Falling animation value
+        var a = _rigidbody.velocity.y < -0.1f;
+        _animator.SetBool(IsFalling, a);
     }
 
     private void FixedUpdate()
@@ -92,12 +95,13 @@ public class MeleeEnemy : MonoBehaviour
         Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * (hitFovDistance * transform.localScale.x),
             new Vector2(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y));
     }
-
-
+    
     private void DamagePlayer()
     {
         if (HasPlayerInSight()) {
             playerHealth.TakeDamage(damage);
         }
     }
+    
+    
 }
