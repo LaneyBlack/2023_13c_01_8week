@@ -96,7 +96,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.005323574, y: 0.017519869}
+  m_Offset: {x: 0.0021993518, y: 0.026127875}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -107,7 +107,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2114164, y: 0.26659948}
+  m_Size: {x: 0.2918026, y: 0.27033806}
   m_EdgeRadius: 0
 --- !u!114 &8846545357501609067
 MonoBehaviour:
@@ -184,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3202996084485060879, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
       propertyPath: _keyCode
-      value: 98
+      value: 323
       objectReference: {fileID: 0}
     - target: {fileID: 3202996084485060879, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
       propertyPath: animator
@@ -228,6 +228,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6622981418515736071, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3442535908350572603}
+    - targetCorrespondingSourceObject: {fileID: 6622981418515736071, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5578625660060228105}
   m_SourcePrefab: {fileID: 100100000, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
 --- !u!4 &3632066200173324281 stripped
 Transform:
@@ -273,6 +276,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Animator: {fileID: 1774417578219501813}
+--- !u!114 &5578625660060228105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5360881240524685096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0746e11968e550f4a8655270abccbb92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Animator: {fileID: 1774417578219501813}
 --- !u!1001 &2531677779259147195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -288,6 +304,14 @@ PrefabInstance:
     - target: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: _walkSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: _runMultiplier
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 5309728895905941086, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: m_LocalPosition.x
