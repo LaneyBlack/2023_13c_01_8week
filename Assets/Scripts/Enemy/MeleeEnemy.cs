@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    // Follow Player
+    [Header("Movement and Player interaction")]
     [SerializeField] private float movementSpeed;
     [SerializeField] private GameObject player;
     [SerializeField] private float maxFollowDistance;
     [SerializeField] private float minFollowDistance;
     private float _distance;
 
-    // Hit Fov
+    [Header("HitFov")]
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private float hitFovRange;
     [SerializeField] private float hitFovDistance;
-
     [SerializeField] private LayerMask layerMask;
 
-    // Damage player
-    [SerializeField] private float damage;
+    [Header("Attacking")]
+    [SerializeField] private int damage;
     [SerializeField] private float attackCooldown;
     private float _cooldownTimer;
+    private Health playerHealth;
 
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _sprite;
@@ -68,6 +68,7 @@ public class MeleeEnemy : MonoBehaviour
         }
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     private bool HasPlayerInSight()
     {
         var hitFov = Physics2D.BoxCast(
@@ -76,8 +77,8 @@ public class MeleeEnemy : MonoBehaviour
                 boxCollider.bounds.size.z), // size x depends on range
             0, Vector2.left,
             0, layerMask);
-        // if (hitFov.collider != null) // prep for the merge with player (DO NOT DELETE)
-        //     playerHealth = hitFov.transform.GetComponent<Health>();
+        if (hitFov.collider != null) // prep for the merge with player (DO NOT DELETE)
+            playerHealth = hitFov.transform.GetComponent<Health>();
 
         // If get collider is not null there is player in it
         return hitFov.collider != null;
@@ -95,10 +96,8 @@ public class MeleeEnemy : MonoBehaviour
 
     private void DamagePlayer()
     {
-        // prep for the merge with player
-
-        //if (HasPlayerInSight()) {
-        //playerHealth.TakeDamage(damage);
-        //}
+        if (HasPlayerInSight()) {
+            playerHealth.TakeDamage(damage);
+        }
     }
 }
