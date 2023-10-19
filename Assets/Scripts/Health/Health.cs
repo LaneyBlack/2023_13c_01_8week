@@ -14,7 +14,6 @@ public class Health : MonoBehaviour
     public bool TakeDamage(int damage)
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, maxHealth);
-
         return IsDead();
     }
 
