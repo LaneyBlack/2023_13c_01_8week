@@ -14,25 +14,27 @@ public class SpikeScript : MonoBehaviour
         if (!playerIsAlive) return;
 
         GameObject spikeHit = collision.gameObject;
-        if (spikeHit.CompareTag("Player"))
+        
+        if (!spikeHit.CompareTag("Player") || Time.time - lastDamageTime < damageCooldown)
         {
-            if (Time.time - lastDamageTime >= damageCooldown)
-            {
-                Health playerHealth = spikeHit.GetComponent<Health>();
-                
-                if (playerHealth != null)
-                {
-                    playerHealth.takeDamage(1);
-                    
-                    lastDamageTime = Time.time;
-                    
-                    if (playerHealth.isDead())
-                    {
-                        playerIsAlive = false;
-                    }
-                }
-            }
+            return;
         }
+        
+        Health playerHealth = spikeHit.GetComponent<Health>();
+        
+        if (playerHealth == null || playerHealth.isDead())
+        {
+            return;
+        }
+        
+        playerHealth.takeDamage(1);
+
+        lastDamageTime = Time.time;
+        
+        if (playerHealth.isDead())
+        {
+            playerIsAlive = false; }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
