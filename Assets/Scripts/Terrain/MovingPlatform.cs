@@ -1,18 +1,23 @@
 using UnityEngine;
+
 public class MovingPlatform : MonoBehaviour
 {
     [SerializeField] private GameObject[] points;
     private int currentPointIndex = 0;
+    private int direction = 1;
 
     [SerializeField] private float speed = 2f;
+
     private void Update()
     {
         if (Vector2.Distance(points[currentPointIndex].transform.position, transform.position) < .1f)
         {
-            currentPointIndex++;
-            if (currentPointIndex >= points.Length)
+            currentPointIndex += direction;
+            
+            if (currentPointIndex >= points.Length || currentPointIndex < 0)
             {
-                currentPointIndex = 0;
+                direction *= -1;
+                currentPointIndex += direction;
             }
         }
 
