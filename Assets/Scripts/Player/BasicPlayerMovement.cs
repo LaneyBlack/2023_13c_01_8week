@@ -14,6 +14,7 @@ public class BasicPlayerMovement : MonoBehaviour
     private float _currentSpeed;
     private bool _performJump;
     public bool _isGrounded;
+    public bool _isFalling;
     //public Animator _animator;
     
     [SerializeField] private float _walkSpeed = 10;
@@ -56,6 +57,8 @@ public class BasicPlayerMovement : MonoBehaviour
         {
             _transform.localScale = new Vector3(-5,5,0);
         }
+
+        _isFalling = (_rigidbody.velocity.y < -0.1f);
     }
 
     private void FixedUpdate()
