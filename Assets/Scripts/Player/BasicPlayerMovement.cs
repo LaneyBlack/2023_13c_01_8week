@@ -58,7 +58,7 @@ public class BasicPlayerMovement : MonoBehaviour
             _transform.localScale = new Vector3(-5,5,0);
         }
 
-        _isFalling = (_rigidbody.velocity.y < -0.1f);
+        _isFalling = (_rigidbody.velocity.y < 0);
     }
 
     private void FixedUpdate()
