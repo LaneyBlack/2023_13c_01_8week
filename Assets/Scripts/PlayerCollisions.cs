@@ -13,7 +13,11 @@ namespace DefaultNamespace
             _animator = GetComponentInChildren<Animator>();
         }
 
-        
+        private void Update()
+        {
+            _animator.SetBool("Falling", _movement._isFalling);
+        }
+
         private void OnCollisionEnter2D(Collision2D col)
         {
             _movement._isGrounded = true;
