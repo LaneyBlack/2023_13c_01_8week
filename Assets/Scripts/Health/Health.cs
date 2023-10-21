@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         CurrentHealth = maxHealth;
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     //damages the player and returns true if player is dead
