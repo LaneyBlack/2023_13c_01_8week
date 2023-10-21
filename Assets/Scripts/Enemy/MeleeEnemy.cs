@@ -5,24 +5,23 @@ using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    [Header("Movement and Player interaction")]
-    [SerializeField] private float movementSpeed;
+    [Header("Movement and Player interaction")] [SerializeField]
+    private float movementSpeed;
+
     [SerializeField] private GameObject player;
     [SerializeField] private float maxFollowDistance;
     [SerializeField] private float minFollowDistance;
     private float _distance;
 
-    [Header("HitFov")]
-    [SerializeField] private BoxCollider2D boxCollider;
+    [Header("HitFov")] [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private float hitFovRange;
     [SerializeField] private float hitFovDistance;
     [SerializeField] private LayerMask layerMask;
 
-    [Header("Attacking")]
-    [SerializeField] private int damage;
+    [Header("Attacking")] [SerializeField] private int damage;
     [SerializeField] private float attackCooldown;
     private float _cooldownTimer;
-    private Health playerHealth;
+    private Health _playerHealth;
 
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _sprite;
@@ -31,6 +30,7 @@ public class MeleeEnemy : MonoBehaviour
     private static readonly int MeleeAttack = Animator.StringToHash("meleeAttack");
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
     private static readonly int IsFalling = Animator.StringToHash("isFalling");
+    private static readonly int TakeHit = Animator.StringToHash("takeHit");
 
     private void Awake()
     {
@@ -51,10 +51,11 @@ public class MeleeEnemy : MonoBehaviour
             _cooldownTimer = attackCooldown;
             _animator.SetTrigger(MeleeAttack); // attack animation
         }
+
         // Move towards player if distance is not too small and not to big
         var moving = (_distance < maxFollowDistance && _distance > minFollowDistance) && !_animator.GetBool(IsFalling);
         _animator.SetBool(IsMoving, moving); // moving animation value
-        if(moving)
+        if (moving)
             _sprite.flipX = _rigidbody.velocity.x > .1f; // face forward
         // Falling animation value
         var a = _rigidbody.velocity.y < -0.1f;
@@ -81,7 +82,7 @@ public class MeleeEnemy : MonoBehaviour
             0, Vector2.left,
             0, layerMask);
         if (hitFov.collider != null) // prep for the merge with player (DO NOT DELETE)
-            playerHealth = hitFov.transform.GetComponent<Health>();
+            _playerHealth = hitFov.transform.GetComponent<Health>();
 
         // If get collider is not null there is player in it
         return hitFov.collider != null;
@@ -95,13 +96,17 @@ public class MeleeEnemy : MonoBehaviour
         Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * (hitFovDistance * transform.localScale.x),
             new Vector2(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y));
     }
-    
+
     private void DamagePlayer()
     {
-        if (HasPlayerInSight()) {
-            playerHealth.TakeDamage(damage);
+        if (HasPlayerInSight())
+        {
+            _playerHealth.TakeDamage(damage);
         }
     }
-    
-    
+
+    private void TakeDamage()
+    {
+        _animator.SetTrigger(TakeHit);
+    }
 }
