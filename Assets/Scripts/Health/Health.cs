@@ -22,7 +22,7 @@ public class Health : MonoBehaviour
         try {
             _animator.SetTrigger(CurrentHealth > 0 ? TakeHit : Die);
         }catch (Exception e) {
-            // Ignore
+            Debug.LogError(e);
         }
         return IsDead();
     }
