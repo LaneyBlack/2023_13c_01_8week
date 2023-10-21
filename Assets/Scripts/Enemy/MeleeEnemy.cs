@@ -56,7 +56,8 @@ public class MeleeEnemy : MonoBehaviour
         var moving = (_distance < maxFollowDistance && _distance > minFollowDistance) && !_animator.GetBool(IsFalling);
         _animator.SetBool(IsMoving, moving); // moving animation value
         if (moving)
-            _sprite.flipX = _rigidbody.velocity.x > .1f; // face forward
+            _sprite.flipX = (transform.position.x - player.transform.position.x) < 0; // face forward
+
         // Falling animation value
         var a = _rigidbody.velocity.y < -0.1f;
         _animator.SetBool(IsFalling, a);
@@ -89,13 +90,13 @@ public class MeleeEnemy : MonoBehaviour
     }
 
     // For Debugging purposes only
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        // Draw Hit Fov
-        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * (hitFovDistance * transform.localScale.x),
-            new Vector2(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y));
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     // Draw Hit Fov
+    //     Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * (hitFovDistance * transform.localScale.x),
+    //         new Vector2(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y));
+    // }
 
     private void DamagePlayer()
     {
