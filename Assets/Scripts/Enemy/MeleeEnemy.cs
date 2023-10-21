@@ -59,8 +59,7 @@ public class MeleeEnemy : MonoBehaviour
             _sprite.flipX = (transform.position.x - player.transform.position.x) < 0; // face forward
 
         // Falling animation value
-        var a = _rigidbody.velocity.y < -0.1f;
-        _animator.SetBool(IsFalling, a);
+        _animator.SetBool(IsFalling, _rigidbody.velocity.y < -0.1f);
     }
 
     private void FixedUpdate()
@@ -70,6 +69,7 @@ public class MeleeEnemy : MonoBehaviour
             var direction = player.transform.position - transform.position; // Get direction to move in
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y);
             _rigidbody.velocity = new Vector2(movementSpeed * Math.Sign(direction.x), _rigidbody.velocity.y);
+            // _rigidbody.AddForce(new Vector2(movementSpeed * Math.Sign(direction.x), 0), ForceMode2D.Force); // didnt like, but we can do some tests
         }
     }
 
@@ -89,7 +89,7 @@ public class MeleeEnemy : MonoBehaviour
         return hitFov.collider != null;
     }
 
-    // For Debugging purposes only
+    // For Debugging purposes only ---
     // private void OnDrawGizmos()
     // {
     //     Gizmos.color = Color.red;
