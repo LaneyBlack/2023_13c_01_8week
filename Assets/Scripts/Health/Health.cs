@@ -20,7 +20,11 @@ public class Health : MonoBehaviour
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, maxHealth);
         try {
-            _animator.SetTrigger(CurrentHealth > 0 ? TakeHit : Die);
+            _animator.SetTrigger(TakeHit);
+            if (CurrentHealth < 0)
+            {
+                _animator.SetTrigger(Die);
+            }
         }catch (Exception e) {
             Debug.LogError(e);
         }

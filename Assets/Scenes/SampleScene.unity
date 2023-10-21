@@ -139,10 +139,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 466546035}
-    - target: {fileID: 3468579476201465116, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
-      propertyPath: maxFollowDistance
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 5285172599302495997, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.02
