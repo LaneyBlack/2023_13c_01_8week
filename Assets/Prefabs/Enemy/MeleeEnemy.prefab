@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 4.5
   player: {fileID: 0}
-  maxFollowDistance: 7
+  maxFollowDistance: 5
   minFollowDistance: 0.5
   boxCollider: {fileID: 4204869501052483391}
   hitFovRange: 1.4
