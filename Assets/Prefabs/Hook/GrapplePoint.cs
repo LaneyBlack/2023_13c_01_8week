@@ -23,9 +23,10 @@ public class GrapplePoint : MonoBehaviour
         if (player != null) 
         {
             float distance = Vector2.Distance(player.transform.position, transform.position);
-            Debug.Log("player found. Distance = " + distance);
+            //Debug.Log("player found. Distance = " + distance);
 
             spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
+            player.GetComponent<PlayerHook>().canHook = (distance <= attachRadius);
         }
     }
 }
