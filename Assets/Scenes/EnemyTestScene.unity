@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 732855055904139570, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1862763330373230390, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
@@ -139,13 +143,17 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 466546035}
+    - target: {fileID: 3468579476201465116, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
+      propertyPath: movementSpeed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5285172599302495997, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.02
       objectReference: {fileID: 0}
     - target: {fileID: 5285172599302495997, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.36
+      value: 5.48
       objectReference: {fileID: 0}
     - target: {fileID: 5285172599302495997, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
       propertyPath: m_LocalPosition.z
