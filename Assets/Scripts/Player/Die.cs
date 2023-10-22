@@ -26,7 +26,7 @@ public class Die : MonoBehaviour
             
                 playerHealth.KillForTesting();
         }
-        if (!isDead && playerHealth != null && playerHealth.isDead())
+        if (!isDead && playerHealth != null && playerHealth.IsDead())
         {
             HandleDeath();
             deathAnimationStarted = true;

@@ -27,8 +27,8 @@ public class PlayerAttackSword : MonoBehaviour
        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position,attackRange,enemyLayers);
        foreach (Collider2D enemy in hitEnemies)
        {
-           Debug.Log("We hit and its currenntHealth ="+enemy.GetComponent<Health>().currentHealth);
-           enemy.GetComponent<Health>().takeDamage(damageValue);
+           Debug.Log("We hit and its currenntHealth ="+enemy.GetComponent<Health>().CurrentHealth);
+           enemy.GetComponent<Health>().TakeDamage(damageValue);
        }
     }
 

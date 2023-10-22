@@ -588,6 +588,10 @@ PrefabInstance:
       propertyPath: attackPoint
       value: 
       objectReference: {fileID: 464452471}
+    - target: {fileID: 4467412915754967072, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: enemyLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 7644859094504062155, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_Distance
       value: 2.8386793
