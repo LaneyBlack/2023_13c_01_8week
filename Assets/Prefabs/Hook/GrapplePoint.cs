@@ -6,6 +6,7 @@ public class GrapplePoint : MonoBehaviour
 {
     private float                   promptRadius;           //distance when "can attach" color starts to change       
     private SpriteRenderer          spriteRenderer;
+    [SerializeField] private float  attachError = 0.5f;            //how much further can player be from attachRadius and still attach
     [SerializeField] private float  attachRadius = 10f;     //how close player must be to the point to attach himself
     /*[SerializeField]*/ private Color  canAttachColor = Color.green;
     /*[SerializeField]*/ private Color  defaultColor = Color.red;
@@ -18,15 +19,15 @@ public class GrapplePoint : MonoBehaviour
 
     private void Update()
     {
-        var player = GameObject.FindWithTag("Player");
+        var grapplingGun = GameObject.FindWithTag("GrapplingGun");
 
-        if (player != null) 
+        if (grapplingGun != null) 
         {
-            float distance = Vector2.Distance(player.transform.position, transform.position);
-            //Debug.Log("player found. Distance = " + distance);
+            float distance = Vector2.Distance(grapplingGun.transform.position, transform.position);
+            //Debug.Log("GrapplingGun found. Distance = " + distance);
 
             spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
-            player.GetComponent<PlayerHook>().canHook = (distance <= attachRadius);
+            grapplingGun.GetComponent<HookGun>().canHook = (distance - attachError <= attachRadius);
         }
     }
 }

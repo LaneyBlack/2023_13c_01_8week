@@ -38,7 +38,7 @@ public class BasicPlayerMovement : MonoBehaviour
     {
         _xInput = Input.GetAxis("Horizontal");
         _jumpForce = _basicJumpForce;
-        Debug.Log(_jumpForce);
+        //Debug.Log(_jumpForce);
 
         if (Input.GetButton("Jump") && (_isGrounded || grapplingRope.isGrappling))
         {
