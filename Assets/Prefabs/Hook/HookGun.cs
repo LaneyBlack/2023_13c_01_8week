@@ -55,7 +55,6 @@ public class HookGun : MonoBehaviour
     {
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
-
     }
 
     private void Update()
@@ -90,7 +89,6 @@ public class HookGun : MonoBehaviour
         {
             grappleRope.enabled = false;
             m_springJoint2D.enabled = false;
-            m_rigidbody.gravityScale = 1;
             //m_rigidbody.gravityScale = 1;
         }
         else
