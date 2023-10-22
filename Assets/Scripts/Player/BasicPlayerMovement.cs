@@ -26,7 +26,6 @@ public class BasicPlayerMovement : MonoBehaviour
         _rigidbody = GetComponentInParent<Rigidbody2D>();
         // _transform = GetComponentInParent<Transform>();
         _transform = transform.parent;
-        //_animator = GetComponent<Animator>();
     }
 
 
@@ -48,15 +47,15 @@ public class BasicPlayerMovement : MonoBehaviour
 
         //_animator.SetBool("Run", _xInput != 0);
 
-        if (_xInput > 0)
-        {
-            _transform.localScale = new Vector3(5,5,0);
-        }
+        //if (_xInput > 0)
+        //{
+        //    _transform.localScale = new Vector3(5,5,0);
+        //}
         
-        if (_xInput < 0)
-        {
-            _transform.localScale = new Vector3(-5,5,0);
-        }
+        //if (_xInput < 0)
+        //{
+        //    _transform.localScale = new Vector3(-5,5,0);
+        //}
 
         _isFalling = (_rigidbody.velocity.y < 0);
     }
