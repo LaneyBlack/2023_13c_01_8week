@@ -44,5 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be6b1325d394e644d966d75253330377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
-  _jumpForce: 40
+  _isGrounded: 0
+  _isFalling: 0
+  grapplingRope: {fileID: 0}
+  _walkSpeed: 10
+  _basicJumpForce: 40
+  _runMultiplier: 1.5
+  _grappleMultiplier: 2
+  _grappleJumpBoost: 1.5
