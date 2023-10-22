@@ -8,6 +8,7 @@ TagManager:
   - Terrain
   - Enemy
   - Hook
+  - GrapplingGun
   layers:
   - Default
   - TransparentFX

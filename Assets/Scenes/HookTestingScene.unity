@@ -526,10 +526,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrapplePoint
       objectReference: {fileID: 0}
-    - target: {fileID: 4593548937521472846, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
-      propertyPath: m_Layer
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 7249472963113563445, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.05
@@ -570,17 +566,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7902379652732333371, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
-      propertyPath: attachRadius
-      value: 10
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4593548937521472846, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1894037485}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
 --- !u!1001 &649186394
 PrefabInstance:
@@ -726,7 +715,7 @@ GameObject:
   - component: {fileID: 859546473}
   m_Layer: 7
   m_Name: GrapplingGun
-  m_TagString: Untagged
+  m_TagString: GrapplingGun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -868,8 +857,6 @@ MonoBehaviour:
   m_rigidbody: {fileID: 2139607145}
   rotateOverTime: 0
   rotationSpeed: 4
-  hasMaxDistance: 0
-  maxDistnace: 20
   launchToPoint: 1
   launchType: 1
   launchSpeed: 1
@@ -878,6 +865,7 @@ MonoBehaviour:
   targetFrequncy: 1
   grapplePoint: {x: 0, y: 0}
   grappleDistanceVector: {x: 0, y: 0}
+  canHook: 0
 --- !u!1 &1589115922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,56 +996,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1894037481 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4593548937521472846, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
-  m_PrefabInstance: {fileID: 559178134}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &1894037485
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894037481}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &1903078612
 GameObject:
   m_ObjectHideFlags: 0

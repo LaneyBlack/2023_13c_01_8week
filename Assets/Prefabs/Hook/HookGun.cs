@@ -28,9 +28,9 @@ public class HookGun : MonoBehaviour
     [SerializeField] private bool rotateOverTime = true;
     [Range(0, 60)][SerializeField] private float rotationSpeed = 4;
 
-    [Header("Distance:")]
-    [SerializeField] private bool hasMaxDistance = false;
-    [SerializeField] private float maxDistnace = 20;
+    //[Header("Distance:")]
+    //[SerializeField] private bool hasMaxDistance = false;
+    //[SerializeField] private float maxDistnace = 20;
 
     private enum LaunchType
     {
@@ -51,10 +51,13 @@ public class HookGun : MonoBehaviour
     [HideInInspector] public Vector2 grapplePoint;
     [HideInInspector] public Vector2 grappleDistanceVector;
 
+    [HideInInspector] public bool canHook;
+
     private void Start()
     {
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
+        canHook = false;
     }
 
     private void Update()
@@ -121,7 +124,8 @@ public class HookGun : MonoBehaviour
             RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized);
             if (_hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll)
             {
-                if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
+                //if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
+                if(canHook)
                 {
                     grapplePoint = _hit.point;
                     grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
@@ -173,11 +177,11 @@ public class HookGun : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (firePoint != null && hasMaxDistance)
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(firePoint.position, maxDistnace);
-        }
+        //if (firePoint != null && hasMaxDistance)
+        //{
+        //    Gizmos.color = Color.green;
+        //    Gizmos.DrawWireSphere(firePoint.position, maxDistnace);
+        //}
     }
 
 }
