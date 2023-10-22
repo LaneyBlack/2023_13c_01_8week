@@ -22,4 +22,8 @@ public class Health : MonoBehaviour
     {
         return currentHealth == 0;
     }
+    public void KillForTesting()
+    {
+        currentHealth = 0;
+    }
 }
