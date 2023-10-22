@@ -1,29 +1,42 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
-    public int currentHealth { get; private set; }
+    public int CurrentHealth { get; private set; }
+    private Animator _animator;
+    private static readonly int Die = Animator.StringToHash("die");
+    private static readonly int TakeHit = Animator.StringToHash("takeHit");
 
     private void Awake()
     {
-        currentHealth = maxHealth; 
+        CurrentHealth = maxHealth;
+        _animator = GetComponentInChildren<Animator>();
     }
 
     //damages the player and returns true if player is dead
-    public bool takeDamage(int damage)
+    public bool TakeDamage(int damage)
     {
-        currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
-
-        return isDead();
+        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, maxHealth);
+        try {
+            _animator.SetTrigger(TakeHit);
+            if (CurrentHealth <= 0)
+            {
+                _animator.SetTrigger(Die);  
+            }
+        }catch (Exception e) {
+            Debug.LogError(e);
+        }
+        return IsDead();
     }
 
-    public bool isDead()
+    public bool IsDead()
     {
-        return currentHealth == 0;
+        return CurrentHealth == 0;
     }
     public void KillForTesting()
     {
-        currentHealth = 0;
+        CurrentHealth = 0;
     }
 }
