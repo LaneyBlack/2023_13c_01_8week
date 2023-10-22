@@ -80,6 +80,7 @@ public class GrapplingRope : MonoBehaviour
                 grapplingGun.Grapple();
                 isGrappling = true;
             }
+
             if (waveSize > 0)
             {
                 waveSize -= Time.deltaTime * straightenLineSpeed;

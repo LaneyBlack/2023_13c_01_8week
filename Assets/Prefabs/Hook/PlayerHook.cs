@@ -6,12 +6,12 @@ public class PlayerHook : MonoBehaviour
 {
     public bool canHook = false;
 
-    private void Update()
-    {
-        if (canHook)
-            Debug.Log("Player can hook!!");
-        else
-            Debug.Log("Player CAN'T hook!!");
-    }
+    //private void Update()
+    //{
+    //    if (canHook)
+    //        Debug.Log("Player can hook!!");
+    //    else
+    //        Debug.Log("Player CAN'T hook!!");
+    //}
 
 }

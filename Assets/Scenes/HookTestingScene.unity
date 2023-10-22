@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 451273272}
   m_Layer: 7
   m_Name: GunPivot
-  m_TagString: Untagged
+  m_TagString: Hook
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,6 +590,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 774004560140385731, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: grapplingRope
+      value: 
+      objectReference: {fileID: 535799585}
+    - target: {fileID: 774004560140385731, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: _basicJumpForce
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 774004560140385731, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: _grappleJumpBoost
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 774004560140385731, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: _grappleMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2448627642934620544, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2692948081531085355, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.06
@@ -630,6 +650,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5360881240524685096, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591392006246106437, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8093405114768699451, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -647,10 +675,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8093405114768699451, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2139607141}
-    - targetCorrespondingSourceObject: {fileID: 8093405114768699451, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2139607142}
+    - targetCorrespondingSourceObject: {fileID: 2448627642934620544, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2110520908}
   m_SourcePrefab: {fileID: 100100000, guid: 29eca595460da024ea0723000bbe298d, type: 3}
 --- !u!1 &816074590
 GameObject:
@@ -845,7 +873,7 @@ MonoBehaviour:
   launchToPoint: 1
   launchType: 1
   launchSpeed: 1
-  autoConfigureDistance: 1
+  autoConfigureDistance: 0
   targetDistance: 3
   targetFrequncy: 1
   grapplePoint: {x: 0, y: 0}
@@ -1160,6 +1188,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2110520904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2448627642934620544, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+  m_PrefabInstance: {fileID: 649186394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2110520908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110520904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf83888a3c0a324280c3aaf6a5a6bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canHook: 0
 --- !u!1 &2139607135 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8093405114768699451, guid: 29eca595460da024ea0723000bbe298d, type: 3}
@@ -1176,19 +1222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2b6e78c46b5bc4ab8fda7ba0053498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2139607141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2139607135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf83888a3c0a324280c3aaf6a5a6bc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canHook: 0
 --- !u!231 &2139607142
 SpringJoint2D:
   m_ObjectHideFlags: 0
