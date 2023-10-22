@@ -282,6 +282,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &695147006 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 460640104834928589, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+  m_PrefabInstance: {fileID: 1150064490}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &871449519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -449,10 +454,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3343769085241469385, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: m_camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 4467412915754967072, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: _keyCode
       value: 323
       objectReference: {fileID: 0}
+    - target: {fileID: 4467412915754967072, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 695147006}
     - target: {fileID: 8093405114768699451, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_Name
       value: Player (1)

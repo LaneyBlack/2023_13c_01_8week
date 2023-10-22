@@ -22,16 +22,16 @@ public class SpikeScript : MonoBehaviour
         
         Health playerHealth = spikeHit.GetComponent<Health>();
         
-        if (playerHealth == null || playerHealth.isDead())
+        if (playerHealth == null || playerHealth.IsDead())
         {
             return;
         }
         
-        playerHealth.takeDamage(1);
+        playerHealth.TakeDamage(1);
 
         lastDamageTime = Time.time;
         
-        if (playerHealth.isDead())
+        if (playerHealth.IsDead())
         {
             playerIsAlive = false; }
 
