@@ -23,8 +23,7 @@ public class Die : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            
-                playerHealth.KillForTesting();
+            playerHealth.KillForTesting();
         }
         if (!isDead && playerHealth != null && playerHealth.IsDead())
         {

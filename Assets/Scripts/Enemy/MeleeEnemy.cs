@@ -50,6 +50,7 @@ public class MeleeEnemy : MonoBehaviour
             // Attack
             _cooldownTimer = attackCooldown;
             _animator.SetTrigger(MeleeAttack); // attack animation
+            DamagePlayer();
         }
 
         // Move towards player if distance is not too small and not to big
