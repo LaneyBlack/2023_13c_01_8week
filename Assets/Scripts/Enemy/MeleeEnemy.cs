@@ -23,6 +23,7 @@ public class MeleeEnemy : MonoBehaviour
     private float _cooldownTimer;
     private Health _playerHealth;
 
+    private Health _health;
     private Rigidbody2D _rigidbody;
     private SpriteRenderer _sprite;
     private Animator _animator;
@@ -37,15 +38,20 @@ public class MeleeEnemy : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _sprite = GetComponent<SpriteRenderer>();
+        _health = GetComponent<Health>();
     }
 
     // Update is called once per frame
     private void Update()
     {
+        // Return if dead
+        if(_health.IsDead())
+            return;
+        
         _distance = Vector2.Distance(transform.position, player.transform.position);
 
         _cooldownTimer -= Time.deltaTime;
-        if (_cooldownTimer < 0 && HasPlayerInSight())
+        if (_cooldownTimer < 0 && HasPlayerInSight() && !_health.IsDead())
         {
             // Attack
             _cooldownTimer = attackCooldown;
@@ -56,8 +62,9 @@ public class MeleeEnemy : MonoBehaviour
         // Move towards player if distance is not too small and not to big
         var moving = (_distance < maxFollowDistance && _distance > minFollowDistance) && !_animator.GetBool(IsFalling);
         _animator.SetBool(IsMoving, moving); // moving animation value
-        if (moving)
+        if (moving) {
             _sprite.flipX = (transform.position.x - player.transform.position.x) < 0; // face forward
+        }
 
         // Falling animation value
         _animator.SetBool(IsFalling, _rigidbody.velocity.y < -0.1f);
@@ -65,7 +72,7 @@ public class MeleeEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_animator.GetBool(IsMoving))
+        if (_animator.GetBool(IsMoving) && !_health.IsDead())
         {
             var direction = player.transform.position - transform.position; // Get direction to move in
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y);
