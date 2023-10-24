@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2b6e78c46b5bc4ab8fda7ba0053498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 9
 --- !u!231 &7644859094504062155
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -269,7 +269,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 13.326144
+  m_Distance: 5.125632
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!1001 &1264424728377153839
@@ -332,6 +332,14 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1774417578219501813}
+    - target: {fileID: 3202996084485060879, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
+      propertyPath: attackPoint
+      value: 
+      objectReference: {fileID: 460640104834928589}
+    - target: {fileID: 3202996084485060879, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
+      propertyPath: enemyLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 4055546083740710647, guid: de4cf31a8e1e5964988904bc4ff76df8, type: 3}
       propertyPath: animator
       value: 
@@ -539,6 +547,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8080688713920484274}
+    - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7990437063337769770}
   m_SourcePrefab: {fileID: 100100000, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
 --- !u!1 &2448627642934620544 stripped
 GameObject:
@@ -571,6 +582,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canHook: 0
+--- !u!114 &7990437063337769770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2448627642934620544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 316a209b7aadd5c49b4aeb5f8059a7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushForce: 1
+  boxLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!4 &7677970831517156837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5309728895905941086, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
