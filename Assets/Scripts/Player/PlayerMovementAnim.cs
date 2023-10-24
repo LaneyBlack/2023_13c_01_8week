@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerMovementAnim : MonoBehaviour
 {
     public Animator _Animator;
-    private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer _spriteRenderer;
 
     private void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+       // _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame

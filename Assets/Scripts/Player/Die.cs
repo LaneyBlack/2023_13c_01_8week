@@ -13,7 +13,7 @@ public class Die : MonoBehaviour
     private void Start()
     {
         playerHealth = GetComponentInParent<Health>();
-        _Animator = GetComponent<Animator>();
+        // _Animator = GetComponent<Animator>();
         if (_Animator == null)
         {
             Debug.LogError("No Animator component found on " + gameObject.name);
