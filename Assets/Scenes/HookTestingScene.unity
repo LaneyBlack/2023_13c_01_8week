@@ -324,10 +324,6 @@ PrefabInstance:
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 4467412915754967072, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      propertyPath: attackPoint
-      value: 
-      objectReference: {fileID: 2123736856}
     - target: {fileID: 8093405114768699451, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -727,11 +723,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &2123736856 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 460640104834928589, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-  m_PrefabInstance: {fileID: 649186394}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2139607136 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5600040512106179195, guid: 29eca595460da024ea0723000bbe298d, type: 3}
