@@ -10,6 +10,7 @@ TagManager:
   - Hook
   - GrapplingGun
   - Box
+  - Bullet
   layers:
   - Default
   - TransparentFX
