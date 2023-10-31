@@ -126,7 +126,6 @@ GameObject:
   - component: {fileID: 2692948081531085355}
   - component: {fileID: 5591392006246106437}
   - component: {fileID: 1769528676917067484}
-  - component: {fileID: 8846545357501609067}
   - component: {fileID: 5600040512106179195}
   - component: {fileID: 7644859094504062155}
   m_Layer: 7
@@ -166,10 +165,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 4
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 10
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -226,18 +225,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.22047766, y: 0.27033806}
   m_EdgeRadius: 0
---- !u!114 &8846545357501609067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8093405114768699451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4bfd44e0c2a49f388cfbd01e8931a06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5600040512106179195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +256,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 13.326144
+  m_Distance: 12.969272
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!1001 &1264424728377153839
@@ -444,6 +431,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1774417578219501813}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: _walkSpeed
       value: 6
       objectReference: {fileID: 0}
@@ -454,6 +445,14 @@ PrefabInstance:
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: _runMultiplier
       value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 7692184426016728822}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 5309728895905941086, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: m_LocalPosition.x
@@ -511,9 +510,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2192340541141871632}
-    - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7734153486467688964}
   m_SourcePrefab: {fileID: 100100000, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
 --- !u!1 &2448627642934620544 stripped
 GameObject:
@@ -575,20 +571,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Animator: {fileID: 1774417578219501813}
---- !u!114 &7734153486467688964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2448627642934620544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0746e11968e550f4a8655270abccbb92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Animator: {fileID: 1774417578219501813}
-  _spriteRenderer: {fileID: 7692184426016728822}
 --- !u!4 &7677970831517156837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5309728895905941086, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}

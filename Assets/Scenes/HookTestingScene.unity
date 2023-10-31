@@ -267,6 +267,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7902379652732333371, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
+      propertyPath: attachRadius
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -280,14 +284,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 774004560140385731, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 1075250593}
-    - target: {fileID: 774004560140385731, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 256
-      objectReference: {fileID: 0}
     - target: {fileID: 2692948081531085355, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.86
@@ -332,22 +328,6 @@ PrefabInstance:
       propertyPath: m_camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 5591392006246106437, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      propertyPath: m_Mass
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591392006246106437, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      propertyPath: m_GravityScale
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5600040512106179195, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      propertyPath: maxHealth
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7644859094504062155, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      propertyPath: m_Distance
-      value: 13.152946
-      objectReference: {fileID: 0}
     - target: {fileID: 8093405114768699451, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -357,11 +337,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29eca595460da024ea0723000bbe298d, type: 3}
---- !u!95 &1075250593 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1774417578219501813, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-  m_PrefabInstance: {fileID: 649186394}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1238442584
 GameObject:
   m_ObjectHideFlags: 0
