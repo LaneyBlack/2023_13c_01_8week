@@ -1,12 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cinemachine.Editor;
-using DefaultNamespace;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.Image;
 
 public class BasicPlayerMovement : MonoBehaviour
 {
@@ -16,9 +8,8 @@ public class BasicPlayerMovement : MonoBehaviour
     private float _currentSpeed;
     private float _jumpForce;
     private bool _performJump;
-    public bool _isGrounded { get; private set; }
-    public bool _isFalling { get; private set; }
-    //public Animator _animator;
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
     private float groundRayLength = .1f;
 
@@ -45,12 +36,14 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _isGrounded = isGrounded();
-
         _xInput = Input.GetAxis("Horizontal");
+        Flip(_xInput);
+        animator.SetBool("Run", _xInput != 0);
+
+        var grounded = isGrounded();
         _jumpForce = _basicJumpForce;
 
-        if (Input.GetButtonUp("Jump") && (_isGrounded || grapplingRope.isGrappling))
+        if (Input.GetButtonUp("Jump") && (grounded || grapplingRope.isGrappling))
         {
             _performJump = true;
             if (grapplingRope.isGrappling)
@@ -67,10 +60,12 @@ public class BasicPlayerMovement : MonoBehaviour
         if (grapplingRope.isGrappling)
             _currentSpeed *= _grappleMultiplier;
 
-        _isFalling = (_rigidbody.velocity.y < 0);
+        //set animator transitions:
+        animator.SetBool("Falling", (_rigidbody.velocity.y < 0));
+        animator.SetBool("Grounded", grounded);
 
         //DEBUG:
-       // Debug.Log("space: " + scount + "\t jump: " + jcount);
+        // Debug.Log("space: " + scount + "\t jump: " + jcount);
     }
 
     private void FixedUpdate()
@@ -88,8 +83,20 @@ public class BasicPlayerMovement : MonoBehaviour
         }
     }
 
-    public bool isGrounded()
+    private bool isGrounded()
     {
         return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, groundRayLength, groundLayer);
+    }
+
+    private void Flip(float xInput)
+    {
+        if (xInput > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (xInput < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 }
