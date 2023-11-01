@@ -439,6 +439,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: ropeScript
+      value: 
+      objectReference: {fileID: 8753912020202434120}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: grapplingRope
       value: 
       objectReference: {fileID: 8753912020202434120}
@@ -450,6 +454,10 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 7692184426016728822}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: jumpLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 256
@@ -500,9 +508,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2354403683459390460}
-    - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8080688713920484274}
     - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       insertIndex: -1
@@ -516,19 +521,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
   m_PrefabInstance: {fileID: 2531677779259147195}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2354403683459390460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2448627642934620544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc2b6e78c46b5bc4ab8fda7ba0053498, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 3
 --- !u!114 &8080688713920484274
 MonoBehaviour:
   m_ObjectHideFlags: 0

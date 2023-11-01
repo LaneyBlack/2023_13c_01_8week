@@ -47,8 +47,8 @@ public class BasicPlayerMovement : MonoBehaviour
     private void Update()
     {
         _xInput = Input.GetAxis("Horizontal");
-        Flip(_xInput);
-        animator.SetBool("Run", _xInput != 0);
+        Flip(_rigidbody.velocity.x);
+        animator.SetBool("Run", _rigidbody.velocity.x != 0);
 
         var grounded = isGrounded();
         _jumpForce = _basicJumpForce;
@@ -98,13 +98,13 @@ public class BasicPlayerMovement : MonoBehaviour
         return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, groundRayLength, jumpLayer);
     }
 
-    private void Flip(float xInput)
+    private void Flip(float direction)
     {
-        if (xInput > 0)
+        if (direction > 0)
         {
             spriteRenderer.flipX = false;
         }
-        else if (xInput < 0)
+        else if (direction < 0)
         {
             spriteRenderer.flipX = true;
         }
