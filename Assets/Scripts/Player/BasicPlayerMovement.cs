@@ -22,9 +22,9 @@ public class BasicPlayerMovement : MonoBehaviour
 
 
     [Header("Grappling Rope")]
-    [SerializeField] private GrapplingRope grapplingRopeScript;
-    [SerializeField] private float _grappleGlideBoost = 1.5f;
-    [SerializeField] private float _grappleJumpBoost = 1.3f;
+    [SerializeField] private GrapplingRope ropeScript;
+    [SerializeField] private float _glideBoost = 1.5f;
+    [SerializeField] private float _jumpBoost = 1.3f;
 
 
     private Rigidbody2D _rigidbody;
@@ -53,11 +53,11 @@ public class BasicPlayerMovement : MonoBehaviour
         var grounded = isGrounded();
         _jumpForce = _basicJumpForce;
 
-        if (Input.GetButtonUp("Jump") && (grounded || grapplingRopeScript.isGrappling))
+        if (Input.GetButtonDown("Jump") && (grounded || ropeScript.isGrappling))
         {
             _performJump = true;
-            if (grapplingRopeScript.isGrappling)
-                _jumpForce *= _grappleJumpBoost;
+            if (ropeScript.isGrappling)
+                _jumpForce *= _jumpBoost;
 
             //DEBUG:
             scount++;
@@ -67,8 +67,8 @@ public class BasicPlayerMovement : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftShift))
             _currentSpeed *= _runMultiplier;
 
-        if (grapplingRopeScript.isGrappling)
-            _currentSpeed *= _grappleGlideBoost;
+        if (ropeScript.isGrappling)
+            _currentSpeed *= _glideBoost;
 
         //set animator transitions:
         animator.SetBool("Falling", (_rigidbody.velocity.y < 0));
@@ -85,7 +85,7 @@ public class BasicPlayerMovement : MonoBehaviour
         if (_performJump)
         {
             _performJump = false;
-            grapplingRopeScript.enabled = false;
+            ropeScript.enabled = false;
             _rigidbody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
             
             //DEBUG:
