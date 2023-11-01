@@ -285,6 +285,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 774004560140385731, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: grScript
+      value: 
+      objectReference: {fileID: 719471702}
+    - target: {fileID: 774004560140385731, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: ropeScript
+      value: 
+      objectReference: {fileID: 719471702}
+    - target: {fileID: 774004560140385731, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: jumpLayer.m_Bits
       value: 256
       objectReference: {fileID: 0}
