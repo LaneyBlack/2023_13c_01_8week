@@ -2,29 +2,39 @@ using UnityEngine;
 
 public class BasicPlayerMovement : MonoBehaviour
 {
+    //DEBUG:
+    int scount = 0;
+    int jcount = 0;
+
+    [Header("Visuals References")]
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+
+
+    [Header("Ground Movement")]
+    [SerializeField] private float _walkSpeed = 10;
+    [SerializeField] private float _runMultiplier = 1.5f;
+
+
+    [Header("Jump")]
+    [SerializeField] private float _basicJumpForce = 10;
+    [SerializeField] private LayerMask jumpLayer;
+
+
+    [Header("Grappling Rope")]
+    [SerializeField] private GrapplingRope grapplingRopeScript;
+    [SerializeField] private float _grappleGlideBoost = 1.5f;
+    [SerializeField] private float _grappleJumpBoost = 1.3f;
+
+
     private Rigidbody2D _rigidbody;
     private BoxCollider2D boxCollider;
     private float _xInput;
     private float _currentSpeed;
     private float _jumpForce;
     private bool _performJump;
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
-
     private float groundRayLength = .1f;
 
-    //DEBUG:
-    int scount = 0;
-    int jcount = 0;
-
-    [SerializeField] private GrapplingRope grapplingRope;
-    [SerializeField] private float _walkSpeed = 10;
-    [SerializeField] private float _basicJumpForce = 10;
-    [SerializeField] private float _runMultiplier = 1.5f;
-    [SerializeField] private float _grappleMultiplier = 1.5f;
-    [SerializeField] private float _grappleJumpBoost = 1.3f;
-    [SerializeField] private LayerMask groundLayer;
-    
 
     //[SerializeField] private bool groundedOnAnything = true;
 
@@ -43,10 +53,10 @@ public class BasicPlayerMovement : MonoBehaviour
         var grounded = isGrounded();
         _jumpForce = _basicJumpForce;
 
-        if (Input.GetButtonUp("Jump") && (grounded || grapplingRope.isGrappling))
+        if (Input.GetButtonUp("Jump") && (grounded || grapplingRopeScript.isGrappling))
         {
             _performJump = true;
-            if (grapplingRope.isGrappling)
+            if (grapplingRopeScript.isGrappling)
                 _jumpForce *= _grappleJumpBoost;
 
             //DEBUG:
@@ -57,15 +67,15 @@ public class BasicPlayerMovement : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftShift))
             _currentSpeed *= _runMultiplier;
 
-        if (grapplingRope.isGrappling)
-            _currentSpeed *= _grappleMultiplier;
+        if (grapplingRopeScript.isGrappling)
+            _currentSpeed *= _grappleGlideBoost;
 
         //set animator transitions:
         animator.SetBool("Falling", (_rigidbody.velocity.y < 0));
         animator.SetBool("Grounded", grounded);
 
         //DEBUG:
-        // Debug.Log("space: " + scount + "\t jump: " + jcount);
+        //Debug.Log("space: " + scount + "\t jump: " + jcount);
     }
 
     private void FixedUpdate()
@@ -75,7 +85,7 @@ public class BasicPlayerMovement : MonoBehaviour
         if (_performJump)
         {
             _performJump = false;
-            grapplingRope.enabled = false;
+            grapplingRopeScript.enabled = false;
             _rigidbody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
             
             //DEBUG:
@@ -85,7 +95,7 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private bool isGrounded()
     {
-        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, groundRayLength, groundLayer);
+        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, groundRayLength, jumpLayer);
     }
 
     private void Flip(float xInput)
