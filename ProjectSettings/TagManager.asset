@@ -10,6 +10,7 @@ TagManager:
   - Hook
   - GrapplingGun
   - Box
+  - Background
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Ground
   - Enemy
   - 
-  - 
+  - Background
   - 
   - 
   - 
@@ -44,6 +45,12 @@ TagManager:
   - Hook
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3072573311
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 1467442183
     locked: 0
