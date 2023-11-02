@@ -10,6 +10,8 @@ TagManager:
   - Hook
   - GrapplingGun
   - Box
+  - UI_Item
+  - UI_Key
   layers:
   - Default
   - TransparentFX
