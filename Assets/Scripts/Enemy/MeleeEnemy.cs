@@ -45,9 +45,9 @@ public class MeleeEnemy : MonoBehaviour
     private void Update()
     {
         // Return if dead
-        if(_health.IsDead())
+        if (_health.IsDead())
             return;
-        
+
         _distance = Vector2.Distance(transform.position, player.transform.position);
 
         _cooldownTimer -= Time.deltaTime;
@@ -56,13 +56,13 @@ public class MeleeEnemy : MonoBehaviour
             // Attack
             _cooldownTimer = attackCooldown;
             _animator.SetTrigger(MeleeAttack); // attack animation
-            DamagePlayer();
         }
 
         // Move towards player if distance is not too small and not to big
         var moving = (_distance < maxFollowDistance && _distance > minFollowDistance) && !_animator.GetBool(IsFalling);
         _animator.SetBool(IsMoving, moving); // moving animation value
-        if (moving) {
+        if (moving)
+        {
             _sprite.flipX = (transform.position.x - player.transform.position.x) < 0; // face forward
         }
 
@@ -85,10 +85,11 @@ public class MeleeEnemy : MonoBehaviour
     private bool HasPlayerInSight()
     {
         var hitFov = Physics2D.BoxCast(
-            boxCollider.bounds.center + transform.right * (hitFovDistance * transform.localScale.x), //
+            boxCollider.bounds.center +
+            transform.right * (hitFovDistance * transform.localScale.x * (_sprite.flipX ? -1 : 1)),
             new Vector3(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y,
                 boxCollider.bounds.size.z), // size x depends on range
-            0, Vector2.left,
+            0, _rigidbody.velocity,
             0, layerMask);
         if (hitFov.collider != null) // prep for the merge with player (DO NOT DELETE)
             _playerHealth = hitFov.transform.GetComponent<Health>();
@@ -96,15 +97,6 @@ public class MeleeEnemy : MonoBehaviour
         // If get collider is not null there is player in it
         return hitFov.collider != null;
     }
-
-    // For Debugging purposes only ---
-    // private void OnDrawGizmos()
-    // {
-    //     Gizmos.color = Color.red;
-    //     // Draw Hit Fov
-    //     Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * (hitFovDistance * transform.localScale.x),
-    //         new Vector2(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y));
-    // }
 
     private void DamagePlayer()
     {
@@ -117,5 +109,17 @@ public class MeleeEnemy : MonoBehaviour
     private void TakeDamage()
     {
         _animator.SetTrigger(TakeHit);
+    }
+
+    // For Debugging purposes only ---
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        // Draw Hit Fov
+        Gizmos.DrawWireCube(
+            boxCollider.bounds.center +
+            transform.right * (hitFovDistance * transform.localScale.x * (_sprite.flipX ? -1 : 1)),
+            new Vector3(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y,
+                boxCollider.bounds.size.z));
     }
 }
