@@ -12,7 +12,7 @@ public class Coin : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             MoneyManagment.NumberOfCoins+=value;
-            Debug.LogError(MoneyManagment.NumberOfCoins);
+            Debug.Log("Money: " +  MoneyManagment.NumberOfCoins);
             Destroy(gameObject);
         }
     }
