@@ -11,8 +11,8 @@ public class Coin : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
-            MoneyManagment.NumberOfCoins+=value;
-            Debug.Log("Money: " +  MoneyManagment.NumberOfCoins);
+            InvenoryManagment.NumberOfCoins+=value;
+            Debug.Log("Money: " +  InvenoryManagment.NumberOfCoins);
             Destroy(gameObject);
         }
     }
