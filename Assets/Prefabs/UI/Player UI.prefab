@@ -100,11 +100,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4218224938337761102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -512, y: 390}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 30, y: -60}
   m_SizeDelta: {x: 1024, y: 170}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &6655685936537528594
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -175,11 +175,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4218224938337761102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -512, y: 390}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 30, y: -60}
   m_SizeDelta: {x: 1024, y: 170}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &3098504842745157324
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -251,11 +251,11 @@ RectTransform:
   - {fileID: 5075723004582727980}
   m_Father: {fileID: 1578670702822925538}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: 2010, y: 1032}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &167837223229640342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 7456619980873375972}
   - component: {fileID: 8256234082034651892}
   m_Layer: 5
-  m_Name: Health UI
+  m_Name: Player UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
