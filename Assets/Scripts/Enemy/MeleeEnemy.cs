@@ -111,15 +111,15 @@ public class MeleeEnemy : MonoBehaviour
         _animator.SetTrigger(TakeHit);
     }
 
-    // For Debugging purposes only ---
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        // Draw Hit Fov
-        Gizmos.DrawWireCube(
-            boxCollider.bounds.center +
-            transform.right * (hitFovDistance * transform.localScale.x * (_sprite.flipX ? -1 : 1)),
-            new Vector3(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y,
-                boxCollider.bounds.size.z));
-    }
+    // // For Debugging purposes only ---
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     // Draw Hit Fov
+    //     Gizmos.DrawWireCube(
+    //         boxCollider.bounds.center +
+    //         transform.right * (hitFovDistance * transform.localScale.x * (_sprite.flipX ? -1 : 1)),
+    //         new Vector3(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y,
+    //             boxCollider.bounds.size.z));
+    // }
 }
