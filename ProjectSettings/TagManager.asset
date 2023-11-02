@@ -11,6 +11,8 @@ TagManager:
   - GrapplingGun
   - Box
   - Bullet
+  - EnterShop
+  - ExitShop
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Player
   - Ground
   - Enemy
-  - 
+  - Background
   - 
   - 
   - 
