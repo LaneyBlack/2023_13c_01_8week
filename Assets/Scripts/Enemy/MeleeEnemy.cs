@@ -31,7 +31,9 @@ public class MeleeEnemy : MonoBehaviour
     private static readonly int MeleeAttack = Animator.StringToHash("meleeAttack");
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
     private static readonly int IsFalling = Animator.StringToHash("isFalling");
+    
     private static readonly int TakeHit = Animator.StringToHash("takeHit");
+    
 
     private void Awake()
     {
