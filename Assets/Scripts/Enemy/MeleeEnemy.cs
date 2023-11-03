@@ -8,7 +8,7 @@ public class MeleeEnemy : MonoBehaviour
     [Header("Movement and Player interaction")] [SerializeField]
     private float movementSpeed;
 
-    [SerializeField] private GameObject player;
+    [SerializeField] public GameObject player;
     [SerializeField] private float maxFollowDistance;
     [SerializeField] private float minFollowDistance;
     private float _distance;
