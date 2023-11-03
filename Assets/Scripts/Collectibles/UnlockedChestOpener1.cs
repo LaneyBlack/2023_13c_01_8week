@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class UnlockedChestOpener : MonoBehaviour
 {
-    [SerializeField, Range(0f, 1f)]
-    private float chanceDroppingMonster= 1f;
-    
-    [SerializeField] private GameObject monsterPrefab; 
-    private Vector2 spawnOffsetMonster = new Vector2(1f, 0.1f); 
-    
+    [SerializeField, Range(0f, 1f)] private float chanceDroppingMonster = 1f;
+    [SerializeField, Range(0, 4)] private int maxNumberOfSilverCoins = 3;
+    [SerializeField, Range(0, 4)] private int maxNumberOfGoldCoins = 1;
+
+
+    [SerializeField] private GameObject silverCoinPrefab;
+    [SerializeField] private GameObject goldCoinPrefab;
+    [SerializeField] private GameObject monsterPrefab;
+    private Vector2 spawnOffsetMonster = new Vector2(1f, 0.1f);
+
     public Animator animator;
     private Animator anim;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -20,14 +25,15 @@ public class UnlockedChestOpener : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") )
+        if (collision.CompareTag("Player"))
         {
             anim.SetTrigger("OpenChest");
-            Invoke("SpawnMonster", 0.95f); 
-            // Invoke("SpawnPotion", 1.45f); 
+            Invoke("SpawnMonster", 0.95f);
+            Invoke("SpawnRandomCoins", 0.95f);
             Destroy(gameObject, 1f);
         }
     }
+
     private void SpawnMonster()
     {
         spawnOffsetMonster.x = Random.Range(-1f, 1f);
@@ -42,6 +48,35 @@ public class UnlockedChestOpener : MonoBehaviour
             }
         }
     }
-    
 
+    private void SpawnRandomCoins()
+    {
+        var randomNumberOfSilverCoins = Random.Range(0, maxNumberOfSilverCoins);
+        var randomNumberOfGoldCoins = Random.Range(0, maxNumberOfGoldCoins);
+        var usedPositions = new List<Vector2>();
+        for (var i = 0; i < randomNumberOfSilverCoins; i++)
+        {
+            Vector2 spawnPosition = GetUniquePosition(usedPositions);
+            Instantiate(silverCoinPrefab, spawnPosition, Quaternion.identity);
+            usedPositions.Add(spawnPosition);
+        }
+
+        for (var i = 0; i < randomNumberOfGoldCoins; i++)
+        {
+            Vector2 spawnPosition = GetUniquePosition(usedPositions);
+            Instantiate(goldCoinPrefab, spawnPosition, Quaternion.identity);
+            usedPositions.Add(spawnPosition);
+        }
+    }
+    private Vector2 GetUniquePosition(ICollection<Vector2> usedPositions)
+    {
+        Vector2 spawnPosition;
+        do
+        {
+            spawnPosition = (Vector2)transform.position + new Vector2(Random.Range(-1f, 1f), 0);
+        }
+        while (usedPositions.Contains(spawnPosition));
+    
+        return spawnPosition;
+    }
 }
