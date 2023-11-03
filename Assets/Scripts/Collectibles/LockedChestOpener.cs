@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ChestOpener : MonoBehaviour
+public class LockedChestOpener : MonoBehaviour
 {
     [SerializeField] private int id = 0;
     [SerializeField, Range(0f, 1f)]
