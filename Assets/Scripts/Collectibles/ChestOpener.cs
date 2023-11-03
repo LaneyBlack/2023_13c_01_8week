@@ -20,7 +20,7 @@ public class ChestOpener : MonoBehaviour
         {
             InvenoryManagment.KeysId.Remove(id);
             anim.SetTrigger("OpenChest");
-            Destroy(gameObject, 2f);
+            Destroy(gameObject, 1.5f);
         }
     }
 }
