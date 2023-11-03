@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3398069721457158588}
   - component: {fileID: 3974599239554804863}
   m_Layer: 0
-  m_Name: Chest
+  m_Name: LockedChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  chanceDroppingPotion: 0.553
-  chanceDroppingDiamonds: 0
+  chanceDroppingPotion: 0.128
+  chanceDroppingDiamonds: 1
   diamondPrefab: {fileID: 3296981240097287139, guid: 9272724210e6cb84587cbf60937dae03, type: 3}
   potionPrefab: {fileID: 3885999586442398849, guid: 6539ebfaed30b774aa613fe276e6fe3a, type: 3}
   animator: {fileID: 3974599239554804863}
