@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachError: 0.5
-  attachRadius: 10
+  attachRadius: 15
 --- !u!61 &624645066121138107
 BoxCollider2D:
   m_ObjectHideFlags: 0
