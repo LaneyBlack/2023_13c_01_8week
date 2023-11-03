@@ -165,7 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326343444bae3664297bed2e5a987e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
   chanceDroppingMonster: 1
+  maxNumberOfRandomSilverCoins: 3
+  maxNumberOfRandomGoldCoins: 1
+  silverCoinPrefab: {fileID: 7686841650401541269, guid: 449fda6e4ee13a340a1521a782396cb5, type: 3}
+  goldCoinPrefab: {fileID: 133533681039168361, guid: 081bd235b1db8704d945e8e02882e803, type: 3}
   monsterPrefab: {fileID: 1862763330373230390, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
   animator: {fileID: 3974599239554804863}
