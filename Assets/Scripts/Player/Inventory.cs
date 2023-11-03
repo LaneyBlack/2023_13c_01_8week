@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class Item
 {
-    public KeyCode code;
+    public KeyCode keycode;
     public Sprite sprite;
+    public int count;
 
-    public Item(KeyCode code, Sprite sprite)
+    public Item(KeyCode code, Sprite sprite, int count = -1)
     {
-        this.code = code;
+        this.keycode = code;
         this.sprite = sprite;
+        this.count = count;
     }
 }
 
@@ -37,7 +39,7 @@ public class Inventory : MonoBehaviour
         {
             new Item(weaponKey, weaponIcon),
             new Item(hookKey, HookIcon),
-            new Item(potionKey, potionIcon)
+            new Item(potionKey, potionIcon, 0)
         };
     }
 }
