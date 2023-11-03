@@ -18,6 +18,7 @@ public class ChestOpener : MonoBehaviour
     {
         if (collision.CompareTag("Player") && InvenoryManagment.KeysId.Contains(id))
         {
+            InvenoryManagment.KeysId.Remove(id);
             anim.SetTrigger("OpenChest");
             Destroy(gameObject, 2f);
         }
