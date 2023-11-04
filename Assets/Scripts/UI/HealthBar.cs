@@ -39,18 +39,20 @@ public class HealthBar : MonoBehaviour
     private void Update()
     {
         int healthdiff = playerHealth.CurrentHealth - previousHealth;
-        int index;
 
-        if (healthdiff > 0) 
+        if (healthdiff > 0) //player healing
         {
-            index = Mathf.Clamp(playerHealth.CurrentHealth, 0, playerHealth.CurrentHealth - 1);
-            hearts[index].GetComponent<Animator>().SetBool("shouldbeat", true);
+            for (int i = 0; i < playerHealth.CurrentHealth; i++)
+            {
+                hearts[i].GetComponent<Animator>().SetBool("stopbeat", false);
+                hearts[i].GetComponent<Animator>().Play("HeartBeat", -1, 0);     //ensures that all anims play in sync
+            }
         }
 
-        if(healthdiff < 0)
+        if (healthdiff < 0) //player taking damage
         {
-            index = Mathf.Clamp(previousHealth, 0, previousHealth - 1);
-            hearts[index].GetComponent<Animator>().SetBool("shouldbeat", false);
+            for (int i = previousHealth; i > playerHealth.CurrentHealth; i--)
+                hearts[i - 1].GetComponent<Animator>().SetBool("stopbeat", true);
         }
 
         previousHealth = playerHealth.CurrentHealth;
