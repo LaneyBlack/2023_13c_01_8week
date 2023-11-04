@@ -13,7 +13,7 @@ public class KILL : MonoBehaviour
     {
         if(Input.GetKeyDown(codedmg))
         {
-            health.TakeDamage(1);
+            health.TakeDamage(2);
         }
 
         if (Input.GetKeyDown(codeheal))
@@ -23,5 +23,8 @@ public class KILL : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             health.KillForTesting();
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            health.TakeDamage(-3);
     }
 }
