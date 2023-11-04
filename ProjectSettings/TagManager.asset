@@ -13,6 +13,7 @@ TagManager:
   - Bullet
   - EnterShop
   - ExitShop
+  - Totem
   layers:
   - Default
   - TransparentFX
