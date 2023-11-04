@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HookGun : MonoBehaviour
 {
@@ -58,10 +59,35 @@ public class HookGun : MonoBehaviour
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
         canHook = false;
+        if (!m_camera)
+        {
+            m_camera = Camera.main;
+        }
+
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (!m_camera)
+        {
+            m_camera = Camera.main;
+        }
     }
 
     private void Update()
     {
+        if (!m_camera) return;
+
         if (Input.GetKeyDown(launchKey))
         {
             SetGrapplePoint();
