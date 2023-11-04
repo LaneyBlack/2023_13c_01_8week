@@ -10,9 +10,13 @@ public class Die : MonoBehaviour
     private bool deathAnimationStarted = false;
     private float deathTimer = 0f;
     private float deathAnimationDuration;
+
+    private Rigidbody2D rb;
     private void Start()
     {
         playerHealth = GetComponentInParent<Health>();
+        rb = GetComponentInParent<Rigidbody2D>();
+
         // _Animator = GetComponent<Animator>();
         if (_Animator == null)
         {
@@ -40,7 +44,7 @@ public class Die : MonoBehaviour
 
             if (deathTimer >= deathAnimationDuration)
             {
-                transform.parent.gameObject.SetActive(false);
+                //transform.parent.gameObject.SetActive(false);
             }
         }
     }
@@ -49,6 +53,15 @@ public class Die : MonoBehaviour
     {
         isDead = true; 
         _Animator.SetTrigger("Die");
+    }
+
+
+    public void handleRespawn()
+    {
+        playerHealth.TakeDamage(-3);
+        _Animator.ResetTrigger("Die");
+        _Animator.Play("Idle");
+        isDead = false;
     }
     
 }

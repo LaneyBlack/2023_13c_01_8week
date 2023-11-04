@@ -12,6 +12,7 @@ TagManager:
   - Box
   - UI_Item
   - UI_Key
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
