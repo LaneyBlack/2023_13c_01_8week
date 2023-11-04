@@ -3,42 +3,41 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
-    private bool isNearShop = false;
-    private bool isNearExit = false;
-    
-    public string shopSceneName = "Shop";
-    public string levelSceneName = "ShopTesting";
-    
-    private static SceneTransition instance;
-    private string currentExitTag; 
+    [SerializeField] private string _shopSceneName = "Shop";
+    [SerializeField] private string _levelSceneName = "ShopTesting";
+
+    private bool _isNearShop = false;
+    private bool _isNearExit = false;
+    private static SceneTransition _instance;
+    private string _currentExitTag;
 
     private void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-        
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Update()
     {
-        if (isNearShop && Input.GetKeyDown(KeyCode.F))
+        if (_isNearShop && Input.GetKeyDown(KeyCode.F))
         {
-            currentExitTag = "ExitShop";
-            TransitionToScene(shopSceneName);
+            _currentExitTag = "ExitShop";
+            TransitionToScene(_shopSceneName);
         }
 
-        if (isNearExit && Input.GetKeyDown(KeyCode.F))
+        if (_isNearExit && Input.GetKeyDown(KeyCode.F))
         {
-            currentExitTag = "EnterShop";
-            TransitionToScene(levelSceneName);
+            _currentExitTag = "EnterShop";
+            TransitionToScene(_levelSceneName);
         }
     }
 
@@ -49,36 +48,36 @@ public class SceneTransition : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (string.IsNullOrEmpty(currentExitTag))
+        if (string.IsNullOrEmpty(_currentExitTag))
             return;
 
-        GameObject exitObject = GameObject.FindGameObjectWithTag(currentExitTag);
-        if (exitObject != null)
+        GameObject exitObject = GameObject.FindGameObjectWithTag(_currentExitTag);
+        if (exitObject)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
+            if (player)
             {
-                player.transform.position = exitObject.transform.position; 
+                float offsetY = 1f;
+                player.transform.position = new Vector2(exitObject.transform.position.x, exitObject.transform.position.y - offsetY);
             }
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnterShop"))
-            isNearShop = true;
-        
+            _isNearShop = true;
+
         if (collision.CompareTag("ExitShop"))
-            isNearExit = true;
+            _isNearExit = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("EnterShop"))
-            isNearShop = false;
-        
+            _isNearShop = false;
+
         if (collision.CompareTag("ExitShop"))
-            isNearExit = false;
+            _isNearExit = false;
     }
 }

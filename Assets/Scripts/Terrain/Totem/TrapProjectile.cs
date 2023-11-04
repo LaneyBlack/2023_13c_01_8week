@@ -76,7 +76,7 @@ public class TrapProjectile : ProjectileDamage
 
     protected override void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Bullet")) return;
+        if (col.CompareTag("Totem") || col.CompareTag("Bullet")) return;
 
         if (!_hasHit)
         {
@@ -86,4 +86,5 @@ public class TrapProjectile : ProjectileDamage
             _hasHit = true;
         }
     }
+
 }
