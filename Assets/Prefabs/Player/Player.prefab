@@ -258,7 +258,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 5.438713
+  m_Distance: 7.618037
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!114 &3232233137045432919
@@ -447,7 +447,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5360881240524685096}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -577,7 +577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: jumpLayers.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: _movementLerpMultiplier
@@ -594,6 +594,10 @@ PrefabInstance:
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: jumpLayers.Array.data[2].m_Bits
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: jumpLayers.Array.data[3].m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     - target: {fileID: 5309728895905941086, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: m_LocalPosition.x
@@ -726,12 +730,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa29f2558fa33e4982563a5a55ca1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponKey: 0
-  weaponIcon: {fileID: 0}
-  hookKey: 0
-  HookIcon: {fileID: 0}
-  potionKey: 0
-  potionIcon: {fileID: 0}
+  weaponKey: 49
+  weaponIcon: {fileID: 21300000, guid: 272ef98000fb9424ab09f9d465388761, type: 3}
+  hookKey: 50
+  HookIcon: {fileID: 21300000, guid: b6081bb5e7f962742abf9af5f84a619a, type: 3}
+  potionKey: 51
+  potionIcon: {fileID: 21300000, guid: be494f37812fffd4998d64935c8f76e6, type: 3}
 --- !u!4 &7677970831517156837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5309728895905941086, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
