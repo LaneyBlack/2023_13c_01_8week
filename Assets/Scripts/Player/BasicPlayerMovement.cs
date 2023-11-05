@@ -11,12 +11,29 @@ public class BasicPlayerMovement : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
 
+    private enum MovementType
+    {
+        Physics,
+        Math
+    }
 
-    [Header("Ground Movement")]
+
+    [Header("Movement Type Pick")]
+    [SerializeField] private MovementType movementType = MovementType.Math;
+
+
+    [Header("Basic Ground Movement")]
     [SerializeField] private float _walkSpeed = 10;
     [SerializeField] private float _runMultiplier = 1.5f;
-    [SerializeField] private float _acceleration = 2;
+
+    [Header("Math Ground Movement")]
+    [SerializeField] private float _accelerationMath = 2;
     [SerializeField] private float _movementLerpMultiplier = 100;
+
+    [Header("Physics Ground Movement")]
+    [SerializeField] private float _accelerationPhys = 2;
+    [SerializeField] private float _deccelarationPhys = 2;
+    [SerializeField] private float velPower = 1;
 
 
     [Header("Jump")]
@@ -46,15 +63,13 @@ public class BasicPlayerMovement : MonoBehaviour
     {
         _rb = GetComponentInParent<Rigidbody2D>();
         boxCollider = GetComponentInParent<BoxCollider2D>();
+        //movementType = MovementType.Math;
     }
 
 
 
     private void Update()
     {
-        //foreach (var layer in jumpLayers)
-        //    Debug.Log(LayerMask.;
-
         _xInput = Input.GetAxis("Horizontal");
         Flip(_rb.velocity.x);
 
@@ -75,7 +90,8 @@ public class BasicPlayerMovement : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftShift))
             _currentSpeed *= _runMultiplier;
 
-        handleGroundMovement();
+        if(movementType == MovementType.Math)
+            handleGroundMovementMath();
 
         if (ropeScript.isGrappling)
             _currentSpeed *= _glideBoost;
@@ -97,13 +113,13 @@ public class BasicPlayerMovement : MonoBehaviour
     }
 
     //requires further working
-    void handleGroundMovement()
+    void handleGroundMovementMath()
     {
         // Slowly release control after wall jump
         //_currentMovementLerpSpeed = Mathf.MoveTowards(_currentMovementLerpSpeed, 100, _wallJumpMovementLerp * Time.deltaTime);
 
         // This can be done using just X & Y input as they lerp to max values, but this gives greater control over velocity acceleration
-        var acceleration = isGrounded() ? _acceleration : _acceleration * 0.5f;
+        var acceleration = isGrounded() ? _accelerationMath : _accelerationMath * 0.5f;
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -125,9 +141,23 @@ public class BasicPlayerMovement : MonoBehaviour
         _rb.velocity = Vector3.MoveTowards(_rb.velocity, wishVelocity, _movementLerpMultiplier * Time.deltaTime);
 
     }
+
+    void handleMovementGroundPhysics()
+    {
+        float targetSpeed = _xInput * _currentSpeed;
+        float speeddiff = targetSpeed - _rb.velocity.x;
+        float acc = (Mathf.Abs(targetSpeed) > 0.01f) ? _accelerationPhys : _deccelarationPhys;
+
+        float movement = Mathf.Pow(Mathf.Abs(speeddiff) * acc, velPower) * Mathf.Sign(speeddiff);
+        _rb.AddForce(movement * Vector2.right);
+    }
+
     private void FixedUpdate()
     {
         //_rb.velocity = new Vector2(_xInput * _currentSpeed, _rb.velocity.y);
+        if (movementType == MovementType.Physics)
+            handleMovementGroundPhysics();
+
 
         if (_performJump)
         {
