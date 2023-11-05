@@ -188,6 +188,11 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void Flip(float direction)
     {
-        spriteRenderer.flipX = (direction < 0);
+        if (direction > 0)
+            spriteRenderer.flipX = false;
+        else if (direction < 0)
+            spriteRenderer.flipX = true;
+
+        //spriteRenderer.flipX = (direction < 0);
     }
 }
