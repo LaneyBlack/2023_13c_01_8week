@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3402208352892148172}
   - component: {fileID: 3691012774081529227}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Big Clouds (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
