@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 7644859094504062155}
   - component: {fileID: 3232233137045432919}
   - component: {fileID: 9147393615357275336}
+  - component: {fileID: 2665869231723676588}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -258,7 +259,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 7.618037
+  m_Distance: 1.5905308
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!114 &3232233137045432919
@@ -288,6 +289,20 @@ MonoBehaviour:
   health: {fileID: 5600040512106179195}
   codedmg: 101
   codeheal: 113
+--- !u!114 &2665869231723676588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093405114768699451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8286b1d608b9b34b8b48f3ce1ba1f68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shopSceneName: Shop
+  _levelSceneName: ShopTesting
 --- !u!1001 &1264424728377153839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -593,11 +608,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: jumpLayers.Array.data[2].m_Bits
-      value: 512
+      value: 2048
       objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: jumpLayers.Array.data[3].m_Bits
-      value: 2048
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 5309728895905941086, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: m_LocalPosition.x
