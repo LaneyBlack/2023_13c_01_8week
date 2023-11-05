@@ -8,7 +8,7 @@ public class MeleeEnemy : MonoBehaviour
     [Header("Movement and Player interaction")] [SerializeField]
     private float movementSpeed;
 
-    [SerializeField] private GameObject player;
+    [SerializeField] public GameObject player;
     [SerializeField] private float maxFollowDistance;
     [SerializeField] private float minFollowDistance;
     private float _distance;
@@ -31,7 +31,9 @@ public class MeleeEnemy : MonoBehaviour
     private static readonly int MeleeAttack = Animator.StringToHash("meleeAttack");
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
     private static readonly int IsFalling = Animator.StringToHash("isFalling");
+    
     private static readonly int TakeHit = Animator.StringToHash("takeHit");
+    
 
     private void Awake()
     {
