@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicPlayerMovement : MonoBehaviour
@@ -21,6 +22,7 @@ public class BasicPlayerMovement : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float _basicJumpForce = 10;
     [SerializeField] private LayerMask jumpLayer;
+    [SerializeField] private List<LayerMask> jumpLayers = new List<LayerMask>();
 
 
     [Header("Grappling Rope")]
@@ -46,8 +48,13 @@ public class BasicPlayerMovement : MonoBehaviour
         boxCollider = GetComponentInParent<BoxCollider2D>();
     }
 
+
+
     private void Update()
     {
+        //foreach (var layer in jumpLayers)
+        //    Debug.Log(LayerMask.;
+
         _xInput = Input.GetAxis("Horizontal");
         Flip(_rb.velocity.x);
 
@@ -135,7 +142,18 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private bool isGrounded()
     {
-        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, groundRayLength, jumpLayer);
+        var collided = Physics2D.BoxCastAll(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down, groundRayLength); //<- change to raycast??
+        foreach (var col in collided)
+        {
+            if (col.collider == null) continue;
+            if (jumpLayers.Contains(LayerMask.GetMask(LayerMask.LayerToName(col.collider.gameObject.layer))))
+            {
+                //Debug.Log(LayerMask.LayerToName(col.collider.gameObject.layer));
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void Flip(float direction)
