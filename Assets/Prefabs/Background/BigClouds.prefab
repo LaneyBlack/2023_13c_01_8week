@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3402208352892148172}
   - component: {fileID: 3691012774081529227}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Big Clouds (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1222393985
+  m_SortingLayerID: -360531289
   m_SortingLayer: -1
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: a12d8c15f6938614aabb5b01d6f040af, type: 3}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 198605750040457298}
   - component: {fileID: 3396919558974900162}
   - component: {fileID: 1346943276090502024}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BigClouds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c40a4e2091168e5458b6696be35d14fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0.7
+  scrollSpeed: 0.5
   repositionX: -14
 --- !u!212 &1346943276090502024
 SpriteRenderer:
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1222393985
+  m_SortingLayerID: -360531289
   m_SortingLayer: -1
   m_SortingOrder: -2
   m_Sprite: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5506761140632290057}
   - component: {fileID: 1494064859130485660}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Big Clouds (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1222393985
+  m_SortingLayerID: -360531289
   m_SortingLayer: -1
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: a12d8c15f6938614aabb5b01d6f040af, type: 3}
@@ -284,7 +284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8270083221761300563}
   - component: {fileID: 1793803196472979634}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Big Clouds (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1222393985
+  m_SortingLayerID: -360531289
   m_SortingLayer: -1
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: a12d8c15f6938614aabb5b01d6f040af, type: 3}
@@ -368,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5025829573072217934}
   - component: {fileID: 1406500359060426193}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Big Clouds (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1222393985
+  m_SortingLayerID: -360531289
   m_SortingLayer: -1
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: a12d8c15f6938614aabb5b01d6f040af, type: 3}
@@ -452,7 +452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8621197518896701131}
   - component: {fileID: 8203862887765461476}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Big Clouds (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +512,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1222393985
+  m_SortingLayerID: -360531289
   m_SortingLayer: -1
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: a12d8c15f6938614aabb5b01d6f040af, type: 3}
@@ -536,7 +536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1087723642819682389}
   - component: {fileID: 8908139490804966749}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Big Clouds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1222393985
+  m_SortingLayerID: -360531289
   m_SortingLayer: -1
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: a12d8c15f6938614aabb5b01d6f040af, type: 3}
@@ -620,7 +620,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2338692169805815547}
   - component: {fileID: 3175881259876256539}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Big Clouds (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1222393985
+  m_SortingLayerID: -360531289
   m_SortingLayer: -1
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: a12d8c15f6938614aabb5b01d6f040af, type: 3}
