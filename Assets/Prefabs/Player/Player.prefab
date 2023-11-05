@@ -528,6 +528,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1774417578219501813}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: velPower
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: _walkSpeed
       value: 10
       objectReference: {fileID: 0}
@@ -535,6 +539,10 @@ PrefabInstance:
       propertyPath: ropeScript
       value: 
       objectReference: {fileID: 8753912020202434120}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: movementType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: _acceleration
       value: 3
@@ -554,6 +562,14 @@ PrefabInstance:
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: jumpLayer.m_Bits
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: _accelerationPhys
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: _deccelarationPhys
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: groundLayer.m_Bits
