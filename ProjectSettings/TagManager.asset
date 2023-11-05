@@ -17,6 +17,7 @@ TagManager:
   - UI_Item
   - UI_Key
   - Checkpoint
+  - Background
   layers:
   - Default
   - TransparentFX
