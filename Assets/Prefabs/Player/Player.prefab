@@ -650,6 +650,12 @@ PrefabInstance:
       addedObject: {fileID: 2192340541141871632}
     - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7734153486467688964}
+    - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5582267470193460151}
+    - targetCorrespondingSourceObject: {fileID: 205219829297984059, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      insertIndex: -1      
       addedObject: {fileID: 2402946571649604267}
   m_SourcePrefab: {fileID: 100100000, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
 --- !u!1 &2448627642934620544 stripped
@@ -711,6 +717,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa29f2558fa33e4982563a5a55ca1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Animator: {fileID: 1774417578219501813}
+  _spriteRenderer: {fileID: 7692184426016728822}
+--- !u!114 &5582267470193460151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2448627642934620544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3039aff9b72486243a6fc0208c9ac48e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfCoins: 0
   weaponKey: 49
   weaponIcon: {fileID: 21300000, guid: 272ef98000fb9424ab09f9d465388761, type: 3}
   hookKey: 50

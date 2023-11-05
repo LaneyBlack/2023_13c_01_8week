@@ -39,4 +39,11 @@ public class Health : MonoBehaviour
     {
         CurrentHealth = 0;
     }
+    public void RestoreHealth(int amount)
+    {
+        if (CurrentHealth < maxHealth)
+        {
+            CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, maxHealth);
+        }
+    }
 }
