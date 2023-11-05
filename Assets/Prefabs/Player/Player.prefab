@@ -529,12 +529,16 @@ PrefabInstance:
       objectReference: {fileID: 1774417578219501813}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: _walkSpeed
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: ropeScript
       value: 
       objectReference: {fileID: 8753912020202434120}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: _acceleration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: grapplingRope
       value: 
@@ -554,6 +558,26 @@ PrefabInstance:
     - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: jumpLayers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: _movementLerpMultiplier
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: jumpLayers.Array.data[0].m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: jumpLayers.Array.data[1].m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999259419823242872, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
+      propertyPath: jumpLayers.Array.data[2].m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 5309728895905941086, guid: 43fcecd1d18bbe648890d75752f4c815, type: 3}
       propertyPath: m_LocalPosition.x
