@@ -11,12 +11,18 @@ public class Collapsing : MonoBehaviour
 
     [SerializeField] private Rigidbody2D _rigidbody2D;
 
+    private CollapsingPlatformManager _manager; 
     private Vector3 _initialPosition;
     private bool _isCollapsed = false;
 
     private void Start()
     {
         _initialPosition = transform.position;
+        _manager = GetComponentInParent<CollapsingPlatformManager>();
+        if (_manager == null)
+        {
+            Debug.LogError("CollapsingPlatformManager needed for " + gameObject.name);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -39,12 +45,14 @@ public class Collapsing : MonoBehaviour
     {
         yield return new WaitForSeconds(_destroyDelay);
         gameObject.SetActive(false);
-        CollapsingPlatformManager.Instance.RespawnPlatform(gameObject, _initialPosition, _respawnDelay);
+        if (_manager != null)
+        {
+            _manager.RespawnPlatform(gameObject, _initialPosition, _respawnDelay);
+        }
     }
     
     public void ResetPlatform()
     {
         _isCollapsed = false;
     }
-
 }

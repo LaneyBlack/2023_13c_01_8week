@@ -10,6 +10,10 @@ TagManager:
   - Hook
   - GrapplingGun
   - Box
+  - Bullet
+  - EnterShop
+  - ExitShop
+  - Totem
   - UI_Item
   - UI_Key
   - Checkpoint
@@ -24,7 +28,7 @@ TagManager:
   - Player
   - Ground
   - Enemy
-  - 
+  - Background
   - 
   - 
   - 
