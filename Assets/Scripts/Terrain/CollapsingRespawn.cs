@@ -3,20 +3,6 @@ using UnityEngine;
 
 public class CollapsingPlatformManager : MonoBehaviour
 {
-    public static CollapsingPlatformManager Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public void RespawnPlatform(GameObject platform, Vector3 initialPosition, float delay)
     {
         StartCoroutine(RespawnCoroutine(platform, initialPosition, delay));
