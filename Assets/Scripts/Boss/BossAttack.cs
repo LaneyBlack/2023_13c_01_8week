@@ -5,32 +5,32 @@ using UnityEngine;
 
 public class BossAttack : MonoBehaviour
 {
- 
     [SerializeField] private Animator _animator;
     [SerializeField] private GameObject waterProjectile;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private GameObject player;
-    [SerializeField] private float attackRange = 3f; 
+    [SerializeField] private float attackRange = 3f;
     [SerializeField] private float attackCooldown = 2f; // Cooldown between attacks
 
-    private float _cooldownTimer = Mathf.Infinity; // Set the cooldown timer to a high number so the boss can attack immediately
+    private float
+        _cooldownTimer = Mathf.Infinity; // Set the cooldown timer to a high number so the boss can attack immediately
 
     private void Update()
     {
         _cooldownTimer += Time.deltaTime;
 
-        float distanceToPlayer = Vector2.Distance( transform.parent.position, player.transform.position);
+        float distanceToPlayer = Vector2.Distance(transform.parent.position, player.transform.position);
         if (distanceToPlayer <= attackRange && _cooldownTimer >= attackCooldown)
         {
             Attack();
             _cooldownTimer = 0f; // Reset the cooldown timer
         }
     }
-    
+
     void Attack()
     {
         _animator.SetTrigger("attack");
-        
+
         StartCoroutine(SpawnProjectile());
     }
 
@@ -41,21 +41,29 @@ public class BossAttack : MonoBehaviour
         GameObject projectileInstance =
             Instantiate(waterProjectile, projectileSpawnPoint.position, Quaternion.identity);
         projectileInstance.transform.SetParent(this.transform);
+        WaterProjectile waterProjectileScript = projectileInstance.GetComponent<WaterProjectile>();
+        if (waterProjectileScript != null)
+        {
+            waterProjectileScript.Initialize(this.transform.parent.gameObject); // this.gameObject refers to the enemy
+        }
 
         float time = 0;
         while (time < 1.1f)
         {
-            bool isFlip=  ( transform.parent.position.x - player.transform.position.x) < 0;
+            bool isFlip = (transform.parent.position.x - player.transform.position.x) < 0;
             if (isFlip)
             {
                 projectileInstance.GetComponent<SpriteRenderer>().flipX = isFlip;
-                projectileSpawnPoint.localPosition = new Vector3(0.1f, projectileSpawnPoint.localPosition.y, projectileSpawnPoint.localPosition.z);
+                projectileSpawnPoint.localPosition = new Vector3(0.1f, projectileSpawnPoint.localPosition.y,
+                    projectileSpawnPoint.localPosition.z);
             }
             else
             {
                 projectileInstance.GetComponent<SpriteRenderer>().flipX = isFlip;
-                projectileSpawnPoint.localPosition = new Vector3(-0.1f, projectileSpawnPoint.localPosition.y, projectileSpawnPoint.localPosition.z);
+                projectileSpawnPoint.localPosition = new Vector3(-0.1f, projectileSpawnPoint.localPosition.y,
+                    projectileSpawnPoint.localPosition.z);
             }
+
             if (projectileInstance != null)
             {
                 projectileInstance.transform.position = projectileSpawnPoint.position;
@@ -74,5 +82,4 @@ public class BossAttack : MonoBehaviour
             Destroy(projectileInstance);
         }
     }
-
 }

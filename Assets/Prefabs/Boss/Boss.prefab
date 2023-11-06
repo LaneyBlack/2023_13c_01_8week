@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5285172599302495997}
   - component: {fileID: 4204869501052483391}
   - component: {fileID: 732855055904139570}
+  - component: {fileID: 6968645036864919220}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -108,6 +109,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &6968645036864919220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862763330373230390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2b6e78c46b5bc4ab8fda7ba0053498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
 --- !u!1 &3227941400279147787
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,11 +241,32 @@ PrefabInstance:
       propertyPath: boxCollider
       value: 
       objectReference: {fileID: 4204869501052483391}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8427284837429291004, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5586586233451325190}
   m_SourcePrefab: {fileID: 100100000, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+--- !u!1 &1127545926719647378 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+  m_PrefabInstance: {fileID: 312456384688246301}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5586586233451325190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127545926719647378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3798db75b1b5b947bace5876e1441bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4969682830183825727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4657229272657841954, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle_boss
+  m_Name: Attack_grown_boss
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,9 +21,17 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: e9598c0477b69e141bfa24ac1f8bff7a, type: 3}
+      value: {fileID: 21300000, guid: ab528113fb3a122439636195b6b30433, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: 926d9ef2220c6104199d84872b611514, type: 3}
+      value: {fileID: 21300000, guid: efea67095e9e5e241a0c0f9d72bf57a0, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: 8a129697590354e4facdec4022889ead, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 6f0c2b70574999c4295bc766afd198c9, type: 3}
+    - time: 1.0833334
+      value: {fileID: 21300000, guid: 60a09e5d2c3332949bf6d6ab45ae0211, type: 3}
+    - time: 1.25
+      value: {fileID: 21300000, guid: 14d30c279f8fdbf4d8cff95c16f84225, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,14 +54,18 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: e9598c0477b69e141bfa24ac1f8bff7a, type: 3}
-    - {fileID: 21300000, guid: 926d9ef2220c6104199d84872b611514, type: 3}
+    - {fileID: 21300000, guid: ab528113fb3a122439636195b6b30433, type: 3}
+    - {fileID: 21300000, guid: efea67095e9e5e241a0c0f9d72bf57a0, type: 3}
+    - {fileID: 21300000, guid: 8a129697590354e4facdec4022889ead, type: 3}
+    - {fileID: 21300000, guid: 6f0c2b70574999c4295bc766afd198c9, type: 3}
+    - {fileID: 21300000, guid: 60a09e5d2c3332949bf6d6ab45ae0211, type: 3}
+    - {fileID: 21300000, guid: 14d30c279f8fdbf4d8cff95c16f84225, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.16666667
+    m_StopTime: 1.3333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
