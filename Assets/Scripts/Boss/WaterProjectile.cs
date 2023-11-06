@@ -16,15 +16,12 @@ public class WaterProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        // if (userOfAttack != null)
-        // {
-            if (collider.gameObject == userOfAttack.gameObject)
-            {
-                return;
-            }
+        if (collider.gameObject == userOfAttack.gameObject)
+        {
+            return;
+        }
 
-            Health health = collider.GetComponent<Health>();
-            health.TakeDamage(damageAmount);
-            
+        Health health = collider.GetComponent<Health>();
+        health.TakeDamage(damageAmount);
     }
 }

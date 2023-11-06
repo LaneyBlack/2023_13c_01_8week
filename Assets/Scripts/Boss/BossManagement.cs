@@ -17,5 +17,6 @@ public class BossManagement : MonoBehaviour
         {
            Destroy(_health.GameObject());
         }
+
     }
 }
