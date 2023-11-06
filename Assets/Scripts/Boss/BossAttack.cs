@@ -5,23 +5,28 @@ using UnityEngine;
 
 public class BossAttack : MonoBehaviour
 {
-    // [SerializeField] private int damage;
-    // [SerializeField] private float attackCooldown;
-    // private float _cooldownTimer;
-    // private Health _playerHealth;
+ 
     [SerializeField] private Animator _animator;
     [SerializeField] private GameObject waterProjectile;
     [SerializeField] private Transform projectileSpawnPoint;
     [SerializeField] private GameObject player;
+    [SerializeField] private float attackRange = 3f; 
+    [SerializeField] private float attackCooldown = 2f; // Cooldown between attacks
+
+    private float _cooldownTimer = Mathf.Infinity; // Set the cooldown timer to a high number so the boss can attack immediately
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        _cooldownTimer += Time.deltaTime;
+
+        float distanceToPlayer = Vector2.Distance( transform.parent.position, player.transform.position);
+        if (distanceToPlayer <= attackRange && _cooldownTimer >= attackCooldown)
         {
             Attack();
+            _cooldownTimer = 0f; // Reset the cooldown timer
         }
     }
-
+    
     void Attack()
     {
         _animator.SetTrigger("attack");
@@ -37,7 +42,6 @@ public class BossAttack : MonoBehaviour
             Instantiate(waterProjectile, projectileSpawnPoint.position, Quaternion.identity);
         projectileInstance.transform.SetParent(this.transform);
 
-        // Make the projectile follow the spawn point for 2 seconds.
         float time = 0;
         while (time < 1.1f)
         {
@@ -52,7 +56,6 @@ public class BossAttack : MonoBehaviour
                 projectileInstance.GetComponent<SpriteRenderer>().flipX = isFlip;
                 projectileSpawnPoint.localPosition = new Vector3(-0.1f, projectileSpawnPoint.localPosition.y, projectileSpawnPoint.localPosition.z);
             }
-            // Ensure that the projectile has not been destroyed (e.g., by hitting something)
             if (projectileInstance != null)
             {
                 projectileInstance.transform.position = projectileSpawnPoint.position;
@@ -62,12 +65,10 @@ public class BossAttack : MonoBehaviour
                 break;
             }
 
-            // Wait until next frame
             yield return null;
             time += Time.deltaTime;
         }
 
-        // After 2 seconds destroy the projectile if it hasn't already been destroyed
         if (projectileInstance != null)
         {
             Destroy(projectileInstance);
@@ -75,39 +76,3 @@ public class BossAttack : MonoBehaviour
     }
 
 }
-
-
-// private IEnumerator SpawnProjectile()
-// {
-//     // Instantiate the projectile at the spawn point
-//     GameObject projectileInstance = Instantiate(waterProjectile, projectileSpawnPoint.position, Quaternion.identity);
-//     
-//     // Determine if the mob is flipped based on the player's position
-//     bool isFlipped = (transform.position.x - player.transform.position.x) < 0;
-//     if (isFlipped)
-//     {
-//         // Flip the projectile's sprite
-//         projectileInstance.GetComponent<SpriteRenderer>().flipX = true;
-//
-//         // Adjust the local position of the spawn point if needed
-//         // For example, if you want to move it 2 units to the right when flipped
-//         // This assumes your projectileSpawnPoint's local position is (0, 0) when not flipped
-//         projectileSpawnPoint.localPosition = new Vector3(0.1f, projectileSpawnPoint.localPosition.y, projectileSpawnPoint.localPosition.z);
-//     }
-//     else
-//     {
-//         // If not flipped, make sure it's at the default local position
-//         projectileSpawnPoint.localPosition = new Vector3(0, projectileSpawnPoint.localPosition.y, projectileSpawnPoint.localPosition.z);
-//     }
-//
-//     // Now set the projectile instance at the spawn point's position
-//     projectileInstance.transform.position = projectileSpawnPoint.position;
-//
-//     // Set the projectile as a child of the spawn point so it follows the mob (if that's what you want)
-//     projectileInstance.transform.SetParent(projectileSpawnPoint);
-//
-//     // Destroy the projectile after 2 seconds
-//     Destroy(projectileInstance, 2f);
-//
-//     yield return null;
-// }
