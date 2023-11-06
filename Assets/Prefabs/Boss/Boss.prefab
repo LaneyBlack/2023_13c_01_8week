@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4204869501052483391}
   - component: {fileID: 732855055904139570}
   - component: {fileID: 6968645036864919220}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2b6e78c46b5bc4ab8fda7ba0053498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 4
 --- !u!1 &3227941400279147787
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1144634534975615478}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: spawnWaterProjectilePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4313472870002227461, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: _animator
@@ -330,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6866286822573443332, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
