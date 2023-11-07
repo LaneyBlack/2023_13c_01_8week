@@ -10,7 +10,7 @@ public class HealthPotion : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
-            collision.transform.GetComponent<Health>().RestoreHealth(healthRestore);
+            InvenoryManagment.NumberOfPotions++;
             Destroy(gameObject);
         }
     }
