@@ -5,38 +5,65 @@ using UnityEngine;
 
 public class BossMovement : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+     private GameObject player;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float maxFollowDistance;
     [SerializeField] private float minFollowDistance;
-   
-    
-    [SerializeField] private Animator _animator;
-    [SerializeField] private SpriteRenderer _sprite;
+ 
+
+    [SerializeField] public GameObject SmallBossVisuals;
+
+    [SerializeField] private Animator _SmallBossAnimator;
+    [SerializeField] private SpriteRenderer _SmallBossSprite;
+    [SerializeField] private Animator _GrownBossAnimator;
+    [SerializeField] private SpriteRenderer _GrownBossSprite;
     
     private Rigidbody2D _rigidbody;
 
     private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+    
 
     private void Awake()
     {
         _rigidbody = GetComponentInParent<Rigidbody2D>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Update()
     {
-        _animator.SetBool(IsMoving, IsInSight());
-        _sprite.flipX = ( transform.parent.position.x - player.transform.position.x) < 0;
-    }
+        if (SmallBossVisuals.activeSelf )
+        {
+            _SmallBossAnimator.SetBool(IsMoving, IsInSight());
+            _SmallBossSprite.flipX = ( transform.parent.position.x - player.transform.position.x) < 0;
+
+        }
+        else
+        {
+            _GrownBossAnimator.SetBool(IsMoving, IsInSight());
+            _GrownBossSprite.flipX = ( transform.parent.position.x - player.transform.position.x) < 0;
+        }
+       }
 
     private void FixedUpdate()
     {
-        if (_animator.GetBool(IsMoving))
+        if (SmallBossVisuals.activeSelf )
         {
-            var direction = player.transform.position - transform.parent.position; 
-            _rigidbody.velocity = new Vector2(movementSpeed * Math.Sign(direction.x), _rigidbody.velocity.y);
-            Debug.Log(_rigidbody.velocity);
+            if (_SmallBossAnimator.GetBool(IsMoving))
+            {
+                var direction = player.transform.position - transform.parent.position; 
+                _rigidbody.velocity = new Vector2(movementSpeed * Math.Sign(direction.x), _rigidbody.velocity.y);
+            }
         }
+        else
+        {
+            if (_GrownBossAnimator.GetBool(IsMoving))
+            {
+                var direction = player.transform.position - transform.parent.position; 
+                _rigidbody.velocity = new Vector2(movementSpeed * Math.Sign(direction.x), _rigidbody.velocity.y);
+            }
+        }
+        
+    
     }
 
 

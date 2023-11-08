@@ -5,15 +5,23 @@ using UnityEngine;
 
 public class BossAttack : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
+    [SerializeField] public GameObject SmallBossVisuals;
+    [SerializeField] private Animator _SmallBossAnimator;
+    [SerializeField] private Animator _GrownBossAnimator;
+    
     [SerializeField] private GameObject waterProjectile;
     [SerializeField] private Transform projectileSpawnPoint;
-    [SerializeField] private GameObject player;
+    private GameObject player; //
     [SerializeField] private float attackRange = 3f;
     [SerializeField] private float attackCooldown = 2f; // Cooldown between attacks
 
     private float
         _cooldownTimer = Mathf.Infinity; // Set the cooldown timer to a high number so the boss can attack immediately
+
+    private void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 
     private void Update()
     {
@@ -29,7 +37,14 @@ public class BossAttack : MonoBehaviour
 
     void Attack()
     {
-        _animator.SetTrigger("attack");
+        if (SmallBossVisuals.activeSelf)
+        {
+            _SmallBossAnimator.SetTrigger("Attack");
+        }
+        else
+        {
+            _GrownBossAnimator.SetTrigger("Attack");
+        }
 
         StartCoroutine(SpawnProjectile());
     }
