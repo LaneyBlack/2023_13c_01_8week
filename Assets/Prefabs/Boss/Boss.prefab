@@ -556,13 +556,33 @@ PrefabInstance:
       value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: SmallBossVisuals
+      value: 
+      objectReference: {fileID: 8635363527088427523}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: _GrownBossSprite
+      value: 
+      objectReference: {fileID: 7691038772850255050}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: _SmallBossSprite
+      value: 
+      objectReference: {fileID: 2371778153458988193}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: maxFollowDistance
-      value: 30
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: minFollowDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: _GrownBossAnimator
+      value: 
+      objectReference: {fileID: 4300974204952878582}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: _SmallBossAnimator
+      value: 
+      objectReference: {fileID: 8207267066338545053}
     - target: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: m_Name
       value: BossLogic
@@ -577,6 +597,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4313472870002227461, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: _animator
+      value: 
+      objectReference: {fileID: 8207267066338545053}
+    - target: {fileID: 4313472870002227461, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: SmallBossVisuals
+      value: 
+      objectReference: {fileID: 8635363527088427523}
+    - target: {fileID: 4313472870002227461, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: _GrownBossAnimator
+      value: 
+      objectReference: {fileID: 4300974204952878582}
+    - target: {fileID: 4313472870002227461, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: _SmallBossAnimator
       value: 
       objectReference: {fileID: 8207267066338545053}
     - target: {fileID: 4313472870002227461, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
@@ -751,9 +783,19 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5518053933559401204, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
   m_PrefabInstance: {fileID: 7817738208551452245}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &4300974204952878582 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6327010175112749987, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
+  m_PrefabInstance: {fileID: 7817738208551452245}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4431763902651613800 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5908413417534258237, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
+  m_PrefabInstance: {fileID: 7817738208551452245}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7691038772850255050 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 486987413148392095, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
   m_PrefabInstance: {fileID: 7817738208551452245}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &8207267066338545053 stripped
