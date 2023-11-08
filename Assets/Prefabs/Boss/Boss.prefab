@@ -567,6 +567,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4313472870002227461, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: _animator
       value: 
@@ -710,6 +714,10 @@ PrefabInstance:
     - target: {fileID: 6866286822573443332, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6866286822573443332, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
