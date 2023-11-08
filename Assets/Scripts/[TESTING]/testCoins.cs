@@ -12,7 +12,7 @@ public class testCoins : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E))
         {
             coins++;
-            CoinsUI.get().setCoints(coins);
+            //CoinsUI.get().setCoints(coins);
         }
     }
 }
