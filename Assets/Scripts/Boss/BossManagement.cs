@@ -16,10 +16,10 @@ public class BossManagement : MonoBehaviour
     void Update()
     {
         updateHealthBar();
-        if (_health.IsDead())
-        {
-           Destroy(_health.GameObject());
-        }
+        // if (_health.IsDead())
+        // {
+        //    Destroy(_health.GameObject());
+        // }
     }
 
     private void updateHealthBar()

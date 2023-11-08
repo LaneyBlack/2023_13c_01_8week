@@ -14,12 +14,9 @@ public class BossMovement : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _sprite;
     
-    
-    private float _distance;
-
     private Rigidbody2D _rigidbody;
 
-    private static readonly int IsMoving = Animator.StringToHash("isMoving");
+    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
 
     private void Awake()
     {
@@ -38,13 +35,15 @@ public class BossMovement : MonoBehaviour
         {
             var direction = player.transform.position - transform.parent.position; 
             _rigidbody.velocity = new Vector2(movementSpeed * Math.Sign(direction.x), _rigidbody.velocity.y);
+            Debug.Log(_rigidbody.velocity);
         }
     }
 
 
     private bool IsInSight()
     {
-        _distance = Vector2.Distance( transform.parent.position, player.transform.position);
-        return _distance < maxFollowDistance && _distance > minFollowDistance;
+        var distance = Vector2.Distance( transform.parent.position, player.transform.position);
+        var isInSight = distance < maxFollowDistance && distance > minFollowDistance;
+        return isInSight;
     }
 }
