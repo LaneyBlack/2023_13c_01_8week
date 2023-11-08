@@ -41,11 +41,7 @@ public class UnlockedChestOpener : MonoBehaviour
         {
             Vector3 monsterPosition = transform.position + new Vector3(spawnOffsetMonster.x, spawnOffsetMonster.y, 0f);
             GameObject monster = Instantiate(monsterPrefab, monsterPosition, Quaternion.identity);
-            MeleeEnemy meleeEnemyScript = monster.GetComponent<MeleeEnemy>();
-            if (meleeEnemyScript != null)
-            {
-                meleeEnemyScript.player = GameObject.FindGameObjectWithTag("Player");
-            }
+            monster.GetComponent<MeleeEnemy>().player = GameObject.FindGameObjectWithTag("Player");
         }
     }
 
@@ -68,15 +64,15 @@ public class UnlockedChestOpener : MonoBehaviour
             usedPositions.Add(spawnPosition);
         }
     }
+
     private Vector2 GetUniquePosition(ICollection<Vector2> usedPositions)
     {
         Vector2 spawnPosition;
         do
         {
             spawnPosition = (Vector2)transform.position + new Vector2(Random.Range(-1f, 1f), 0);
-        }
-        while (usedPositions.Contains(spawnPosition));
-    
+        } while (usedPositions.Contains(spawnPosition));
+
         return spawnPosition;
     }
 }
