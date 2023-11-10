@@ -4,107 +4,124 @@ using TMPro;
 
 public class TutorialNPC : MonoBehaviour
 {
-    public TextMeshProUGUI instructionTextMesh;
-    public float typingSpeed = 0.05f; // The delay between each letter
-    private int currentInstructionIndex = 0;
-    private bool playerInRange = false;
-    private Camera mainCamera;
+    [SerializeField] private TextMeshProUGUI _instructionTextMesh;
+    [SerializeField] private float _typingSpeed = 0.05f;
+    private int _currentInstructionIndex;
+    private bool _playerInRange;
+    private Coroutine _typingCoroutine;
 
-    // Define your instructions and positions
-    private string[] instructions = new string[]
+    private string[] _instructions = new string[]
     {
         "Welcome to the game!",
-        "Collect coins to score points."
+        "Collect coins to score points.",
+        "Beware that some of the platforms can move!",
+        "You can use the trampoline below to bounce to the other side.",
+        "Try to push those boxes closer to the ledge, it should be enough height boost for you to jump!"
     };
 
-    private Vector3[] positions = new Vector3[]
+    private Vector3[] _positions = new Vector3[]
     {
-        new Vector3(-10f, -2.45f, 0f), // Position A
-        new Vector3(8.98f, 0.55f, 0f), // Position B
+        new Vector3(-10f, -2.45f, 0f),
+        new Vector3(8.98f, 0.55f, 0f),
+        new Vector3(19.8f, 4.55f, 0f),
+        new Vector3(37.5f, 0.55f, 0f),
+        new Vector3(51.5f, 0.55f, 0f)
     };
 
-    void Start()
+    private void Start()
     {
-        mainCamera = Camera.main; // Cache the main camera
-        instructionTextMesh.gameObject.SetActive(false); // Hide the text initially
-        MoveToNextPosition();
+        _instructionTextMesh.gameObject.SetActive(false);
+        transform.localScale = Vector3.zero;
+        StartCoroutine(InitialAppearance());
     }
 
-    void MoveToNextPosition()
+    private IEnumerator InitialAppearance()
     {
-        if(currentInstructionIndex >= positions.Length)
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(TransitionToNextPosition());
+    }
+
+    private IEnumerator TransitionToNextPosition()
+    {
+        if (_currentInstructionIndex >= _positions.Length)
         {
-            gameObject.SetActive(false); // Deactivate the NPC if all instructions are done
-            return;
+            yield return StartCoroutine(DisappearWithEffect());
+            gameObject.SetActive(false);
+            yield break;
         }
 
-        transform.position = positions[currentInstructionIndex]; // Move the NPC
-        CheckVisibility(); // Check if the NPC is within camera's view
-        if(playerInRange) // Start typing the text only if the player is in range
+        yield return StartCoroutine(DisappearWithEffect());
+        transform.position = _positions[_currentInstructionIndex];
+        yield return StartCoroutine(AppearWithEffect());
+
+        if (_playerInRange)
         {
-            instructionTextMesh.gameObject.SetActive(true); // Ensure the text object is active before typing starts
-            StartCoroutine(TypeSentence(instructions[currentInstructionIndex])); // Start typing the instruction text
+            DisplayCurrentInstructionText();
         }
     }
 
-    IEnumerator TypeSentence(string sentence)
+    private void DisplayCurrentInstructionText()
     {
-        instructionTextMesh.text = ""; // Clear the text
+        _instructionTextMesh.gameObject.SetActive(true);
+        if (_typingCoroutine != null)
+        {
+            StopCoroutine(_typingCoroutine);
+        }
+        _typingCoroutine = StartCoroutine(TypeSentence(_instructions[_currentInstructionIndex]));
+    }
+
+    private IEnumerator TypeSentence(string sentence)
+    {
+        _instructionTextMesh.text = "";
         foreach (char letter in sentence.ToCharArray())
         {
-            instructionTextMesh.text += letter; // Add one letter at a time
-            yield return new WaitForSeconds(typingSpeed); // Wait a bit before adding the next one
+            _instructionTextMesh.text += letter;
+            yield return new WaitForSeconds(_typingSpeed);
         }
     }
 
-    void Update()
-    {
-        CheckVisibility(); // Constantly check for visibility in case camera moves
-    }
-
-    void CheckVisibility()
-    {
-        Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
-        bool onScreen = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
-
-        // Activate/Deactivate the NPC based on camera's view
-        gameObject.SetActive(onScreen);
-
-        // If NPC is on screen and player is in range, but the text object is not active, start the typing coroutine
-        if(playerInRange && onScreen && !instructionTextMesh.gameObject.activeInHierarchy)
-        {
-            instructionTextMesh.gameObject.SetActive(true);
-            StartCoroutine(TypeSentence(instructions[currentInstructionIndex]));
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = true;
-            // Do not set the text directly here. It will be set by the TypeSentence coroutine
+            _playerInRange = true;
+            if (_currentInstructionIndex < _positions.Length)
+            {
+                DisplayCurrentInstructionText();
+            }
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
-            instructionTextMesh.gameObject.SetActive(false); // Hide the text immediately
-            StartCoroutine(CheckForPlayerDistance());
+            _playerInRange = false;
+            _instructionTextMesh.gameObject.SetActive(false);
+            _currentInstructionIndex++;
+            StartCoroutine(TransitionToNextPosition());
         }
     }
 
-    IEnumerator CheckForPlayerDistance()
+    private IEnumerator AppearWithEffect()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return StartCoroutine(ScaleEffect(Vector3.zero, Vector3.one, 1f));
+    }
 
-        if (!playerInRange)
+    private IEnumerator DisappearWithEffect()
+    {
+        yield return StartCoroutine(ScaleEffect(transform.localScale, Vector3.zero, 1f));
+    }
+
+    private IEnumerator ScaleEffect(Vector3 startScale, Vector3 endScale, float duration)
+    {
+        float elapsed = 0;
+        while (elapsed < duration)
         {
-            currentInstructionIndex++;
-            MoveToNextPosition();
+            elapsed += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(startScale, endScale, elapsed / duration);
+            yield return null;
         }
+        transform.localScale = endScale;
     }
 }
