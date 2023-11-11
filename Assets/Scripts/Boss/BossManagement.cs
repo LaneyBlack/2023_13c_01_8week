@@ -13,13 +13,19 @@ public class BossManagement : MonoBehaviour
         _health = GetComponentInParent<Health>();
     }
 
+    private int counter = 0;
     void Update()
     {
         updateHealthBar();
-        // if (_health.IsDead())
-        // {
-        //    Destroy(_health.GameObject());
-        // }
+        if (_health.IsDead() && counter==0)
+        {
+            counter++;
+            _health.RestoreHealth(_health.maxHealth);
+        }
+        if(_health.IsDead() && counter==1)
+        {
+            Destroy(_health.GameObject());
+        }
     }
 
     private void updateHealthBar()
