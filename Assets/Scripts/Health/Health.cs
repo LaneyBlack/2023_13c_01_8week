@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     [SerializeField] private int maxHealth;
     public int CurrentHealth { get; private set; }
     private Animator _animator;
-    private static readonly int Die = Animator.StringToHash("die");
+    private static readonly int Die = Animator.StringToHash("die 0");
     private static readonly int TakeHit = Animator.StringToHash("takeHit");
 
     private void Awake()
@@ -20,11 +20,11 @@ public class Health : MonoBehaviour
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, maxHealth);
         try {
-            _animator.SetTrigger(TakeHit);
             if (CurrentHealth <= 0)
             {
-                _animator.SetTrigger(Die);  
+                _animator.SetBool(Die, true);
             }
+            _animator.SetTrigger(TakeHit);
         }catch (Exception e) {
             Debug.LogError(e);
         }
