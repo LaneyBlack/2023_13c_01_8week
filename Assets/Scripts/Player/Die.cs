@@ -8,6 +8,8 @@ public class Die : MonoBehaviour
     private Animator _Animator;
     private bool isDead = false;
 
+    public Behaviour[] components;
+
     private void Awake()
     {
         playerHealth = GetComponent<Health>();
@@ -32,10 +34,16 @@ public class Die : MonoBehaviour
     {
         isDead = true; 
         _Animator.SetTrigger("Die");
+
+        foreach (var component in components)
+            component.enabled = false;
     }
 
     public void handleRespawn()
     {
+        foreach (var component in components)
+            component.enabled = true;
+
         playerHealth.RestoreHealth(playerHealth.maxHealth);
         _Animator.ResetTrigger("Die");
         _Animator.Play("Idle");
