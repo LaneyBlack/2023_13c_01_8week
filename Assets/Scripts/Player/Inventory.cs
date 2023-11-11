@@ -27,7 +27,7 @@ public class Item
         //    script.enabled = isEquipped;
     }
 
-    public bool getEquipped()
+    public bool isAvailable()
     {
         if (script != null & count == -1)
             return script.isEquipped;
@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Sprite potionIcon;
     //[TO ADD] skrypt na potionke
 
-    [HideInInspector] public int currentEquipped;
+    [HideInInspector] public int currentEquipped { get; private set; }
     public List<Item> itemsData;
 
     private void Awake()
