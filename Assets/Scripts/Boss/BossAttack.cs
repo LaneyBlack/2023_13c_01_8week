@@ -62,15 +62,19 @@ public class BossAttack : MonoBehaviour
         while (time < 1f)
         {
             bool isFlip = (transform.parent.position.x - player.transform.position.x) < 0;
-            waterProjectile.transform.localScale +=  new Vector3(0.008f, 0, 0); // Modify this as needed
+            waterProjectile.transform.localScale +=  new Vector3(0.007f, 0, 0); 
             waterProjectile.GetComponent<SpriteRenderer>().flipX = isFlip;
             if (isFlip)
             {
-                waterProjectile.transform.localPosition = new Vector3(0.1f, 0.02f, 0);
+                waterProjectile.transform.localPosition =  new Vector3(-0.07f, 0, 0); //prawo
+
+                waterProjectile.GetComponentInChildren<WaterProjectile>().changePosition(0.15f, true);
+
             }
             else
             {
-                waterProjectile.transform.localPosition = new Vector3(-0.1f, 0.02f, 0);
+                waterProjectile.transform.localPosition =  new Vector3(0.04f, 0, 0); 
+                waterProjectile.GetComponentInChildren<WaterProjectile>().changePosition(-0.15f, false);
             }
 
             yield return null;

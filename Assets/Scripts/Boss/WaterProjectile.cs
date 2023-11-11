@@ -19,4 +19,10 @@ public class WaterProjectile : MonoBehaviour
         Health health = collider.GetComponent<Health>();
         health.TakeDamage(damageAmount);
     }
+
+    public void changePosition(float x, bool IsFlip)
+    {
+        transform.localPosition = new Vector3(x, 0, 0);
+        GetComponent<SpriteRenderer>().flipX = IsFlip;
+    }
 }
