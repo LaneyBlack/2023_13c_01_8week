@@ -11,11 +11,14 @@ public class BossAttack : MonoBehaviour
 
     [SerializeField] private GameObject waterProjectile;
     private GameObject player;
-    [SerializeField] private float attackRange = 3f;
-    [SerializeField] private float attackCooldown = 2f; // Cooldown between attacks
+    [SerializeField] private float attackGrownRange = 3f;
+    [SerializeField] private float attackSmallRange = 2f;
+    [SerializeField] private float attackGrownCooldown = 2f; // Cooldown between attacks
+    [SerializeField] private float attackSmallCooldown = 1.5f; // Cooldown between attacks
     [SerializeField] private BossMovement bossMovement;
+    [SerializeField] public Transform attackPoint;
 
-
+    public LayerMask playerLayers;
     private float
         _cooldownTimer = Mathf.Infinity;
 
@@ -29,20 +32,34 @@ public class BossAttack : MonoBehaviour
         _cooldownTimer += Time.deltaTime;
 
         float distanceToPlayer = Vector2.Distance(transform.parent.position, player.transform.position);
-        if (distanceToPlayer <= attackRange && _cooldownTimer >= attackCooldown)
+        if (SmallBossVisuals.activeSelf)
         {
-            Attack();
-            _cooldownTimer = 0f;
+            if (distanceToPlayer <= attackSmallRange && _cooldownTimer >= attackSmallCooldown)
+            {
+                Attack();
+                _cooldownTimer = 0f;
+            }
         }
+        else
+        {
+            if (distanceToPlayer <= attackGrownRange && _cooldownTimer >= attackGrownCooldown)
+            {
+                Attack();
+                _cooldownTimer = 0f;
+            }
+        }
+
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     void Attack()
     {
         bossMovement.canMove = false;
         if (SmallBossVisuals.activeSelf)
         {
             _SmallBossAnimator.SetTrigger("Attack");
-            bossMovement.canMove = true;
+            SmallAttackColliders();
+            StartCoroutine(SmallAttackAnimationDuration());
         }
         else
         {
@@ -84,5 +101,28 @@ public class BossAttack : MonoBehaviour
         waterProjectile.transform.localScale = originalScale;
         waterProjectile.SetActive(false);
         bossMovement.canMove = true;
+    }
+    private IEnumerator SmallAttackAnimationDuration()
+    {
+        yield return new WaitForSeconds(0.5f);
+        
+        bossMovement.canMove = true;
+    }
+    void SmallAttackColliders()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position,1f,playerLayers);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("We hit and its currenntHealth ="+enemy.GetComponent<Health>().CurrentHealth);
+            enemy.GetComponent<Health>().TakeDamage(1);
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+        {
+            return;
+        }
+        Gizmos.DrawWireSphere(attackPoint.position,1f);
     }
 }
