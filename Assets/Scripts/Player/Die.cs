@@ -6,10 +6,7 @@ public class Die : MonoBehaviour
 {
     private Health playerHealth;
     private Animator _Animator;
-    private bool isDead = false; 
-    private bool deathAnimationStarted = false;
-    private float deathTimer = 0f;
-    private float deathAnimationDuration;
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -28,21 +25,6 @@ public class Die : MonoBehaviour
         if (!isDead && playerHealth != null && playerHealth.IsDead())
         {
             HandleDeath();
-            deathAnimationStarted = true;
-            deathTimer = 0f; 
-
-            AnimatorStateInfo stateInfo = _Animator.GetCurrentAnimatorStateInfo(0);
-            deathAnimationDuration = stateInfo.length;
-        }
-
-        if (isDead && deathAnimationStarted)
-        {
-            deathTimer += Time.deltaTime; 
-
-            if (deathTimer >= deathAnimationDuration) 
-            {
-                //transform.parent.gameObject.SetActive(false);
-            }
         }
     }
 
