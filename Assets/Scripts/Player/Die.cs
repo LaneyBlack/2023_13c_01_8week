@@ -14,8 +14,8 @@ public class Die : MonoBehaviour
     private Rigidbody2D rb;
     private void Start()
     {
-        playerHealth = GetComponentInParent<Health>();
-        rb = GetComponentInParent<Rigidbody2D>();
+        playerHealth = GetComponent<Health>();
+        rb = GetComponent<Rigidbody2D>();
 
         // _Animator = GetComponent<Animator>();
         if (_Animator == null)

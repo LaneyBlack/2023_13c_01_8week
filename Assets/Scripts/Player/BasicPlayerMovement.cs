@@ -5,11 +5,7 @@ public class BasicPlayerMovement : MonoBehaviour
 {
     //DEBUG:
     int scount = 0;
-    int jcount = 0;
-
-    [Header("Visuals References")]
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
+    int jcount = 0;  
 
     private enum MovementType
     {
@@ -50,6 +46,8 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private Rigidbody2D _rb;
     private BoxCollider2D boxCollider;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
     private float _xInput;
     private float _currentSpeed;
     private float _jumpForce;
@@ -61,9 +59,10 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        _rb = GetComponentInParent<Rigidbody2D>();
-        boxCollider = GetComponentInParent<BoxCollider2D>();
-        //movementType = MovementType.Math;
+        _rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
 

@@ -9,12 +9,12 @@ public class Respawn : MonoBehaviour
 
     private void Start()
     {
-        currentCheckpoint = transform.parent.position;
+        currentCheckpoint = transform.position;
     }
 
     public void respawn()
     {
-        transform.parent.position = currentCheckpoint;
+        transform.position = currentCheckpoint;
         deathsctipt.handleRespawn();
     }
 
