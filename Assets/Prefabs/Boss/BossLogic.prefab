@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4657229272657841954}
   - component: {fileID: 586022437370875288}
-  - component: {fileID: 8427284837429291004}
   - component: {fileID: 4313472870002227461}
   m_Layer: 3
   m_Name: BossLogic
@@ -46,25 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f12f70c36a8a04184dd4a365ec45c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8093405114768699451, guid: 29eca595460da024ea0723000bbe298d, type: 3}
   movementSpeed: 0
   maxFollowDistance: 0
   minFollowDistance: 0
-  _animator: {fileID: 0}
-  _sprite: {fileID: 0}
---- !u!114 &8427284837429291004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861252298317586575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc2b6e78c46b5bc4ab8fda7ba0053498, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 1
+  SmallBossVisuals: {fileID: 0}
+  _SmallBossAnimator: {fileID: 0}
+  _SmallBossSprite: {fileID: 0}
+  _GrownBossAnimator: {fileID: 0}
+  _GrownBossSprite: {fileID: 0}
+  canMove: 1
 --- !u!114 &4313472870002227461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,7 +66,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ec26ff99a25ff4b8ea9e2c7000db7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
+  SmallBossVisuals: {fileID: 0}
+  _SmallBossAnimator: {fileID: 0}
+  _GrownBossAnimator: {fileID: 0}
   waterProjectile: {fileID: 3317070949601734321, guid: cd2fc674d97f9034492cb3579de0716f, type: 3}
-  projectileSpawnPoint: {fileID: 0}
-  player: {fileID: 0}
+  attackGrownRange: 3
+  attackSmallRange: 2
+  attackGrownCooldown: 2
+  attackSmallCooldown: 1.5
+  bossMovement: {fileID: 0}
+  attackPoint: {fileID: 0}
+  playerLayers:
+    serializedVersion: 2
+    m_Bits: 0
