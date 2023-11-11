@@ -17,6 +17,7 @@ public class MeleeEnemy : MonoBehaviour
     [SerializeField] private float hitFovRange;
     [SerializeField] private float hitFovDistance;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private float hitForce = 15;
 
     [Header("Attacking")] [SerializeField] private int damage;
     [SerializeField] private float attackCooldown;
@@ -31,9 +32,9 @@ public class MeleeEnemy : MonoBehaviour
     private static readonly int MeleeAttack = Animator.StringToHash("meleeAttack");
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
     private static readonly int IsFalling = Animator.StringToHash("isFalling");
-    
+
     private static readonly int TakeHit = Animator.StringToHash("takeHit");
-    
+
 
     private void Awake()
     {
@@ -86,6 +87,7 @@ public class MeleeEnemy : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private bool HasPlayerInSight()
     {
+        // Box Cast creation
         var hitFov = Physics2D.BoxCast(
             boxCollider.bounds.center +
             transform.right * (hitFovDistance * transform.localScale.x * (_sprite.flipX ? -1 : 1)),
@@ -93,18 +95,21 @@ public class MeleeEnemy : MonoBehaviour
                 boxCollider.bounds.size.z), // size x depends on range
             0, _rigidbody.velocity,
             0, layerMask);
-        if (hitFov.collider != null) // prep for the merge with player (DO NOT DELETE)
+        // If hitfov sees player collider, get player Health
+        if (hitFov.collider != null) {
             _playerHealth = hitFov.transform.GetComponent<Health>();
-
-        // If get collider is not null there is player in it
-        return hitFov.collider != null;
+            return true;
+        }
+        // If get collider is null there is no player in it
+        return false;
     }
 
     private void DamagePlayer()
     {
         if (HasPlayerInSight())
         {
-            _playerHealth.TakeDamage(damage);
+            _playerHealth.TakeDamage(damage); // Player take damage
+            player.GetComponent<Rigidbody2D>().AddForce(new Vector2(hitForce * (_sprite.flipX?2:-2), hitForce), ForceMode2D.Impulse); // Kicks player
         }
     }
 
