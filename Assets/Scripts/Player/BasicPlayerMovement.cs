@@ -65,8 +65,6 @@ public class BasicPlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-
-
     private void Update()
     {
         _xInput = Input.GetAxis("Horizontal");
@@ -104,7 +102,6 @@ public class BasicPlayerMovement : MonoBehaviour
     void handleAnimator()
     {
         animator.SetBool("Run", _rb.velocity.x != 0);
-
 
         //set animator transitions:
         animator.SetBool("Falling", (_rb.velocity.y < 0));
@@ -191,7 +188,5 @@ public class BasicPlayerMovement : MonoBehaviour
             spriteRenderer.flipX = false;
         else if (direction < 0)
             spriteRenderer.flipX = true;
-
-        //spriteRenderer.flipX = (direction < 0);
     }
 }

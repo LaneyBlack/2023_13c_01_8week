@@ -181,7 +181,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 6.296825
+  m_Distance: 18.155087
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!212 &1640478928580041858
@@ -406,7 +406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a38b002bafe8d42b2960d4f0b14e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Animator: {fileID: 6212896714957079992}
 --- !u!114 &4181356851738986120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,7 +462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df47d940111d2d49844e5ac55f665e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathsctipt: {fileID: 7160492066179589494}
 --- !u!114 &6664360064835851929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,7 +474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a7ada88601b844590b31ec629ca934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 6212896714957079992}
   _keyCode: 323
   attackPoint: {fileID: 460640104834928589}
   attackRange: 0.5
