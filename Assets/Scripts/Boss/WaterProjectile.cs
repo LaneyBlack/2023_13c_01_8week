@@ -9,11 +9,6 @@ public class WaterProjectile : MonoBehaviour
 
     [SerializeField] public BoxCollider2D userOfAttack;
 
-    public void Initialize(GameObject user)
-    {
-        userOfAttack = user.GetComponent<BoxCollider2D>();
-    }
-
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject == userOfAttack.gameObject)
