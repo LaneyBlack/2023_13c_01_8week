@@ -9,6 +9,7 @@ public class BossDie : MonoBehaviour
     [SerializeField] public GameObject GrownBossVisuals;
 
     [SerializeField] public GameObject SmallBossVisuals;
+    [SerializeField] private BossMovement bossMovement;
 
 
     private Rigidbody2D rb;
@@ -22,14 +23,21 @@ public class BossDie : MonoBehaviour
     {
         if (bossHealth.IsDead())
         {
+            bossMovement.canMove = false;
             ToggleBossState(true);
-            bossHealth.RestoreHealth(bossHealth.maxHealth);
+            StartCoroutine(waitDuration());
         }
     }
-
+    private IEnumerator waitDuration()
+    {
+        yield return new WaitForSeconds(0.8f);
+        bossMovement.canMove = true;
+    }
     private void ToggleBossState(bool isGrown)
     {
         GrownBossVisuals.SetActive(isGrown);
         SmallBossVisuals.SetActive(isGrown == false);
     }
+    
+   
 }
