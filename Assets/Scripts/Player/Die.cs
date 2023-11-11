@@ -58,7 +58,7 @@ public class Die : MonoBehaviour
 
     public void handleRespawn()
     {
-        playerHealth.TakeDamage(-3);
+        playerHealth.RestoreHealth(playerHealth.maxHealth);
         _Animator.ResetTrigger("Die");
         _Animator.Play("Idle");
         isDead = false;
