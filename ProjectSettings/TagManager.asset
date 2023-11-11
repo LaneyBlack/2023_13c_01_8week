@@ -18,6 +18,7 @@ TagManager:
   - UI_Key
   - Checkpoint
   - Background
+  - UI_Slot
   layers:
   - Default
   - TransparentFX
