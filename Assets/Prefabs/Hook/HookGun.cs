@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HookGun : MonoBehaviour
+public class HookGun : Equippable
 {
-    [HideInInspector] public bool isEquipped = true;
+    //[HideInInspector] public bool isEquipped = true;
 
     [Header("Scripts Ref:")]
     public GrapplingRope grappleRope;

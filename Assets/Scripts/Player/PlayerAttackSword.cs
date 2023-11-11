@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackSword : MonoBehaviour
+public class PlayerAttackSword : Equippable
 {
-    // Start is called before the first frame update
     private Animator animator;
     [SerializeField] private KeyCode _keyCode;
     [SerializeField] private Transform attackPoint;
@@ -20,7 +19,7 @@ public class PlayerAttackSword : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(_keyCode))
+        if (Input.GetKeyDown(_keyCode) && isEquipped)
         {
             animator.SetTrigger("AttackSword");
             attack();
