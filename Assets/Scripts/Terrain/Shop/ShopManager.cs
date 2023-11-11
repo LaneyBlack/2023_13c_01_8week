@@ -1,13 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
     [SerializeField] private GameObject _shopUI;
     [SerializeField] private Button _buyPotionButton;
     [SerializeField] private Button _buySwordButton;
+    [SerializeField] private TextMeshProUGUI _playerMoneyText;
 
     private int _playerMoney = 100; // Placeholder
+    
     //private bool _hasPotion = false;
     //private bool _hasSword = false;
 
@@ -15,6 +18,8 @@ public class ShopManager : MonoBehaviour
     {
         _buyPotionButton.onClick.AddListener(BuyPotion);
         _buySwordButton.onClick.AddListener(BuySword);
+
+        //UpdateMoneyDisplay();
     }
 
     private void BuyPotion()
@@ -24,10 +29,8 @@ public class ShopManager : MonoBehaviour
         if (_playerMoney >= potionPrice)
         {
             _playerMoney -= potionPrice;
-            //_hasPotion = true;
-
             Debug.Log("Bought a potion!");
-            // TODO: Add the potion to the player's inventory.
+            //UpdateMoneyDisplay();
         }
         else
         {
@@ -42,14 +45,17 @@ public class ShopManager : MonoBehaviour
         if (_playerMoney >= swordPrice)
         {
             _playerMoney -= swordPrice;
-            //_hasSword = true;
-
             Debug.Log("Bought a sword!");
-            // TODO: Equip the sword or add it to the player's inventory.
+            //UpdateMoneyDisplay();
         }
         else
         {
             Debug.Log("Not enough money to buy a sword.");
         }
+    }
+
+    private void UpdateMoneyDisplay()
+    {
+        _playerMoneyText.text = "Money: " + _playerMoney;
     }
 }

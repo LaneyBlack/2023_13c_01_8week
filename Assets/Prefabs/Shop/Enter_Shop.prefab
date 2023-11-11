@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6220390723083991830}
   - component: {fileID: 7297262638935524629}
   - component: {fileID: 7982433807317323076}
+  - component: {fileID: 7333537782249464336}
+  - component: {fileID: 6361107954878496564}
   m_Layer: 0
   m_Name: Enter_Shop
   m_TagString: EnterShop
@@ -74,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: cd65758320e079c4ba47a2d75242c5db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6d1ffc9e66808c45905308bc41279bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,16 +119,49 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.021003366, y: -0.27304363}
+  m_Offset: {x: -0.0015748739, y: 0.02047658}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.6666667, y: 2.6666667}
+    oldSize: {x: 1.9166666, y: 2.3333333}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.7425191, y: 2.1205792}
+  m_Size: {x: 1.8478858, y: 2.25605}
   m_EdgeRadius: 0
+--- !u!95 &7333537782249464336
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848760980485987773}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee0dc48bce39f464fa6206c7a831b999, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6361107954878496564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848760980485987773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e596c3a5f509c1e4cb95a8675c41fc70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
