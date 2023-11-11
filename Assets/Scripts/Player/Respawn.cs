@@ -5,7 +5,12 @@ using UnityEngine;
 public class Respawn : MonoBehaviour
 {
     private Vector3 currentCheckpoint;
-    [SerializeField] private Die deathsctipt;
+    private Die deathsctipt;
+
+    private void Awake()
+    {
+        deathsctipt = GetComponent<Die>();
+    }
 
     private void Start()
     {

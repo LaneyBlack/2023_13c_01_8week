@@ -5,30 +5,26 @@ using UnityEngine;
 public class Die : MonoBehaviour
 {
     private Health playerHealth;
-    public Animator _Animator;
+    private Animator _Animator;
     private bool isDead = false; 
     private bool deathAnimationStarted = false;
     private float deathTimer = 0f;
     private float deathAnimationDuration;
 
-    private Rigidbody2D rb;
-    private void Start()
+    private void Awake()
     {
         playerHealth = GetComponent<Health>();
-        rb = GetComponent<Rigidbody2D>();
 
-        // _Animator = GetComponent<Animator>();
-        if (_Animator == null)
-        {
-            Debug.LogError("No Animator component found on " + gameObject.name);
-        }
+        _Animator = GetComponent<Animator>();
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
             playerHealth.KillForTesting();
         }
+
         if (!isDead && playerHealth != null && playerHealth.IsDead())
         {
             HandleDeath();
@@ -38,11 +34,12 @@ public class Die : MonoBehaviour
             AnimatorStateInfo stateInfo = _Animator.GetCurrentAnimatorStateInfo(0);
             deathAnimationDuration = stateInfo.length;
         }
+
         if (isDead && deathAnimationStarted)
         {
             deathTimer += Time.deltaTime; 
 
-            if (deathTimer >= deathAnimationDuration)
+            if (deathTimer >= deathAnimationDuration) 
             {
                 //transform.parent.gameObject.SetActive(false);
             }
@@ -55,7 +52,6 @@ public class Die : MonoBehaviour
         _Animator.SetTrigger("Die");
     }
 
-
     public void handleRespawn()
     {
         playerHealth.RestoreHealth(playerHealth.maxHealth);
@@ -63,5 +59,4 @@ public class Die : MonoBehaviour
         _Animator.Play("Idle");
         isDead = false;
     }
-    
 }
