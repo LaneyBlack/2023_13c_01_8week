@@ -8,15 +8,16 @@ public class BossAttack : MonoBehaviour
     [SerializeField] public GameObject SmallBossVisuals;
     [SerializeField] private Animator _SmallBossAnimator;
     [SerializeField] private Animator _GrownBossAnimator;
-    
+
     [SerializeField] private GameObject waterProjectile;
-    [SerializeField] private Transform projectileSpawnPoint;
-    private GameObject player; //
+    private GameObject player;
     [SerializeField] private float attackRange = 3f;
     [SerializeField] private float attackCooldown = 2f; // Cooldown between attacks
+    [SerializeField] private BossMovement bossMovement;
+
 
     private float
-        _cooldownTimer = Mathf.Infinity; // Set the cooldown timer to a high number so the boss can attack immediately
+        _cooldownTimer = Mathf.Infinity;
 
     private void Start()
     {
@@ -31,70 +32,53 @@ public class BossAttack : MonoBehaviour
         if (distanceToPlayer <= attackRange && _cooldownTimer >= attackCooldown)
         {
             Attack();
-            _cooldownTimer = 0f; // Reset the cooldown timer
+            _cooldownTimer = 0f;
         }
     }
 
     void Attack()
     {
+        bossMovement.canMove = false;
         if (SmallBossVisuals.activeSelf)
         {
             _SmallBossAnimator.SetTrigger("Attack");
+            bossMovement.canMove = true;
         }
         else
         {
             _GrownBossAnimator.SetTrigger("Attack");
+            StartCoroutine(AppearProjectile());
         }
-
-        StartCoroutine(SpawnProjectile());
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
-    private IEnumerator SpawnProjectile()
+    private IEnumerator AppearProjectile()
     {
         yield return new WaitForSeconds(0.3f);
-        GameObject projectileInstance =
-            Instantiate(waterProjectile, projectileSpawnPoint.position, Quaternion.identity);
-        projectileInstance.transform.SetParent(this.transform);
-        WaterProjectile waterProjectileScript = projectileInstance.GetComponent<WaterProjectile>();
-        if (waterProjectileScript != null)
-        {
-            waterProjectileScript.Initialize(this.transform.parent.gameObject); // this.gameObject refers to the enemy
-        }
-
+        waterProjectile.SetActive(true);
         float time = 0;
-        while (time < 1.1f)
+        Vector3 originalScale = waterProjectile.transform.localScale;
+
+        while (time < 1f)
         {
             bool isFlip = (transform.parent.position.x - player.transform.position.x) < 0;
+            waterProjectile.transform.localScale +=  new Vector3(0.008f, 0, 0); // Modify this as needed
+            waterProjectile.GetComponent<SpriteRenderer>().flipX = isFlip;
             if (isFlip)
             {
-                projectileInstance.GetComponent<SpriteRenderer>().flipX = isFlip;
-                projectileSpawnPoint.localPosition = new Vector3(0.1f, projectileSpawnPoint.localPosition.y,
-                    projectileSpawnPoint.localPosition.z);
+                waterProjectile.transform.localPosition = new Vector3(0.1f, 0.02f, 0);
             }
             else
             {
-                projectileInstance.GetComponent<SpriteRenderer>().flipX = isFlip;
-                projectileSpawnPoint.localPosition = new Vector3(-0.1f, projectileSpawnPoint.localPosition.y,
-                    projectileSpawnPoint.localPosition.z);
-            }
-
-            if (projectileInstance != null)
-            {
-                projectileInstance.transform.position = projectileSpawnPoint.position;
-            }
-            else
-            {
-                break;
+                waterProjectile.transform.localPosition = new Vector3(-0.1f, 0.02f, 0);
             }
 
             yield return null;
             time += Time.deltaTime;
         }
 
-        if (projectileInstance != null)
-        {
-            Destroy(projectileInstance);
-        }
+        waterProjectile.transform.localScale = originalScale;
+        waterProjectile.SetActive(false);
+        bossMovement.canMove = true;
     }
 }

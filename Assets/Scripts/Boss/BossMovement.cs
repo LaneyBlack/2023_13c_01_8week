@@ -21,7 +21,8 @@ public class BossMovement : MonoBehaviour
     private Rigidbody2D _rigidbody;
 
     private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-    
+    public bool canMove = true;
+
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class BossMovement : MonoBehaviour
 
     private void Update()
     {
+
         if (SmallBossVisuals.activeSelf )
         {
             _SmallBossAnimator.SetBool(IsMoving, IsInSight());
@@ -46,6 +48,8 @@ public class BossMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!canMove) return;  
+
         if (SmallBossVisuals.activeSelf )
         {
             if (_SmallBossAnimator.GetBool(IsMoving))
@@ -62,8 +66,6 @@ public class BossMovement : MonoBehaviour
                 _rigidbody.velocity = new Vector2(movementSpeed * Math.Sign(direction.x), _rigidbody.velocity.y);
             }
         }
-        
-    
     }
 
 
