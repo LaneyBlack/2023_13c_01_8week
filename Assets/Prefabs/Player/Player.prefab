@@ -259,7 +259,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 1.5905308
+  m_Distance: 9.418757
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!114 &3232233137045432919
@@ -462,7 +462,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5360881240524685096}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -487,7 +487,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0037445277, y: 0.028083976}
+  m_Offset: {x: -0.0049847662, y: 0.010720827}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -498,7 +498,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24307892, y: 0.2764303}
+  m_Size: {x: 0.07192777, y: 0.081301674}
   m_EdgeRadius: 0
 --- !u!114 &2543043856619017858
 MonoBehaviour:
