@@ -12,10 +12,19 @@ public class ScrollingAndRespawning : MonoBehaviour
     private float _repositionX;
     [SerializeField]
     private float _respawnX;
-    [FormerlySerializedAs("gameObjects")] [SerializeField] private List<Transform> gameObjectTransforms;
+
+    [SerializeField] private bool isXGlobal = true;
+    [SerializeField] private List<Transform> gameObjectTransforms;
 
     private void Awake()
     {
+        if (isXGlobal)
+        {
+            var position = transform.position;
+            _repositionX += position.x;
+            _respawnX += position.x;
+        }
+
         foreach (Transform itemTransform in transform.GetComponentsInChildren<Transform>())
         {
             gameObjectTransforms.Add(itemTransform);
