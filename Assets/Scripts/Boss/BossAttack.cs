@@ -14,6 +14,8 @@ public class BossAttack : MonoBehaviour
     [SerializeField] public Transform attackPoint;
     [SerializeField] private GameObject waterProjectile;
     [SerializeField] private GameObject bubbleProjectile;
+    [SerializeField] private GameObject waveProjectile;
+
     public LayerMask playerLayers;
 
     [Header("Values for preferences")] [SerializeField]
@@ -24,40 +26,61 @@ public class BossAttack : MonoBehaviour
     [SerializeField] private float attackSmallCooldown = 1.5f; // Cooldown between attacks
 
     private GameObject player;
-
+    private Health bossHealth;
+    private float timer = 0f;
     private float _cooldownTimer = Mathf.Infinity;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+
+        bossHealth = GetComponentInParent<Health>();
     }
 
     private void Update()
     {
         _cooldownTimer += Time.deltaTime;
+        timer += Time.deltaTime;
 
         float distanceToPlayer = Vector2.Distance(transform.parent.position, player.transform.position);
-        if (SmallBossVisuals.activeSelf)
+        if (bossHealth.CurrentHealth < (Math.Round((float)(bossHealth.maxHealth / 3) + 1)) && timer >= 10 &&
+            bossMovement.isGrounded())
         {
-            if (distanceToPlayer <= attackSmallRange / 4 && _cooldownTimer >= attackSmallCooldown)
-            {
-                Small_Attack();
-                _cooldownTimer = 0f;
-            }
-            else if (distanceToPlayer <= attackSmallRange && _cooldownTimer >= attackSmallCooldown)
-            {
-                Small_Attack_2();
-                _cooldownTimer = 0f;
-            }
+            StartCoroutine(DelayedAttack());
+            timer = 0;
+            _cooldownTimer = 0f;
         }
         else
         {
-            if (distanceToPlayer <= attackGrownRange && _cooldownTimer >= attackGrownCooldown)
+            if (SmallBossVisuals.activeSelf)
             {
-                Grown_Attack();
-                _cooldownTimer = 0f;
+                if (distanceToPlayer <= attackSmallRange / 4 && _cooldownTimer >= attackSmallCooldown)
+                {
+                    Small_Attack();
+                    _cooldownTimer = 0f;
+                }
+                else if (distanceToPlayer <= attackSmallRange && _cooldownTimer >= attackSmallCooldown)
+                {
+                    Small_Attack_2();
+                    _cooldownTimer = 0f;
+                }
+            }
+            else
+            {
+                if (distanceToPlayer <= attackGrownRange && _cooldownTimer >= attackGrownCooldown)
+                {
+                    Grown_Attack();
+                    _cooldownTimer = 0f;
+                }
             }
         }
+    }
+
+// Coroutine for delayed attack
+    IEnumerator DelayedAttack()
+    {
+        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+        Small_Attack_3();
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
@@ -79,6 +102,14 @@ public class BossAttack : MonoBehaviour
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
+    void Small_Attack_3()
+    {
+        bossMovement.canMove = false;
+        _SmallBossAnimator.SetTrigger("AttackSmall2");
+        StartCoroutine(AppearWave());
+    }
+
+    // ReSharper disable Unity.PerformanceAnalysis
     void Grown_Attack()
     {
         bossMovement.canMove = false;
@@ -94,6 +125,7 @@ public class BossAttack : MonoBehaviour
 
         bossMovement.canMove = true;
     }
+
 
     void SmallAttackColliders()
     {
@@ -123,22 +155,17 @@ public class BossAttack : MonoBehaviour
         float time = 0;
         Vector3 originalScale = bubbleProjectile.transform.localScale;
         bool isFlip = (transform.parent.position.x - player.transform.position.x) < 0;
-
         if (isFlip)
         {
             bubbleProjectile.transform.localPosition = new Vector3(0.05f, -0.09f, 0); //prawo
-
-            // bubbleProjectile.GetComponent<WaterProjectile>().changePosition(0.15f, true);
         }
         else
         {
             bubbleProjectile.transform.localPosition = new Vector3(-0.08f, -0.09f, 0);
-            // bubbleProjectile.GetComponent<WaterProjectile>().changePosition(-0.15f, false);
         }
 
         while (time < 1f)
         {
-            // bubbleProjectile.transform.localScale += new Vector3(0.007f, 0, 0);
             if (isFlip)
             {
                 bubbleProjectile.transform.localPosition += new Vector3(0.005f, 0, 0);
@@ -146,11 +173,7 @@ public class BossAttack : MonoBehaviour
             else
             {
                 bubbleProjectile.transform.localPosition += new Vector3(-0.005f, 0, 0);
-
             }
-
-            // bubbleProjectile.GetComponent<SpriteRenderer>().flipX = isFlip;
-
 
             yield return null;
             time += Time.deltaTime;
@@ -158,6 +181,46 @@ public class BossAttack : MonoBehaviour
 
         bubbleProjectile.transform.localScale = originalScale;
         bubbleProjectile.SetActive(false);
+        bossMovement.canMove = true;
+    }
+
+    private IEnumerator AppearWave()
+    {
+        yield return new WaitForSeconds(0.3f);
+        waveProjectile.SetActive(true);
+        float time = 0;
+        Vector3 originalScale = waveProjectile.transform.localScale;
+        bool isFlip = (transform.parent.position.x - player.transform.position.x) < 0;
+        if (isFlip)
+        {
+            waveProjectile.GetComponent<WaterProjectile>().changePosition(0, true);
+
+            waveProjectile.transform.localPosition = new Vector3(0.35f, 0.071f, 0); //prawo
+        }
+        else
+        {
+            waveProjectile.GetComponent<WaterProjectile>().changePosition(0, false);
+
+            waveProjectile.transform.localPosition = new Vector3(-0.35f, 0.071f, 0);
+        }
+
+        while (time < 1f)
+        {
+            if (isFlip)
+            {
+                waveProjectile.transform.localPosition += new Vector3(0.01f, 0, 0);
+            }
+            else
+            {
+                waveProjectile.transform.localPosition += new Vector3(-0.01f, 0, 0);
+            }
+
+            yield return null;
+            time += Time.deltaTime;
+        }
+
+        waveProjectile.transform.localScale = originalScale;
+        waveProjectile.SetActive(false);
         bossMovement.canMove = true;
     }
 
