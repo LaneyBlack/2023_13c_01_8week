@@ -1,47 +1,62 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpikeScript : MonoBehaviour
 {
-    private float lastDamageTime;
-    private float damageCooldown = 1.0f;
-    private bool playerIsAlive = true;
+    [SerializeField] private float _damageCooldown = 1.0f;
+    private float _lastDamageTime;
+    private GameObject _player;
+    private Health _playerHealth;
+    private bool _playerIsAlive = true;
+
+    private void Start()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player");
+        if (_player != null)
+        {
+            _playerHealth = _player.GetComponent<Health>();
+        }
+    }
+
+    private void Update()
+    {
+        if (_playerHealth != null && !_playerHealth.IsDead())
+        {
+            _playerIsAlive = true;
+        }
+    }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (!playerIsAlive) return;
+        if (!_playerIsAlive) return;
 
         GameObject spikeHit = collision.gameObject;
-        
-        if (!spikeHit.CompareTag("Player") || Time.time - lastDamageTime < damageCooldown)
+
+        if (!spikeHit.CompareTag("Player") || Time.time - _lastDamageTime < _damageCooldown)
         {
             return;
         }
-        
-        Health playerHealth = spikeHit.GetComponent<Health>();
-        
-        if (playerHealth == null || playerHealth.IsDead())
+
+        if (_playerHealth == null || _playerHealth.IsDead())
         {
             return;
         }
-        
-        playerHealth.TakeDamage(1);
 
-        lastDamageTime = Time.time;
-        
-        if (playerHealth.IsDead())
+        _playerHealth.TakeDamage(1);
+        _lastDamageTime = Time.time;
+
+        if (_playerHealth.IsDead())
         {
-            playerIsAlive = false; }
-
+            _playerIsAlive = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            lastDamageTime = Time.time - damageCooldown;
+            _lastDamageTime = Time.time - _damageCooldown;
         }
     }
 }
