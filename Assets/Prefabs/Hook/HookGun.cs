@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HookGun : MonoBehaviour
+public class HookGun : Equippable
 {
+    //[HideInInspector] public bool isEquipped = true;
+
     [Header("Scripts Ref:")]
     public GrapplingRope grappleRope;
 
@@ -54,6 +56,15 @@ public class HookGun : MonoBehaviour
 
     [HideInInspector] public bool canHook;
 
+    private Health playerHealth;
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        playerHealth = GetComponentInParent<Health>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void Start()
     {
         grappleRope.enabled = false;
@@ -87,6 +98,15 @@ public class HookGun : MonoBehaviour
     private void Update()
     {
         if (!m_camera) return;
+
+        if (playerHealth.IsDead() || !isEquipped)
+        {
+            spriteRenderer.enabled = false;
+            return;
+        }
+        else
+            spriteRenderer.enabled = true;
+
 
         if (Input.GetKeyDown(launchKey))
         {
