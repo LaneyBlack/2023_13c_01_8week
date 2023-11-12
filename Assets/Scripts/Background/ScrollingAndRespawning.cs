@@ -28,9 +28,7 @@ public class ScrollingAndRespawning : MonoBehaviour
         foreach (Transform itemTransform in transform.GetComponentsInChildren<Transform>())
         {
             gameObjectTransforms.Add(itemTransform);
-            // Respawn point is set to PointSetX and startY
         }
-        
     }
 
     private void Update() {
