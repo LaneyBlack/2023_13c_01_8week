@@ -26,6 +26,8 @@ public class BossDie : MonoBehaviour
             bossMovement.canMove = false;
             ToggleBossState(true);
             StartCoroutine(waitDuration());
+            GetComponentInParent<BoxCollider2D>().size += new Vector2(0, 0.12f);
+            GetComponentInParent<BoxCollider2D>().offset += new Vector2(0, 0.06f);
         }
     }
     private IEnumerator waitDuration()

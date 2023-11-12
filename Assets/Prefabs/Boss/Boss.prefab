@@ -146,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0039083064, y: -0.06967515}
+  m_Offset: {x: -0.0039083064, y: -0.09762481}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -157,7 +157,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.31733692, y: 0.35440582}
+  m_Size: {x: 0.31733692, y: 0.2985065}
   m_EdgeRadius: 0
 --- !u!50 &732855055904139570
 Rigidbody2D:
@@ -466,8 +466,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.25}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0.268}
+  m_SizeDelta: {x: 200.37518, y: 22.72982}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5105319011155836418
 Canvas:
@@ -553,6 +553,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8207267066338545053}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: jumpForce
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: movementSpeed
       value: 4.5
       objectReference: {fileID: 0}
@@ -569,6 +573,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2371778153458988193}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: jumpLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: maxFollowDistance
       value: 14
       objectReference: {fileID: 0}
@@ -584,6 +592,18 @@ PrefabInstance:
       propertyPath: _SmallBossAnimator
       value: 
       objectReference: {fileID: 8207267066338545053}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: jumpLayers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: jumpLayers.Array.data[0].m_Bits
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      propertyPath: jumpLayers.Array.data[1].m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: m_Name
       value: BossLogic

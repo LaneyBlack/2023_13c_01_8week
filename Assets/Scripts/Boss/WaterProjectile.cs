@@ -16,8 +16,11 @@ public class WaterProjectile : MonoBehaviour
             return;
         }
 
-        Health health = collider.GetComponent<Health>();
-        health.TakeDamage(damageAmount);
+        if (collider.GetComponent<Health>() != null)
+        {
+            collider.GetComponent<Health>().TakeDamage(damageAmount);
+
+        }
     }
 
     public void changePosition(float x, bool IsFlip)
