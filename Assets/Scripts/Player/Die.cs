@@ -5,47 +5,28 @@ using UnityEngine;
 public class Die : MonoBehaviour
 {
     private Health playerHealth;
-    public Animator _Animator;
-    private bool isDead = false; 
-    private bool deathAnimationStarted = false;
-    private float deathTimer = 0f;
-    private float deathAnimationDuration;
+    private Animator _Animator;
+    private bool isDead = false;
 
-    private Rigidbody2D rb;
-    private void Start()
+    public Behaviour[] components;
+
+    private void Awake()
     {
-        playerHealth = GetComponentInParent<Health>();
-        rb = GetComponentInParent<Rigidbody2D>();
+        playerHealth = GetComponent<Health>();
 
-        // _Animator = GetComponent<Animator>();
-        if (_Animator == null)
-        {
-            Debug.LogError("No Animator component found on " + gameObject.name);
-        }
+        _Animator = GetComponent<Animator>();
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
             playerHealth.KillForTesting();
         }
+
         if (!isDead && playerHealth != null && playerHealth.IsDead())
         {
             HandleDeath();
-            deathAnimationStarted = true;
-            deathTimer = 0f; 
-
-            AnimatorStateInfo stateInfo = _Animator.GetCurrentAnimatorStateInfo(0);
-            deathAnimationDuration = stateInfo.length;
-        }
-        if (isDead && deathAnimationStarted)
-        {
-            deathTimer += Time.deltaTime; 
-
-            if (deathTimer >= deathAnimationDuration)
-            {
-                //transform.parent.gameObject.SetActive(false);
-            }
         }
     }
 
@@ -53,15 +34,19 @@ public class Die : MonoBehaviour
     {
         isDead = true; 
         _Animator.SetTrigger("Die");
-    }
 
+        foreach (var component in components)
+            component.enabled = false;
+    }
 
     public void handleRespawn()
     {
-        playerHealth.TakeDamage(-3);
+        foreach (var component in components)
+            component.enabled = true;
+
+        playerHealth.RestoreHealth(playerHealth.maxHealth);
         _Animator.ResetTrigger("Die");
         _Animator.Play("Idle");
         isDead = false;
     }
-    
 }
