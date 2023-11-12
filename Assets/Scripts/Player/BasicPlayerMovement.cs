@@ -13,6 +13,12 @@ public class BasicPlayerMovement : MonoBehaviour
         Math
     }
 
+    private enum JumpType
+    {
+        Old,
+        New
+    }
+
 
     [Header("Movement Type Pick")]
     [SerializeField] private MovementType movementType = MovementType.Math;
@@ -32,9 +38,15 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private float velPower = 1;
 
 
+    [Header("Jump Type Pick")]
+    [SerializeField] private JumpType jumpType = JumpType.Old;
+
     [Header("Jump")]
     [SerializeField] private float _basicJumpForce = 10;
-    [SerializeField] private LayerMask jumpLayer;
+    [SerializeField] private float jumpHeight = 2;
+    [SerializeField] private float jumpRiseTime = .5f;
+    
+    //[SerializeField] private LayerMask jumpLayer;
     [SerializeField] private List<LayerMask> jumpLayers = new List<LayerMask>();
 
 
@@ -52,7 +64,13 @@ public class BasicPlayerMovement : MonoBehaviour
     private float _currentSpeed;
     private float _jumpForce;
     private bool _performJump;
+    private bool falling = false;
     private float groundRayLength = .4f;
+
+    private float jumpVely = 0;
+    private float regularGravity;
+    private float jumpGravity;
+    private float fallGravity;
 
 
     //[SerializeField] private bool groundedOnAnything = true;
@@ -63,6 +81,16 @@ public class BasicPlayerMovement : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        regularGravity = _rb.gravityScale;
+        jumpVely = 2 * jumpHeight;
+        jumpGravity = 2 * jumpHeight / (jumpRiseTime * jumpRiseTime);
+        fallGravity = jumpGravity * 1.5f;
+
+        jumpHeight -= spriteRenderer.size.y / 2f; //account for players center
     }
 
     private void Update()
@@ -93,10 +121,15 @@ public class BasicPlayerMovement : MonoBehaviour
         if (ropeScript.isGrappling)
             _currentSpeed *= _glideBoost;
 
+        falling = (_rb.velocity.y < -.1f);
+
+        //handleJump();
+
         handleAnimator();
 
         //DEBUG:
         //Debug.Log("space: " + scount + "\t jump: " + jcount);
+        //Debug.Log(_rb.gravityScale);
     }
 
     void handleAnimator()
@@ -104,7 +137,7 @@ public class BasicPlayerMovement : MonoBehaviour
         animator.SetBool("Run", _rb.velocity.x != 0);
 
         //set animator transitions:
-        animator.SetBool("Falling", (_rb.velocity.y < -.1f));
+        animator.SetBool("Falling", falling);
         animator.SetBool("Grounded", isGrounded());
     }
 
@@ -148,22 +181,55 @@ public class BasicPlayerMovement : MonoBehaviour
         _rb.AddForce(movement * Vector2.right);
     }
 
+    void handleJump()
+    {
+        if (_performJump)
+        {
+            //Debug.Log("jump");
+            _performJump = false;
+            ropeScript.enabled = false;
+
+            _rb.AddForce(Vector2.up * _rb.mass * (jumpHeight / (jumpRiseTime * jumpRiseTime * jumpRiseTime)), ForceMode2D.Impulse);
+
+            //DEBUG:
+            jcount++;
+        }
+
+        //if (falling)
+        //{
+        //    Debug.Log("fall");
+        //    _rb.gravityScale = regularGravity * 2;
+        //}
+
+        if (isGrounded())
+        {
+            //Debug.Log("on ground");
+            _rb.gravityScale = regularGravity;
+        }
+    }
+
     private void FixedUpdate()
     {
         //_rb.velocity = new Vector2(_xInput * _currentSpeed, _rb.velocity.y);
         if (movementType == MovementType.Physics)
             handleMovementGroundPhysics();
 
-
-        if (_performJump)
+        if(jumpType == JumpType.New)
+            handleJump();
+        else if (jumpType == JumpType.Old)
         {
-            _performJump = false;
-            ropeScript.enabled = false;
-            _rb.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+            if (_performJump)
+            {
+                _performJump = false;
+                ropeScript.enabled = false;
+                _rb.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
 
-            //DEBUG:
-            jcount++;
+                //DEBUG:
+                jcount++;
+            }
         }
+
+
     }
 
     private bool isGrounded()
