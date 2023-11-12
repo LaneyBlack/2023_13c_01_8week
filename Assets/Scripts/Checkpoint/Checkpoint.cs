@@ -5,17 +5,11 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     [SerializeField] private bool manualCollisionSet = false;
-
-    Animator animator;
-    BoxCollider2D boxCollider;
-    // Start is called before the first frame update
+     BoxCollider2D boxCollider;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
-
-
     }
 
     void Start()
@@ -23,18 +17,6 @@ public class Checkpoint : MonoBehaviour
         if (manualCollisionSet) return;
         updateCollision();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //var halfSize = boxCollider.bounds.size * 0.5f;
-        //var origin = boxCollider.bounds.center;
-        //var origin = new Vector2(boxCollider.bounds.center.x, boxCollider.bounds.center.y);
-
-        //Debug.DrawRay(origin - halfSize, Vector2.up * boxCollider.bounds.size, Color.magenta);
-        if (Input.GetKeyDown(KeyCode.F1))
-            animator.SetTrigger("activated");
     }
 
     void updateCollision()

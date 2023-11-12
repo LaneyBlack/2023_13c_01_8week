@@ -52,7 +52,7 @@ public class BasicPlayerMovement : MonoBehaviour
     private float _currentSpeed;
     private float _jumpForce;
     private bool _performJump;
-    private float groundRayLength = .1f;
+    private float groundRayLength = .4f;
 
 
     //[SerializeField] private bool groundedOnAnything = true;
@@ -68,7 +68,7 @@ public class BasicPlayerMovement : MonoBehaviour
     private void Update()
     {
         _xInput = Input.GetAxis("Horizontal");
-        Flip(_rb.velocity.x);
+        Flip(_xInput);
 
         var grounded = isGrounded();
         _jumpForce = _basicJumpForce;
@@ -104,7 +104,7 @@ public class BasicPlayerMovement : MonoBehaviour
         animator.SetBool("Run", _rb.velocity.x != 0);
 
         //set animator transitions:
-        animator.SetBool("Falling", (_rb.velocity.y < 0));
+        animator.SetBool("Falling", (_rb.velocity.y < -.1f));
         animator.SetBool("Grounded", isGrounded());
     }
 
