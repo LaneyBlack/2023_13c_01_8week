@@ -181,7 +181,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 5.572881
+  m_Distance: 16.965096
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!212 &1640478928580041858
@@ -362,10 +362,10 @@ MonoBehaviour:
   _accelerationPhys: 4
   _deccelarationPhys: 1.5
   velPower: 2
+  jumpType: 0
   _basicJumpForce: 40
-  jumpLayer:
-    serializedVersion: 2
-    m_Bits: 256
+  jumpHeight: 2
+  jumpRiseTime: 0.5
   jumpLayers:
   - serializedVersion: 2
     m_Bits: 64
