@@ -110,7 +110,7 @@ public class BossAttack : MonoBehaviour
     }
     void SmallAttackColliders()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position,1f,playerLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position,1.4f,playerLayers);
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log("We hit and its currenntHealth ="+enemy.GetComponent<Health>().CurrentHealth);
@@ -123,6 +123,6 @@ public class BossAttack : MonoBehaviour
         {
             return;
         }
-        Gizmos.DrawWireSphere(attackPoint.position,1f);
+        Gizmos.DrawWireSphere(attackPoint.position,1.4f);
     }
 }
