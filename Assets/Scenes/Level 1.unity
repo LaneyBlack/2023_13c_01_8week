@@ -13072,11 +13072,6 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
---- !u!4 &595335815 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-  m_PrefabInstance: {fileID: 878486472191694559}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &597378273
 GameObject:
   m_ObjectHideFlags: 0
@@ -31937,7 +31932,7 @@ Tilemap:
       - {fileID: 21300000, guid: c0d9fa26c249f5c428fea1faed6701a0, type: 3}
       - {fileID: 21300000, guid: 1de3909d402ef0e4aa1c1eaee984c5f1, type: 3}
       - {fileID: 21300000, guid: b396d74f6961665418e742c0ec96cdf5, type: 3}
-      m_AnimationSpeed: 6
+      m_AnimationSpeed: 6.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -17, y: -2, z: 0}
@@ -37276,6 +37271,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5285172599302495997, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
   m_PrefabInstance: {fileID: 1591689032}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2015218850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2015218851}
+  m_Layer: 0
+  m_Name: Clouds orientir
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2015218851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015218850}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -19.97, y: 0.02, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 552977278663135303}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2051720583 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5285172599302495997, guid: 09b0a6ee18be9e14ea20a02769c555cb, type: 3}
@@ -37574,69 +37600,12 @@ Transform:
   - {fileID: 1717209319}
   - {fileID: 1971121539}
   - {fileID: 898024393}
-  - {fileID: 595335815}
+  - {fileID: 2015218851}
   - {fileID: 1460827618}
   - {fileID: 907311359}
   - {fileID: 715497305}
   m_Father: {fileID: 248048416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &878486472191694559
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 552977278663135303}
-    m_Modifications:
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8122006219972761464, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8606568826191237765, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
-      propertyPath: m_Name
-      value: SmallClouds 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3924b4ed028084040a8aa21cfec196ad, type: 3}
 --- !u!1001 &2734872361781832384
 PrefabInstance:
   m_ObjectHideFlags: 0
