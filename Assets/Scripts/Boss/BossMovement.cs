@@ -5,24 +5,26 @@ using UnityEngine;
 
 public class BossMovement : MonoBehaviour
 {
-    private GameObject player;
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float maxFollowDistance;
-    [SerializeField] private float minFollowDistance;
-
-
-    [SerializeField] public GameObject SmallBossVisuals;
+    [Header("Objects to attach")] [SerializeField]
+    public GameObject SmallBossVisuals;
 
     [SerializeField] private Animator _SmallBossAnimator;
     [SerializeField] private SpriteRenderer _SmallBossSprite;
     [SerializeField] private Animator _GrownBossAnimator;
     [SerializeField] private SpriteRenderer _GrownBossSprite;
 
+    [Header("Values for preferences")] [SerializeField]
+    private float movementSpeed;
+
+    [SerializeField] private float maxFollowDistance;
+    [SerializeField] private float minFollowDistance;
+
+
+    private GameObject player;
+
     private Rigidbody2D _rigidbody;
 
     private BoxCollider2D boxCollider;
-
-    // private bool isGrounded = true; 
 
 
     private static readonly int IsMoving = Animator.StringToHash("IsMoving");
@@ -102,14 +104,14 @@ public class BossMovement : MonoBehaviour
         var direction = player.transform.position - transform.parent.position;
         float directionSign = Mathf.Sign(direction.x);
 
-        float rayStartOffset = 0.1f; 
+        float rayStartOffset = 0.1f;
         Vector2 origin = new Vector2(
             transform.position.x + (boxCollider.bounds.extents.x + rayStartOffset) * directionSign,
-            boxCollider.bounds.min.y 
+            boxCollider.bounds.min.y
         );
 
-        Vector2 diagonalDirection = new Vector2(directionSign, 2f); 
-        float detectionDistance = 2f; 
+        Vector2 diagonalDirection = new Vector2(directionSign, 2f);
+        float detectionDistance = 2f;
         int bossLayer = gameObject.layer;
         Physics2D.IgnoreLayerCollision(bossLayer, bossLayer, true);
 
@@ -127,8 +129,7 @@ public class BossMovement : MonoBehaviour
     }
 
 
-
-    private bool isGrounded()
+    public bool isGrounded()
     {
         var collided = Physics2D.BoxCastAll(boxCollider.bounds.center, boxCollider.bounds.size, 0f, Vector2.down,
             groundRayLength); //<- change to raycast??
