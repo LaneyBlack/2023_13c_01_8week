@@ -204,6 +204,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 128
+  hitForce: 15
   damage: 1
   attackCooldown: 2
 --- !u!114 &-1200541966145720351
