@@ -2,31 +2,42 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ScrollingAndRespawning : MonoBehaviour
 {
     [Range(-2,2)]
     public float scrollSpeed = 1.0f;
     [SerializeField]
-    public float repositionX = -14.0f;
-
-    [SerializeField] private List<GameObject> gameObjects;
-    private Vector3 _startPos;
+    private float _repositionX;
+    [SerializeField]
+    private float _respawnX;
+    [FormerlySerializedAs("gameObjects")] [SerializeField] private List<Transform> gameObjectTransforms;
 
     private void Awake()
     {
-        _startPos = transform.position;
+        foreach (Transform itemTransform in transform.GetComponentsInChildren<Transform>())
+        {
+            gameObjectTransforms.Add(itemTransform);
+            // Respawn point is set to PointSetX and startY
+        }
+        
     }
 
     private void Update() {
-        transform.Translate(Vector3.left * (scrollSpeed * Time.deltaTime));
+        
         // Check if the cloud is out of view and move it back
-        if (transform.position.x < repositionX) {
-            RepositionCloud();
+        foreach (var itemTransform in gameObjectTransforms)
+        {
+            itemTransform.Translate(Vector3.left * (scrollSpeed * Time.deltaTime));
+            if (itemTransform.position.x < _repositionX) {
+                RepositionCloud(itemTransform);
+            }
         }
+        
     }
 
-    private void RepositionCloud() {
-        transform.position = _startPos;
+    private void RepositionCloud(Transform itemTransform) {
+        itemTransform.position = new Vector3(_respawnX, itemTransform.position.y, itemTransform.position.z); // same y, z and different x
     }
 }
