@@ -5,7 +5,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     [SerializeField] private bool manualCollisionSet = false;
-     BoxCollider2D boxCollider;
+    private BoxCollider2D boxCollider;
 
     private void Awake()
     {
@@ -16,27 +16,30 @@ public class Checkpoint : MonoBehaviour
     {
         if (manualCollisionSet) return;
         updateCollision();
-
     }
 
     void updateCollision()
     {
-        //var halfSize = boxCollider.bounds.size * 0.5f;
-        var origin = new Vector3(boxCollider.bounds.center.x, boxCollider.bounds.center.y);
-        //var origin = boxCollider.bounds.center;
+        var leftCorner = new Vector3(boxCollider.bounds.center.x - boxCollider.bounds.size.x / 2f, boxCollider.bounds.center.y);
+        var rightCorner = new Vector3(boxCollider.bounds.center.x + boxCollider.bounds.size.x / 2f, boxCollider.bounds.center.y);
 
         float maxTraceLength = 20f;
-        var hit = Physics2D.Raycast(origin, Vector3.up, maxTraceLength, LayerMask.GetMask("Ground"));
+        var left = Physics2D.Raycast(leftCorner, Vector3.up, maxTraceLength, LayerMask.GetMask("Ground"));
+        var right = Physics2D.Raycast(rightCorner, Vector3.up, maxTraceLength, LayerMask.GetMask("Ground"));
 
-        float scaleY = boxCollider.transform.localScale.y;
-        if (hit.collider != null)
+        if (left.collider != null)
         {
+            float fullSize = left.distance;
 
-            //Debug.Log("got a hit. Distance = " + hit.distance);
-            //Debug.DrawRay(origin, Vector2.up * hit.distance, Color.magenta, 120);
+            Debug.DrawRay(leftCorner, Vector2.up * left.distance, Color.magenta, 120);
 
-            var fullSize = hit.distance + boxCollider.bounds.size.y / 2;
-            //Debug.Log("fullSize = " + fullSize);
+            if (right.collider != null)
+            {
+                Debug.DrawRay(rightCorner, Vector2.up * right.distance, Color.cyan, 120);
+                fullSize = Mathf.Min(fullSize, right.distance);
+            }
+
+            fullSize += boxCollider.bounds.size.y / 2;
             updateBoxCollider(fullSize);
         }
         else
