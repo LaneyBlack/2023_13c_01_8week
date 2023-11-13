@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BossSmallAttack : MonoBehaviour
 {
@@ -16,10 +17,10 @@ public class BossSmallAttack : MonoBehaviour
 
     public LayerMask playerLayers;
 
-    [Header("Values for preferences")] [SerializeField]
-    private float attackSmallRange = 4f;
+    [FormerlySerializedAs("attackSmallRange")] [Header("Values for preferences")] [SerializeField]
+    private float attackRange = 4f;
 
-    [SerializeField] private float attackSmallCooldown = 1.5f; // Cooldown between attacks
+    [SerializeField] private float attackCooldown = 1.5f; // Cooldown between attacks
 
     private GameObject player;
     private Health bossHealth;
@@ -50,12 +51,12 @@ public class BossSmallAttack : MonoBehaviour
             }
             else
             {
-                if (distanceToPlayer <= attackSmallRange / 4 && _cooldownTimer >= attackSmallCooldown)
+                if (distanceToPlayer <= attackRange / 4 && _cooldownTimer >= attackCooldown)
                 {
                     Small_Attack();
                     _cooldownTimer = 0f;
                 }
-                else if (distanceToPlayer <= attackSmallRange && _cooldownTimer >= attackSmallCooldown)
+                else if (distanceToPlayer <= attackRange && _cooldownTimer >= attackCooldown)
                 {
                     Small_Attack_2();
                     _cooldownTimer = 0f;
@@ -63,7 +64,6 @@ public class BossSmallAttack : MonoBehaviour
             }
         }
     }
-
 
 
     // ReSharper disable Unity.PerformanceAnalysis
