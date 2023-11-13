@@ -43,7 +43,7 @@ public class BossAttack : MonoBehaviour
         timer += Time.deltaTime;
 
         float distanceToPlayer = Vector2.Distance(transform.parent.position, player.transform.position);
-        if (bossHealth.CurrentHealth < (Math.Round((float)(bossHealth.maxHealth / 3) + 1)) && timer >= 10 &&
+        if (bossHealth.CurrentHealth < (Math.Round((float)(bossHealth.maxHealth / 2) + 1)) && timer >= 5 &&
             bossMovement.isGrounded())
         {
             StartCoroutine(DelayedAttack());
@@ -79,7 +79,7 @@ public class BossAttack : MonoBehaviour
 // Coroutine for delayed attack
     IEnumerator DelayedAttack()
     {
-        yield return new WaitForSeconds(2f); // Wait for 2 seconds
+        yield return new WaitForSeconds(1f); // Wait for 1 seconds
         Small_Attack_3();
     }
 
@@ -105,7 +105,7 @@ public class BossAttack : MonoBehaviour
     void Small_Attack_3()
     {
         bossMovement.canMove = false;
-        _SmallBossAnimator.SetTrigger("AttackSmall2");
+        _SmallBossAnimator.SetTrigger("AttackSmall3");
         StartCoroutine(AppearWave());
     }
 
@@ -204,7 +204,7 @@ public class BossAttack : MonoBehaviour
             waveProjectile.transform.localPosition = new Vector3(-0.35f, 0.071f, 0);
         }
 
-        while (time < 1f)
+        while (time < 2f)
         {
             if (isFlip)
             {

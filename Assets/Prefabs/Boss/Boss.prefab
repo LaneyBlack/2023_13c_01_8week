@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2b6e78c46b5bc4ab8fda7ba0053498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 10
 --- !u!1 &2531706164282746617
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3798db75b1b5b947bace5876e1441bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthBarSliderCanvas: {fileID: 7797700873314767882}
   _healthBarSlider: {fileID: 5576695892218034556}
 --- !u!114 &6793286761134703927
 MonoBehaviour:
