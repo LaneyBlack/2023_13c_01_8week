@@ -720,6 +720,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6793286761134703927}
+    - targetCorrespondingSourceObject: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4545034386078651273}
+    - targetCorrespondingSourceObject: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 654938303245079958}
   m_SourcePrefab: {fileID: 100100000, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
 --- !u!114 &898442975955321733 stripped
 MonoBehaviour:
@@ -766,6 +772,50 @@ MonoBehaviour:
   GrownBossVisuals: {fileID: 4431763902651613800}
   SmallBossVisuals: {fileID: 8635363527088427523}
   bossMovement: {fileID: 898442975955321733}
+--- !u!114 &4545034386078651273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127545926719647378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ec26ff99a25ff4b8ea9e2c7000db7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SmallBossVisuals: {fileID: 8635363527088427523}
+  _SmallBossAnimator: {fileID: 8207267066338545053}
+  bossMovement: {fileID: 898442975955321733}
+  attackPoint: {fileID: 8272595195437372555}
+  bubbleProjectile: {fileID: 6208464182826818195}
+  waveProjectile: {fileID: 8254867110741422133}
+  playerLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  attackSmallRange: 6
+  attackSmallCooldown: 1.5
+--- !u!114 &654938303245079958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127545926719647378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74405d95e3d5a4544ba113ceea6d8bee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GrownBossVisuals: {fileID: 4431763902651613800}
+  _GrownBossAnimator: {fileID: 4300974204952878582}
+  bossMovement: {fileID: 898442975955321733}
+  waterProjectile: {fileID: 8805986497790825657}
+  playerLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  attackGrownRange: 4
+  attackGrownCooldown: 2
 --- !u!4 &4969682830183825727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4657229272657841954, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}

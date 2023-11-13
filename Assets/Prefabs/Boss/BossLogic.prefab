@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4657229272657841954}
   - component: {fileID: 586022437370875288}
-  - component: {fileID: 4313472870002227461}
   m_Layer: 3
   m_Name: BossLogic
   m_TagString: Player
@@ -45,37 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f12f70c36a8a04184dd4a365ec45c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0
-  maxFollowDistance: 0
-  minFollowDistance: 0
   SmallBossVisuals: {fileID: 0}
   _SmallBossAnimator: {fileID: 0}
   _SmallBossSprite: {fileID: 0}
   _GrownBossAnimator: {fileID: 0}
   _GrownBossSprite: {fileID: 0}
+  movementSpeed: 0
+  maxFollowDistance: 0
+  minFollowDistance: 0
   canMove: 1
---- !u!114 &4313472870002227461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861252298317586575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ec26ff99a25ff4b8ea9e2c7000db7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SmallBossVisuals: {fileID: 0}
-  _SmallBossAnimator: {fileID: 0}
-  _GrownBossAnimator: {fileID: 0}
-  waterProjectile: {fileID: 3317070949601734321, guid: cd2fc674d97f9034492cb3579de0716f, type: 3}
-  attackGrownRange: 3
-  attackSmallRange: 2
-  attackGrownCooldown: 2
-  attackSmallCooldown: 1.5
-  bossMovement: {fileID: 0}
-  attackPoint: {fileID: 0}
-  playerLayers:
+  jumpForce: 10
+  jumpLayer:
     serializedVersion: 2
     m_Bits: 0
+  jumpLayers: []
