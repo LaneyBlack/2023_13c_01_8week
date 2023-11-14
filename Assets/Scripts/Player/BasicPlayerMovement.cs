@@ -39,7 +39,7 @@ public class BasicPlayerMovement : MonoBehaviour
 
 
     [Header("Jump Type Pick")]
-    [SerializeField] private JumpType jumpType = JumpType.Old;
+    [SerializeField] private JumpType jumpType = JumpType.New;
 
     [Header("Jump")]
     [SerializeField] private float _basicJumpForce = 10;
@@ -86,11 +86,14 @@ public class BasicPlayerMovement : MonoBehaviour
     private void Start()
     {
         regularGravity = _rb.gravityScale;
-        jumpVely = 2 * jumpHeight;
-        jumpGravity = 2 * jumpHeight / (jumpRiseTime * jumpRiseTime);
-        fallGravity = jumpGravity * 1.5f;
+        jumpVely = 2 * jumpHeight / jumpRiseTime;
+        jumpGravity = -2 * jumpHeight / (jumpRiseTime * jumpRiseTime);
+        fallGravity = jumpGravity * 3f;
 
-        jumpHeight -= spriteRenderer.size.y / 2f; //account for players center
+        //jumpHeight -= spriteRenderer.size.y / 2f; //account for players center
+
+        Debug.Log(jumpGravity / Physics.gravity.y);
+        Debug.Log(fallGravity / Physics.gravity.y);
     }
 
     private void Update()
@@ -183,23 +186,28 @@ public class BasicPlayerMovement : MonoBehaviour
 
     void handleJump()
     {
+        float g = Physics.gravity.y;
         if (_performJump)
         {
             //Debug.Log("jump");
+            //Debug.Log(_rb.gravityScale);
             _performJump = false;
             ropeScript.enabled = false;
 
-            _rb.AddForce(Vector2.up * _rb.mass * (jumpHeight / (jumpRiseTime * jumpRiseTime * jumpRiseTime)), ForceMode2D.Impulse);
+            _rb.gravityScale = jumpGravity / g;
+            _rb.velocity = new Vector2(_rb.velocity.x, jumpVely);
+
+            //_rb.AddForce(Vector2.up * _rb.mass * (jumpHeight / (jumpRiseTime * jumpRiseTime * jumpRiseTime)), ForceMode2D.Impulse);
 
             //DEBUG:
             jcount++;
         }
 
-        //if (falling)
-        //{
-        //    Debug.Log("fall");
-        //    _rb.gravityScale = regularGravity * 2;
-        //}
+        if (falling)
+        {
+            //Debug.Log("fall");
+            _rb.gravityScale = fallGravity / g;
+        }
 
         if (isGrounded())
         {
