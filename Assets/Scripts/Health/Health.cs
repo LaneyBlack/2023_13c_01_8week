@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     [SerializeField] public int maxHealth;
     [HideInInspector] public int CurrentHealth { get; private set; }
     private Animator _animator;
-    private static readonly int Die = Animator.StringToHash("die 0");
+    private static readonly int Die = Animator.StringToHash("die");
     private static readonly int TakeHit = Animator.StringToHash("takeHit");
 
     private void Awake()
