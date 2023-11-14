@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.454, y: -0.452, z: 0}
-  m_LocalScale: {x: 4.115745, y: 4.1157446, z: 4.1157446}
+  m_LocalScale: {x: 4.115745, y: 4.1157446, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -196,8 +196,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 4.5
   player: {fileID: 0}
-  maxFollowDistance: 5
+  maxFollowDistance: 7
   minFollowDistance: 1
+  _groundLayers:
+  - serializedVersion: 2
+    m_Bits: 256
+  - serializedVersion: 2
+    m_Bits: 64
+  - serializedVersion: 2
+    m_Bits: 2048
   boxCollider: {fileID: 4204869501052483391}
   hitFovRange: 1.4
   hitFovDistance: -0.05
