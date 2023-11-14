@@ -2,15 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MeleeEnemy : MonoBehaviour
 {
-    [Header("Movement and Player interaction")] [SerializeField]
-    private float movementSpeed;
-
+    [Header("Movement and Player interaction")] 
+    [SerializeField] private float movementSpeed;
     [SerializeField] public GameObject player;
     [SerializeField] private float maxFollowDistance;
     [SerializeField] private float minFollowDistance;
+    [FormerlySerializedAs("followLayers")] [SerializeField] private List<LayerMask> _groundLayers = new List<LayerMask>();
+    private const float GroundRaycastLength = 0.8f;
     private float _distance;
 
     [Header("HitFov")] [SerializeField] private BoxCollider2D boxCollider;
@@ -61,12 +63,17 @@ public class MeleeEnemy : MonoBehaviour
             _animator.SetTrigger(MeleeAttack); // attack animation
         }
 
+        var canFollow = !_animator.GetBool(IsFalling) &&
+                        (_distance < maxFollowDistance && _distance > minFollowDistance);
         // Move towards player if distance is not too small and not to big
-        var moving = (_distance < maxFollowDistance && _distance > minFollowDistance) && !_animator.GetBool(IsFalling);
-        _animator.SetBool(IsMoving, moving); // moving animation value
-        if (moving)
+        var isMoving = canFollow && CanWalkForward();
+        _animator.SetBool(IsMoving, isMoving); // moving animation value
+        if (isMoving)
         {
-            _sprite.flipX = (transform.position.x - player.transform.position.x) < 0; // face forward
+            FlipSpriteIntoPlayersDirection();
+        } else if (canFollow)
+        {
+            FlipSpriteIntoPlayersDirection();
         }
 
         // Falling animation value
@@ -104,6 +111,26 @@ public class MeleeEnemy : MonoBehaviour
         return false;
     }
 
+    private void FlipSpriteIntoPlayersDirection()
+    {
+        _sprite.flipX = (transform.position.x - player.transform.position.x) < 0; // face forward
+    }
+    
+    private bool CanWalkForward()
+    {
+        var bounds = boxCollider.bounds;
+        var raycast = Physics2D.Raycast(new Vector2(bounds.center.x + (_sprite.flipX ? 1 : -1) * bounds.extents.x, bounds.center.y - bounds.extents.y),
+            Vector2.down + (_sprite.flipX?Vector2.right:Vector2.left),
+            GroundRaycastLength);
+        if (raycast.collider == null) return false;
+        Debug.Log(raycast.collider.gameObject.layer);
+        return _groundLayers.Contains(
+            LayerMask.GetMask(
+                LayerMask.LayerToName(raycast.collider.gameObject.layer)
+            ));
+        
+    }
+
     private void DamagePlayer()
     {
         if (HasPlayerInSight())
@@ -129,4 +156,12 @@ public class MeleeEnemy : MonoBehaviour
     //         new Vector3(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y,
     //             boxCollider.bounds.size.z));
     // }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        var bounds = boxCollider.bounds;
+        Gizmos.DrawRay(new Vector2(bounds.center.x + (_sprite.flipX ? 1 : -1) * bounds.extents.x, bounds.center.y - bounds.extents.y),
+            Vector2.down + (_sprite.flipX?Vector2.right:Vector2.left));
+    }
 }
