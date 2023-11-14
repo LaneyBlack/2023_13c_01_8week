@@ -123,7 +123,7 @@ public class MeleeEnemy : MonoBehaviour
             Vector2.down + (_sprite.flipX?Vector2.right:Vector2.left),
             GroundRaycastLength);
         if (raycast.collider == null) return false;
-        Debug.Log(raycast.collider.gameObject.layer);
+        // Debug.Log(raycast.collider.gameObject.layer);
         return _groundLayers.Contains(
             LayerMask.GetMask(
                 LayerMask.LayerToName(raycast.collider.gameObject.layer)
@@ -145,7 +145,7 @@ public class MeleeEnemy : MonoBehaviour
         _animator.SetTrigger(TakeHit);
     }
 
-    // // For Debugging purposes only ---
+    // // For Debugging purposes only --- HitFov
     // private void OnDrawGizmos()
     // {
     //     Gizmos.color = Color.red;
@@ -156,12 +156,13 @@ public class MeleeEnemy : MonoBehaviour
     //         new Vector3(boxCollider.bounds.size.x * hitFovRange, boxCollider.bounds.size.y,
     //             boxCollider.bounds.size.z));
     // }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        var bounds = boxCollider.bounds;
-        Gizmos.DrawRay(new Vector2(bounds.center.x + (_sprite.flipX ? 1 : -1) * bounds.extents.x, bounds.center.y - bounds.extents.y),
-            Vector2.down + (_sprite.flipX?Vector2.right:Vector2.left));
-    }
+    
+    // For Debugging purposes only --- RayCast
+    // private void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.green;
+    //     var bounds = boxCollider.bounds;
+    //     Gizmos.DrawRay(new Vector2(bounds.center.x + (_sprite.flipX ? 1 : -1) * bounds.extents.x, bounds.center.y - bounds.extents.y),
+    //         Vector2.down + (_sprite.flipX?Vector2.right:Vector2.left));
+    // }
 }
