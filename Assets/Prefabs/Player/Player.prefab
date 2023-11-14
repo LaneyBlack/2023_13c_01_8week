@@ -181,7 +181,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 16.965096
+  m_Distance: 7.6242833
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!212 &1640478928580041858
@@ -316,7 +316,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.004933171, y: 0.026127875}
+  m_Offset: {x: -0.004933208, y: 0.02026061}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -327,7 +327,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.22047766, y: 0.27033806}
+  m_Size: {x: 0.19440097, y: 0.2586035}
   m_EdgeRadius: 0
 --- !u!114 &5600040512106179195
 MonoBehaviour:
@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3039aff9b72486243a6fc0208c9ac48e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keyCode: 112
 --- !u!114 &4117869630361536091
 MonoBehaviour:
   m_ObjectHideFlags: 0
