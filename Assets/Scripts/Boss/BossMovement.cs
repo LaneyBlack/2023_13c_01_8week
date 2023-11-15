@@ -19,26 +19,20 @@ public class BossMovement : MonoBehaviour
     [SerializeField] private float maxFollowDistance;
     [SerializeField] private float minFollowDistance;
 
-
-    private GameObject player;
-
-    private Rigidbody2D _rigidbody;
-
-    private BoxCollider2D boxCollider;
-
-
-    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-    public bool canMove = true;
-
     [Header("Jump")] [SerializeField] private float jumpForce = 10f;
     [SerializeField] private LayerMask jumpLayer;
     [SerializeField] private List<LayerMask> jumpLayers = new List<LayerMask>();
+    
+    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+    public bool canMove = true;
+    private GameObject player;
+    private Rigidbody2D _rigidbody;
+    private BoxCollider2D boxCollider;
     private float groundRayLength = .1f;
 
     private void Awake()
     {
         _rigidbody = GetComponentInParent<Rigidbody2D>();
-
         boxCollider = GetComponentInParent<BoxCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -125,7 +119,8 @@ public class BossMovement : MonoBehaviour
             {
                 return hit.point.y > boxCollider.bounds.min.y;
             }
-            if (!hit.collider.CompareTag("Player")&&!hit.collider.CompareTag("bossParticle"))
+
+            if (!hit.collider.CompareTag("Player") && !hit.collider.CompareTag("bossParticle"))
             {
                 return hit.point.y > boxCollider.bounds.min.y;
             }

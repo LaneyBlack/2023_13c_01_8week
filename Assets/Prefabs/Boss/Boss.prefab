@@ -149,7 +149,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0039083064, y: -0.09762481}
+  m_Offset: {x: -0.0039083064, y: -0.09384237}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -160,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.31733692, y: 0.2985065}
+  m_Size: {x: 0.31733692, y: 0.2909416}
   m_EdgeRadius: 0
 --- !u!50 &732855055904139570
 Rigidbody2D:
@@ -469,7 +469,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.268}
+  m_AnchoredPosition: {x: 0, y: 0.15}
   m_SizeDelta: {x: 200.37518, y: 22.72982}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5105319011155836418
@@ -762,6 +762,7 @@ MonoBehaviour:
   _healthBarSliderCanvas: {fileID: 7797700873314767882}
   _healthBarSlider: {fileID: 5576695892218034556}
   BossVisuals: {fileID: 3690660344069011281}
+  DeathVfxPrefab: {fileID: 6877266486112406340, guid: 75a8ecd665ca7904483e6e7d8f894021, type: 3}
 --- !u!114 &6793286761134703927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +778,7 @@ MonoBehaviour:
   GrownBossVisuals: {fileID: 4431763902651613800}
   SmallBossVisuals: {fileID: 8635363527088427523}
   bossMovement: {fileID: 898442975955321733}
+  canvasHealth: {fileID: 5105319011155836418}
 --- !u!114 &4545034386078651273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,7 +854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 504850126289563906, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0.0549
       objectReference: {fileID: 0}
     - target: {fileID: 504850126289563906, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -898,6 +900,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6807250430798245209, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
+      propertyPath: userOfAttack
+      value: 
+      objectReference: {fileID: 4204869501052483391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
