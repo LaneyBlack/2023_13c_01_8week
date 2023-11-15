@@ -10,7 +10,7 @@ public class PlayerAttackSword : Equippable
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackRange = 0.5f;
     [SerializeField] private int damageValue = 1;
-    public LayerMask enemyLayers;
+    [SerializeField] private LayerMask enemyLayers;
 
     private void Awake()
     {
