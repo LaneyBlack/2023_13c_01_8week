@@ -10,7 +10,8 @@ public class BasicPlayerMovement : MonoBehaviour
     private enum MovementType
     {
         Physics,
-        Math
+        Math,
+        Old
     }
 
     private enum JumpType
@@ -45,8 +46,8 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private float _basicJumpForce = 10;
     [SerializeField] private float jumpHeight = 2;
     [SerializeField] private float jumpRiseTime = .5f;
+    [SerializeField] private float downGravityScale = 3f;
     
-    //[SerializeField] private LayerMask jumpLayer;
     [SerializeField] private List<LayerMask> jumpLayers = new List<LayerMask>();
 
 
@@ -71,7 +72,7 @@ public class BasicPlayerMovement : MonoBehaviour
     
     private bool falling = false;
 
-    private float groundRayLength = .4f;
+    private float groundRayLength = .2f;
 
     private float jumpVely = 0;
     private float regularGravity;
@@ -79,7 +80,6 @@ public class BasicPlayerMovement : MonoBehaviour
     private float fallGravity;
 
 
-    //[SerializeField] private bool groundedOnAnything = true;
 
     private void Awake()
     {
@@ -91,21 +91,17 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        determineJumpParamters();
         regularGravity = _rb.gravityScale;
-
-        //jumpHeight -= spriteRenderer.size.y / 2f; //account for players center
-
-        //Debug.Log(jumpGravity / Physics.gravity.y);
-        //Debug.Log(fallGravity / Physics.gravity.y);
+        _rb.velocity = Vector3.zero;
+        determineJumpParamters();
     }
 
     void determineJumpParamters()
     {
-        jumpHeight -= spriteRenderer.size.y / 2f; //account for players center
         jumpVely = 2 * jumpHeight / jumpRiseTime;
         jumpGravity = -2 * jumpHeight / (jumpRiseTime * jumpRiseTime);
-        fallGravity = jumpGravity * 2f;
+        fallGravity = jumpGravity * downGravityScale;
+        //fallGravity = regularGravity * downGravityScale * Physics.gravity.y;
     }
 
     private void Update()
@@ -138,7 +134,7 @@ public class BasicPlayerMovement : MonoBehaviour
         if (ropeScript.isGrappling)
             _currentSpeed *= _glideBoost;
 
-        falling = (_rb.velocity.y < -.1f);
+        falling = (_rb.velocity.y < -0.15f);
 
         if (jumpType == JumpType.New)
             handleJump();
@@ -204,9 +200,6 @@ public class BasicPlayerMovement : MonoBehaviour
         float g = Physics.gravity.y;
         if (_performJump)
         {
-            //Debug.Log("jump");
-            //Debug.Log(_rb.gravityScale);
-
             _performJump = false;
             ropeScript.enabled = false;
             _inJump = true;
@@ -214,20 +207,16 @@ public class BasicPlayerMovement : MonoBehaviour
             _rb.gravityScale = jumpGravity / g;
             _rb.velocity = new Vector2(_rb.velocity.x, jumpVely);
 
-            //_rb.AddForce(Vector2.up * _rb.mass * (jumpHeight / (jumpRiseTime * jumpRiseTime * jumpRiseTime)), ForceMode2D.Impulse);
-
             //DEBUG:
             jcount++;
         }
         else if (falling && _inJump)
         {
-            //Debug.Log("fall");
             wasFalling = true;
             _rb.gravityScale = fallGravity / g;
         }
         else if (_inJump && isGrounded() && wasFalling)
         {
-            //Debug.Log("on ground");
             _rb.gravityScale = regularGravity;
             _inJump = false;
             wasFalling = false;
@@ -237,7 +226,8 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //_rb.velocity = new Vector2(_xInput * _currentSpeed, _rb.velocity.y);
+        if(movementType == MovementType.Old)
+            _rb.velocity = new Vector2(_xInput * _currentSpeed, _rb.velocity.y);
         if (movementType == MovementType.Physics)
             handleMovementGroundPhysics();
 
@@ -253,8 +243,6 @@ public class BasicPlayerMovement : MonoBehaviour
                 jcount++;
             }
         }
-
-
     }
 
     private bool isGrounded()
