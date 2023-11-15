@@ -60,11 +60,17 @@ public class BasicPlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+
     private float _xInput;
     private float _currentSpeed;
+
     private float _jumpForce;
-    private bool _performJump;
+    private bool _performJump = false;
+    private bool _inJump = false;
+    private bool wasFalling = false;
+    
     private bool falling = false;
+
     private float groundRayLength = .4f;
 
     private float jumpVely = 0;
@@ -85,10 +91,8 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        determineJumpParamters();
         regularGravity = _rb.gravityScale;
-        jumpVely = 2 * jumpHeight / jumpRiseTime;
-        jumpGravity = -2 * jumpHeight / (jumpRiseTime * jumpRiseTime);
-        fallGravity = jumpGravity * 3f;
 
         //jumpHeight -= spriteRenderer.size.y / 2f; //account for players center
 
@@ -96,8 +100,18 @@ public class BasicPlayerMovement : MonoBehaviour
         //Debug.Log(fallGravity / Physics.gravity.y);
     }
 
+    void determineJumpParamters()
+    {
+        jumpHeight -= spriteRenderer.size.y / 2f; //account for players center
+        jumpVely = 2 * jumpHeight / jumpRiseTime;
+        jumpGravity = -2 * jumpHeight / (jumpRiseTime * jumpRiseTime);
+        fallGravity = jumpGravity * 2f;
+    }
+
     private void Update()
     {
+        //determineJumpParamters();
+
         _xInput = Input.GetAxis("Horizontal");
         Flip(_xInput);
 
@@ -126,7 +140,8 @@ public class BasicPlayerMovement : MonoBehaviour
 
         falling = (_rb.velocity.y < -.1f);
 
-        //handleJump();
+        if (jumpType == JumpType.New)
+            handleJump();
 
         handleAnimator();
 
@@ -191,8 +206,10 @@ public class BasicPlayerMovement : MonoBehaviour
         {
             //Debug.Log("jump");
             //Debug.Log(_rb.gravityScale);
+
             _performJump = false;
             ropeScript.enabled = false;
+            _inJump = true;
 
             _rb.gravityScale = jumpGravity / g;
             _rb.velocity = new Vector2(_rb.velocity.x, jumpVely);
@@ -202,17 +219,19 @@ public class BasicPlayerMovement : MonoBehaviour
             //DEBUG:
             jcount++;
         }
-
-        if (falling)
+        else if (falling && _inJump)
         {
             //Debug.Log("fall");
+            wasFalling = true;
             _rb.gravityScale = fallGravity / g;
         }
-
-        if (isGrounded())
+        else if (_inJump && isGrounded() && wasFalling)
         {
             //Debug.Log("on ground");
             _rb.gravityScale = regularGravity;
+            _inJump = false;
+            wasFalling = false;
+
         }
     }
 
@@ -222,9 +241,7 @@ public class BasicPlayerMovement : MonoBehaviour
         if (movementType == MovementType.Physics)
             handleMovementGroundPhysics();
 
-        if(jumpType == JumpType.New)
-            handleJump();
-        else if (jumpType == JumpType.Old)
+        if (jumpType == JumpType.Old)
         {
             if (_performJump)
             {
