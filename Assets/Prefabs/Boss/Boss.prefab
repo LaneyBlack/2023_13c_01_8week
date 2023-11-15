@@ -727,9 +727,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 654938303245079958}
-    - targetCorrespondingSourceObject: {fileID: 861252298317586575, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7405714257326832581}
   m_SourcePrefab: {fileID: 100100000, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
 --- !u!114 &898442975955321733 stripped
 MonoBehaviour:
@@ -821,20 +818,6 @@ MonoBehaviour:
   rainbowProjectile: {fileID: 9063055493990207682}
   attackRange: 3
   attackCooldown: 5
---- !u!114 &7405714257326832581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1127545926719647378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9129d7b4ba57dc94a8b00b6eb308be58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particlePrefab: {fileID: 6877266486112406340, guid: 75a8ecd665ca7904483e6e7d8f894021, type: 3}
-  poolSize: 30
 --- !u!4 &4969682830183825727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4657229272657841954, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}

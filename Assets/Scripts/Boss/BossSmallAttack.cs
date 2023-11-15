@@ -15,6 +15,7 @@ public class BossSmallAttack : MonoBehaviour
     [SerializeField] private GameObject bubbleProjectile;
     [SerializeField] private GameObject waveProjectile;
 
+   
     public LayerMask playerLayers;
 
     [FormerlySerializedAs("attackSmallRange")] [Header("Values for preferences")] [SerializeField]
@@ -22,6 +23,11 @@ public class BossSmallAttack : MonoBehaviour
 
     [SerializeField] private float attackCooldown = 1.5f; // Cooldown between attacks
 
+    private AttackBubble attackBubble;
+    
+    private AttackWave attackWave;
+    private AttackBubbleWand attackBubbleWand;
+    
     private GameObject player;
     private Health bossHealth;
     private float timer = 0f;
@@ -32,6 +38,11 @@ public class BossSmallAttack : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         bossHealth = GetComponentInParent<Health>();
+        attackBubble = new AttackBubble(bubbleProjectile, transform.parent, player, bossMovement);
+        attackWave = new AttackWave(waveProjectile, transform.parent, player, bossMovement);
+        attackBubbleWand = new AttackBubbleWand(bossMovement, attackPoint, playerLayers);
+
+
     }
 
     private void Update()
@@ -66,138 +77,29 @@ public class BossSmallAttack : MonoBehaviour
     }
 
 
-    // ReSharper disable Unity.PerformanceAnalysis
     void Small_Attack()
     {
         bossMovement.canMove = false;
 
         _SmallBossAnimator.SetTrigger("Attack");
-        SmallAttackColliders();
-        StartCoroutine(SmallAttackAnimationDuration());
+        // SmallAttackColliders();
+        // StartCoroutine(SmallAttackAnimationDuration());
+        
+        attackBubbleWand.SmallAttackColliders();
+        StartCoroutine(attackBubbleWand.SmallAttackAnimationDuration());
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     void Small_Attack_2()
     {
         bossMovement.canMove = false;
         _SmallBossAnimator.SetTrigger("AttackSmall2");
-        StartCoroutine(AppearBubble());
+        StartCoroutine(attackBubble.AppearBubble());
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     void Small_Attack_3()
     {
         bossMovement.canMove = false;
         _SmallBossAnimator.SetTrigger("AttackSmall3");
-        StartCoroutine(AppearWave());
-    }
-
-    // ReSharper disable Unity.PerformanceAnalysis
-
-
-    private IEnumerator SmallAttackAnimationDuration()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        bossMovement.canMove = true;
-    }
-
-
-    void SmallAttackColliders()
-    {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, 1.4f, playerLayers);
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            Debug.Log("We hit and its currenntHealth =" + enemy.GetComponent<Health>().CurrentHealth);
-            enemy.GetComponent<Health>().TakeDamage(1);
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (attackPoint == null)
-        {
-            return;
-        }
-
-        Gizmos.DrawWireSphere(attackPoint.position, 1.4f);
-    }
-
-    // ReSharper disable Unity.PerformanceAnalysis
-    private IEnumerator AppearBubble()
-    {
-        yield return new WaitForSeconds(0.3f);
-        bubbleProjectile.SetActive(true);
-        float time = 0;
-        Vector3 originalScale = bubbleProjectile.transform.localScale;
-        bool isFlip = (transform.parent.position.x - player.transform.position.x) < 0;
-        if (isFlip)
-        {
-            bubbleProjectile.transform.localPosition = new Vector3(0.05f, -0.09f, 0); //prawo
-        }
-        else
-        {
-            bubbleProjectile.transform.localPosition = new Vector3(-0.08f, -0.09f, 0);
-        }
-
-        while (time < 1f)
-        {
-            if (isFlip)
-            {
-                bubbleProjectile.transform.localPosition += new Vector3(0.005f, 0, 0);
-            }
-            else
-            {
-                bubbleProjectile.transform.localPosition += new Vector3(-0.005f, 0, 0);
-            }
-
-            yield return null;
-            time += Time.deltaTime;
-        }
-
-        bubbleProjectile.transform.localScale = originalScale;
-        bubbleProjectile.SetActive(false);
-        bossMovement.canMove = true;
-    }
-
-    // ReSharper disable Unity.PerformanceAnalysis
-    private IEnumerator AppearWave()
-    {
-        yield return new WaitForSeconds(1.3f);
-        waveProjectile.SetActive(true);
-        float time = 0;
-        Vector3 originalScale = waveProjectile.transform.localScale;
-        bool isFlip = (transform.parent.position.x - player.transform.position.x) < 0;
-        if (isFlip)
-        {
-            waveProjectile.GetComponent<WaterProjectile>().changePosition(0, true);
-
-            waveProjectile.transform.localPosition = new Vector3(0.35f, 0.071f, 0); //prawo
-        }
-        else
-        {
-            waveProjectile.GetComponent<WaterProjectile>().changePosition(0, false);
-
-            waveProjectile.transform.localPosition = new Vector3(-0.35f, 0.071f, 0);
-        }
-
-        while (time < 2f)
-        {
-            if (isFlip)
-            {
-                waveProjectile.transform.localPosition += new Vector3(0.01f, 0, 0);
-            }
-            else
-            {
-                waveProjectile.transform.localPosition += new Vector3(-0.01f, 0, 0);
-            }
-
-            yield return null;
-            time += Time.deltaTime;
-        }
-
-        waveProjectile.transform.localScale = originalScale;
-        waveProjectile.SetActive(false);
-        bossMovement.canMove = true;
+        StartCoroutine(attackWave.AppearWave());
     }
 }
