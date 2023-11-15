@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] public int maxHealth;
+    public int maxHealth;
     [HideInInspector] public int CurrentHealth { get; private set; }
     private Animator _animator;
     private static readonly int Die = Animator.StringToHash("die 0");
