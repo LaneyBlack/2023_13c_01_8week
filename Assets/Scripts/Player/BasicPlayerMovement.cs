@@ -47,6 +47,7 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 2;
     [SerializeField] private float jumpRiseTime = .5f;
     [SerializeField] private float downGravityScale = 3f;
+    [SerializeField] private float coyoteTime = 0.5f;
     
     [SerializeField] private List<LayerMask> jumpLayers = new List<LayerMask>();
 
@@ -69,14 +70,15 @@ public class BasicPlayerMovement : MonoBehaviour
 
     //jumping:
     private float _jumpForce;
-    private bool _performJump = false;
-    private bool _inJump = false;
-    private bool wasFalling = false;
-    private bool falling = false;
     private float jumpVely = 0;
     private float regularGravity;
     private float jumpGravity;
     private float fallGravity;
+    private bool _performJump = false;
+    private bool _inJump = false;
+    private bool wasFalling = false;
+    private bool falling = false;
+    private bool grounded = false;
     //coyote time:
     private float lastTimeGrounded = 0;
 
@@ -111,14 +113,16 @@ public class BasicPlayerMovement : MonoBehaviour
     {
         //determineJumpParamters();
 
+        if(grounded && !isGrounded())        //was grounded on the previous frame and now isnt
+            lastTimeGrounded = Time.time;
+
         _xInput = Input.GetAxis("Horizontal");
         Flip(_xInput);
 
-        var grounded = isGrounded();
+        grounded = isGrounded();
         _jumpForce = _basicJumpForce;
 
-
-        if (Input.GetButtonDown("Jump") && (grounded || ropeScript.isGrappling))
+        if (Input.GetButtonDown("Jump") && (grounded || ropeScript.isGrappling || Time.time - lastTimeGrounded <= coyoteTime))
         {
             _performJump = true;
             if (ropeScript.isGrappling)
