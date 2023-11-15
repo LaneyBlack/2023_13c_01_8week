@@ -92,8 +92,8 @@ public class BasicPlayerMovement : MonoBehaviour
 
         //jumpHeight -= spriteRenderer.size.y / 2f; //account for players center
 
-        Debug.Log(jumpGravity / Physics.gravity.y);
-        Debug.Log(fallGravity / Physics.gravity.y);
+        //Debug.Log(jumpGravity / Physics.gravity.y);
+        //Debug.Log(fallGravity / Physics.gravity.y);
     }
 
     private void Update()
