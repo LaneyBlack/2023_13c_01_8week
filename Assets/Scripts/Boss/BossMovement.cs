@@ -119,10 +119,16 @@ public class BossMovement : MonoBehaviour
 
         Debug.DrawRay(origin, diagonalDirection * detectionDistance, Color.red);
 
-        // If an elevation is detected in the path, jump
-        if (hit.collider != null && Mathf.Abs(hit.point.y - boxCollider.bounds.min.y) > 0.1f)
+        if (hit.collider != null && Mathf.Abs(hit.point.y - boxCollider.bounds.min.y) > 0.1f && hit.collider)
         {
-            return hit.point.y > boxCollider.bounds.min.y;
+            if (string.IsNullOrEmpty(hit.collider.tag))
+            {
+                return hit.point.y > boxCollider.bounds.min.y;
+            }
+            if (!hit.collider.CompareTag("Player")&&!hit.collider.CompareTag("bossParticle"))
+            {
+                return hit.point.y > boxCollider.bounds.min.y;
+            }
         }
 
         return false;

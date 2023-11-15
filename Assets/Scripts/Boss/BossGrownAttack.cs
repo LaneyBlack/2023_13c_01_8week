@@ -17,7 +17,7 @@ public class BossGrownAttack : MonoBehaviour
     [Header("Values for preferences")] [SerializeField]
     private float attackRange = 3f;
 
-    [SerializeField] private float attackCooldown = 2f; // Cooldown between attacks
+    [SerializeField] private float attackCooldown = 5f; // Cooldown between attacks
 
     private GameObject player;
     private Health bossHealth;
@@ -39,7 +39,7 @@ public class BossGrownAttack : MonoBehaviour
             _cooldownTimer += Time.deltaTime;
             timer += Time.deltaTime;
             float distanceToPlayer = Vector2.Distance(transform.parent.position, player.transform.position);
-            if (bossHealth.CurrentHealth < (Math.Round((float)(bossHealth.maxHealth / 2) + 1)) && timer >= 5 &&
+            if (bossHealth.CurrentHealth < (Math.Round((float)(bossHealth.maxHealth / 2) + 1)) && timer >= 10 &&
                 bossMovement.isGrounded())
             {
                 Attack2();
@@ -112,9 +112,8 @@ public class BossGrownAttack : MonoBehaviour
 
         while (time < 2f)
         {
-            rainbowProjectile.transform.localScale += new Vector3(0.001f, 0.0014f, 0);
-            rainbowProjectile.transform.localPosition += new Vector3(0, 0.000075f, 0);
-            // rainbowProjectile. += new Vector3(0.007f, 0.02f, 0);
+            rainbowProjectile.transform.localScale += new Vector3(0.004f, 0.005f, 0);
+            rainbowProjectile.transform.localPosition += new Vector3(0, 0.0002f, 0);
             yield return null;
             time += Time.deltaTime;
         }

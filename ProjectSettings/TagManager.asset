@@ -19,6 +19,7 @@ TagManager:
   - Checkpoint
   - Background
   - UI_Slot
+  - bossParticle
   layers:
   - Default
   - TransparentFX
