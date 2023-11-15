@@ -107,18 +107,17 @@ public class BossGrownAttack : MonoBehaviour
         yield return new WaitForSeconds(1.3f);
         rainbowProjectile.SetActive(true);
         float time = 0;
-        Vector3 originalScale = rainbowProjectile.transform.localScale;
-        rainbowProjectile.transform.localPosition = new Vector3(0, 0.1f, 0); 
+        Vector3 originalScale = rainbowProjectile.transform.GetChild(0).localScale;
+        // rainbowProjectile.transform.localPosition = new Vector3(1, 0.1f, 0); 
 
         while (time < 2f)
         {
-            rainbowProjectile.transform.localScale += new Vector3(0.004f, 0.005f, 0);
-            rainbowProjectile.transform.localPosition += new Vector3(0, 0.0002f, 0);
+            rainbowProjectile.transform.GetChild(0).localScale += new Vector3(0.004f, 0.005f, 0);
             yield return null;
             time += Time.deltaTime;
         }
 
-        rainbowProjectile.transform.localScale = originalScale;
+        rainbowProjectile.transform.GetChild(0).localScale = originalScale;
         rainbowProjectile.SetActive(false);
         bossMovement.canMove = true;
     }

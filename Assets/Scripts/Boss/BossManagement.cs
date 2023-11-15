@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BossManagement : MonoBehaviour
@@ -9,6 +11,7 @@ public class BossManagement : MonoBehaviour
     [SerializeField] private GameObject _healthBarSliderCanvas;
     [SerializeField] private Slider _healthBarSlider;
     [SerializeField] public GameObject BossVisuals;
+    [SerializeField] public GameObject DeathVfxPrefab;
 
     private Health _health;
 
@@ -19,6 +22,8 @@ public class BossManagement : MonoBehaviour
 
     private int counter = 0;
 
+    private bool _deathStarted;
+    
     void Update()
     {
         updateHealthBar();
@@ -30,8 +35,9 @@ public class BossManagement : MonoBehaviour
             _healthBarSliderCanvas.transform.localScale += new Vector3(0.001f, 0, 0);
         }
 
-        if (_health.IsDead() && counter == 1)
+        if (_health.IsDead() && counter == 1 && _deathStarted == false)
         {
+            _deathStarted = true;
             GameObject effect = ParticleSystemPool.Instance.GetParticle();
             BossVisuals.SetActive(false);
             effect.transform.position = transform.position;
@@ -47,8 +53,12 @@ public class BossManagement : MonoBehaviour
 
     IEnumerator DestroyAfterEffect(GameObject effect)
     {
-        yield return new WaitForSeconds(1f); 
+        var spawnedVfx = Instantiate(DeathVfxPrefab,transform.position, Quaternion.identity);
+        Debug.LogWarning("SPAWNING VFX");
+        Destroy(spawnedVfx, 3f);
+        yield return new WaitForSeconds(1f);
+        
+        
         Destroy(_health.gameObject);
-        ParticleSystemPool.Instance.ReturnParticle(effect);
     }
 }

@@ -10,6 +10,7 @@ public class BossDie : MonoBehaviour
 
     [SerializeField] public GameObject SmallBossVisuals;
     [SerializeField] private BossMovement bossMovement;
+    [SerializeField] private Canvas canvasHealth;
 
 
     private Rigidbody2D rb;
@@ -26,6 +27,7 @@ public class BossDie : MonoBehaviour
             bossMovement.canMove = false;
             ToggleBossState(true);
             StartCoroutine(waitDuration());
+            canvasHealth.transform.position += new Vector3(0, 0.9f, 0);
             GetComponentInParent<BoxCollider2D>().size += new Vector2(0, 0.12f);
             GetComponentInParent<BoxCollider2D>().offset += new Vector2(0, 0.06f);
         }
