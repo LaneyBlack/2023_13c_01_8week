@@ -57,28 +57,31 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpBoost = 1.3f;
 
 
+    //external:
     private Rigidbody2D _rb;
     private BoxCollider2D boxCollider;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
+    //ground movement:
     private float _xInput;
     private float _currentSpeed;
 
+    //jumping:
     private float _jumpForce;
     private bool _performJump = false;
     private bool _inJump = false;
     private bool wasFalling = false;
-    
     private bool falling = false;
-
-    private float groundRayLength = .2f;
-
     private float jumpVely = 0;
     private float regularGravity;
     private float jumpGravity;
     private float fallGravity;
+    //coyote time:
+    private float lastTimeGrounded = 0;
 
+    //ground collision:
+    private float groundRayLength = .2f;
 
 
     private void Awake()
@@ -113,6 +116,7 @@ public class BasicPlayerMovement : MonoBehaviour
 
         var grounded = isGrounded();
         _jumpForce = _basicJumpForce;
+
 
         if (Input.GetButtonDown("Jump") && (grounded || ropeScript.isGrappling))
         {
@@ -197,7 +201,7 @@ public class BasicPlayerMovement : MonoBehaviour
 
     void handleJump()
     {
-        float g = Physics.gravity.y;
+        float g = Physics.gravity.y;    //think about it
         if (_performJump)
         {
             _performJump = false;
@@ -215,12 +219,11 @@ public class BasicPlayerMovement : MonoBehaviour
             wasFalling = true;
             _rb.gravityScale = fallGravity / g;
         }
-        else if (_inJump && isGrounded() && wasFalling)
+        else if (_inJump && wasFalling && isGrounded())
         {
             _rb.gravityScale = regularGravity;
             _inJump = false;
             wasFalling = false;
-
         }
     }
 
