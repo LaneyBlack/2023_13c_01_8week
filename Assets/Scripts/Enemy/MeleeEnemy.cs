@@ -119,7 +119,7 @@ public class MeleeEnemy : MonoBehaviour
     private bool CanWalkForward()
     {
         var bounds = boxCollider.bounds;
-        var raycast = Physics2D.Raycast(new Vector2(bounds.center.x + (_sprite.flipX ? 1 : -1) * bounds.extents.x, bounds.center.y - bounds.extents.y),
+        var raycast = Physics2D.Raycast(new Vector2(bounds.center.x + (_sprite.flipX ? 1 : -1) * (bounds.extents.x + 0.1f), bounds.center.y - bounds.extents.y),
             Vector2.down + (_sprite.flipX?Vector2.right:Vector2.left),
             GroundRaycastLength);
         if (raycast.collider == null) return false;
