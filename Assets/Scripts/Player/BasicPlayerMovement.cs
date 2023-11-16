@@ -9,7 +9,6 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private enum MovementType
     {
-        Physics,
         Math,
         Old
     }
@@ -190,22 +189,11 @@ public class BasicPlayerMovement : MonoBehaviour
         var wishVelocity = new Vector3(_xInput * _currentSpeed, _rb.velocity.y);
         // _currentMovementLerpSpeed should be set to something crazy high to be effectively instant. But slowed down after a wall jump and slowly released
         _rb.velocity = Vector3.MoveTowards(_rb.velocity, wishVelocity, _movementLerpMultiplier * Time.deltaTime);
-
-    }
-
-    void handleMovementGroundPhysics()
-    {
-        float targetSpeed = _xInput * _currentSpeed;
-        float speeddiff = targetSpeed - _rb.velocity.x;
-        float acc = (Mathf.Abs(targetSpeed) > 0.01f) ? _accelerationPhys : _deccelarationPhys;
-
-        float movement = Mathf.Pow(Mathf.Abs(speeddiff) * acc, velPower) * Mathf.Sign(speeddiff);
-        _rb.AddForce(movement * Vector2.right);
     }
 
     void handleJump()
     {
-        float g = Physics.gravity.y;    //think about it
+        float g = Physics.gravity.y;
         if (_performJump)
         {
             _performJump = false;
@@ -235,8 +223,6 @@ public class BasicPlayerMovement : MonoBehaviour
     {
         if(movementType == MovementType.Old)
             _rb.velocity = new Vector2(_xInput * _currentSpeed, _rb.velocity.y);
-        if (movementType == MovementType.Physics)
-            handleMovementGroundPhysics();
 
         if (jumpType == JumpType.Old)
         {
