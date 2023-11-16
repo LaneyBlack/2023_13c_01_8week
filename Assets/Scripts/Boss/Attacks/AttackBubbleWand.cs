@@ -19,7 +19,7 @@ public class AttackBubbleWand : MonoBehaviour
     {
         yield return new WaitForSeconds(timeDelay);
         _bossMovement.canMove = true;
-        BossSmallAttack.IsAttackFinished = true;
+        BossSmallAttack.IsSmallAttackFinished = true;
     }
 
     public void SmallAttackColliders()

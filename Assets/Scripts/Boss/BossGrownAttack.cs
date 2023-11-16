@@ -23,17 +23,17 @@ public class BossGrownAttack : MonoBehaviour
     private Health bossHealth;
     private float timer = 0f;
     private float _cooldownTimer = Mathf.Infinity;
+    public static bool IsGrownAttackFinished = true;
 
     private void Start()
     {
+        IsGrownAttackFinished = true;
         player = GameObject.FindGameObjectWithTag("Player");
-
         bossHealth = GetComponentInParent<Health>();
     }
 
     private void Update()
     {
-        
         if (GrownBossVisuals.activeSelf)
         {
             _cooldownTimer += Time.deltaTime;
@@ -54,6 +54,14 @@ public class BossGrownAttack : MonoBehaviour
         }
     }
 
+    void PerformAttack(string attackTrigger, Func<IEnumerator> attackBehaviorCoroutine)
+    {
+        IsAttackFinished = false;
+        bossMovement.canMove = false;
+        smallBossAnimator.SetTrigger(attackTrigger);
+        StartCoroutine(attackBehaviorCoroutine());
+    }
+
     // ReSharper disable Unity.PerformanceAnalysis
     void Attack()
     {
@@ -62,12 +70,14 @@ public class BossGrownAttack : MonoBehaviour
         _GrownBossAnimator.SetTrigger("Attack");
         StartCoroutine(AppearProjectile());
     }
+
     void Attack2()
     {
         bossMovement.canMove = false;
         _GrownBossAnimator.SetTrigger("Attack2");
         StartCoroutine(AppearRainbow());
     }
+
     // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator AppearProjectile()
     {
@@ -101,6 +111,7 @@ public class BossGrownAttack : MonoBehaviour
         waterProjectile.SetActive(false);
         bossMovement.canMove = true;
     }
+
     // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator AppearRainbow()
     {

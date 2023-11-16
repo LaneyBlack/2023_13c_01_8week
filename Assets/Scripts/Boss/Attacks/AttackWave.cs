@@ -39,7 +39,6 @@ public class AttackWave : MonoBehaviour
 
         while (time < lengthOfAnimation)
         {
-            Debug.Log(time);
             if (isFlip)
             {
                 _waveProjectile.transform.localPosition += new Vector3(0.01f, 0, 0);
@@ -48,6 +47,7 @@ public class AttackWave : MonoBehaviour
             {
                 _waveProjectile.transform.localPosition += new Vector3(-0.01f, 0, 0);
             }
+            Debug.Log("time: "+time);
             yield return null;
             time += Time.deltaTime;
         }
@@ -55,6 +55,44 @@ public class AttackWave : MonoBehaviour
         _waveProjectile.transform.localScale = originalScale;
         _waveProjectile.SetActive(false);
         _bossMovement.canMove = true;
-        BossSmallAttack.IsAttackFinished = true;
+        Debug.Log("Last time: "+ time);
+        BossSmallAttack.IsSmallAttackFinished = true;
     }
 }
+// public IEnumerator AppearBubble(float timeParticleAppear, float lengthOfAnimation)
+// {
+//     yield return new WaitForSeconds(timeParticleAppear);
+//     _bubbleProjectile.SetActive(true);
+//     float time = 0;
+//     Vector3 originalScale = _bubbleProjectile.transform.localScale;
+//     bool isFlip = (_parentTransform.position.x - _player.transform.position.x) < 0;
+//     if (isFlip)
+//     {
+//         _bubbleProjectile.transform.localPosition = new Vector3(0.05f, -0.09f, 0); //prawo
+//     }
+//     else
+//     {
+//         _bubbleProjectile.transform.localPosition = new Vector3(-0.08f, -0.09f, 0);
+//     }
+//
+//     while (time < lengthOfAnimation)
+//     {
+//         if (isFlip)
+//         {
+//             _bubbleProjectile.transform.localPosition += new Vector3(0.005f, 0, 0);
+//         }
+//         else
+//         {
+//             _bubbleProjectile.transform.localPosition += new Vector3(-0.005f, 0, 0);
+//         }
+//
+//         yield return null;
+//         time += Time.deltaTime;
+//     }
+//
+//     _bubbleProjectile.transform.localScale = originalScale;
+//     _bubbleProjectile.SetActive(false);
+//     _bossMovement.canMove = true;
+//     BossSmallAttack.IsAttackFinished = true;
+// }
+// }
