@@ -1258,10 +1258,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopUI
       objectReference: {fileID: 0}
-    - target: {fileID: 3008642747275640114, guid: 60152fdae3c71ed43a41044f563c0b3b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5684157721714612263, guid: 60152fdae3c71ed43a41044f563c0b3b, type: 3}
       propertyPath: m_Pivot.x
       value: 0

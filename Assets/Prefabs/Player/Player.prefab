@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEquipped: 0
-  _keyCode: 323
+  _keyCode: 101
   attackPoint: {fileID: 460640104834928589}
   attackRange: 0.5
   damageValue: 1

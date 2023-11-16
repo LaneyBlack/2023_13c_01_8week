@@ -4,12 +4,12 @@ using UnityEngine.SceneManagement;
 public class SceneTransition : MonoBehaviour
 {
     [SerializeField] private string _shopSceneName = "Shop";
-    [SerializeField] private string _levelSceneName = "ShopTesting";
-
+    private string _previousSceneName; // Zmienna przechowująca nazwę poprzedniej sceny
     private bool _isNearShop = false;
     private bool _isNearExit = false;
     private static SceneTransition _instance;
     private string _currentExitTag;
+    private Vector2 _lastPlayerPosition;
 
     private void Awake()
     {
@@ -31,13 +31,15 @@ public class SceneTransition : MonoBehaviour
         if (_isNearShop && Input.GetKeyDown(KeyCode.F))
         {
             _currentExitTag = "ExitShop";
+            _previousSceneName = SceneManager.GetActiveScene().name; // Zapisz bieżącą scenę
+            _lastPlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
             TransitionToScene(_shopSceneName);
         }
 
         if (_isNearExit && Input.GetKeyDown(KeyCode.F))
         {
             _currentExitTag = "EnterShop";
-            TransitionToScene(_levelSceneName);
+            TransitionToScene(_previousSceneName); // Powrót do poprzedniej sceny
         }
     }
 
@@ -57,8 +59,15 @@ public class SceneTransition : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player)
             {
-                float offsetY = 1f;
-                player.transform.position = new Vector2(exitObject.transform.position.x, exitObject.transform.position.y - offsetY);
+                if (_currentExitTag == "EnterShop")
+                {
+                    player.transform.position = _lastPlayerPosition; // Przywrócenie pozycji gracza
+                }
+                else
+                {
+                    float offsetY = 1f;
+                    player.transform.position = new Vector2(exitObject.transform.position.x, exitObject.transform.position.y - offsetY);
+                }
             }
         }
     }

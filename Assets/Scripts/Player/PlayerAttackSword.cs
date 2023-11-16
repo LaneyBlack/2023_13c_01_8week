@@ -10,6 +10,7 @@ public class PlayerAttackSword : Equippable
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackRange = 0.5f;
     [SerializeField] private int damageValue = 1;
+    [SerializeField] private int upgradedDamageValue = 2;
     public LayerMask enemyLayers;
 
     private void Awake()
@@ -21,7 +22,14 @@ public class PlayerAttackSword : Equippable
     {
         if (Input.GetKeyDown(_keyCode) && isEquipped)
         {
-            animator.SetTrigger("AttackSword");
+            if (InvenoryManagment.IsSwordUpgraded)
+            {
+                animator.SetTrigger("AttackUpgradedSword");
+            }
+            else
+            {
+                animator.SetTrigger("AttackSword");
+            }
             attack();
         }
     }
@@ -32,7 +40,14 @@ public class PlayerAttackSword : Equippable
        foreach (Collider2D enemy in hitEnemies)
        {
            Debug.Log("We hit and its currenntHealth = " + enemy.GetComponent<Health>().CurrentHealth);
-           enemy.GetComponent<Health>().TakeDamage(damageValue);
+           if (InvenoryManagment.IsSwordUpgraded)
+           {
+               enemy.GetComponent<Health>().TakeDamage(upgradedDamageValue);
+           }
+           else
+           {
+               enemy.GetComponent<Health>().TakeDamage(damageValue);
+           }
        }
     }
 
