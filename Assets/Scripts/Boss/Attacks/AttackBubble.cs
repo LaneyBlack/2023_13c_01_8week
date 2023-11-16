@@ -52,6 +52,6 @@ public class AttackBubble : MonoBehaviour
         _bubbleProjectile.transform.localScale = originalScale;
         _bubbleProjectile.SetActive(false);
         _bossMovement.canMove = true;
-        BossSmallAttack.IsAttackFinished = true;
+        BossSmallAttack.IsSmallAttackFinished = true;
     }
 }

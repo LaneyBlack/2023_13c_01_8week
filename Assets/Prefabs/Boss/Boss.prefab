@@ -799,7 +799,7 @@ MonoBehaviour:
     m_Bits: 128
   attackRange: 6
   attackCooldown: 1.5
-  timerForWaveAttackCooldown: 4.5
+  timerForWaveAttackCooldown: 6.07
   specialBossHealthLimitAttack: 6
 --- !u!114 &654938303245079958
 MonoBehaviour:
