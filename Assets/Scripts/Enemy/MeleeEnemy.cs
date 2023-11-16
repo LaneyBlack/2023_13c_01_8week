@@ -37,7 +37,11 @@ public class MeleeEnemy : MonoBehaviour
 
     private static readonly int TakeHit = Animator.StringToHash("takeHit");
 
-
+    private void Start()
+    {
+        // For switching scenes
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
