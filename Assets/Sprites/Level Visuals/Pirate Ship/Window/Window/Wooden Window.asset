@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Wooden Window
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 21300000, guid: ccbf4e2b12ce654489b9b39308d1ae47, type: 3}
+  - {fileID: 21300000, guid: 60f239b44d67e0d48b8ae2f3cad9a5d3, type: 3}
+  - {fileID: 21300000, guid: d39bf05efd1e9904fb99c0adadd2f915, type: 3}
+  - {fileID: 21300000, guid: 4084c96e05ea6c14688c6fe48f4c15ec, type: 3}
+  - {fileID: 21300000, guid: f24d938f44868ee48a6fcb6a3c0561dc, type: 3}
+  - {fileID: 21300000, guid: 86be82bbb9379bc46a00277c544b229f, type: 3}
+  - {fileID: 21300000, guid: f2045ddc8569b974db44fbfa81b9cfea, type: 3}
+  - {fileID: 21300000, guid: a72bca980ec0c4e4a9e278be092aa381, type: 3}
+  - {fileID: 21300000, guid: b04620490091a264997086e9d283b43e, type: 3}
+  - {fileID: 21300000, guid: 1667d769faca0474e98782f31a69d70f, type: 3}
+  - {fileID: 21300000, guid: b3bdd9e10fc5b6149a2b0d053975e948, type: 3}
+  - {fileID: 21300000, guid: f3fa1370c493d004db42a8bba639a956, type: 3}
+  - {fileID: 21300000, guid: bda88e90c1687b14e8e4b5b689e8a9bf, type: 3}
+  - {fileID: 21300000, guid: 72516dd756eb69447b1d0b5784ad2a73, type: 3}
+  - {fileID: 21300000, guid: 8506a4f904cd49b49b7f4e2c6851486b, type: 3}
+  - {fileID: 21300000, guid: 18192b30ab74bac4ca6815580f4ca586, type: 3}
+  m_MinSpeed: 1
+  m_MaxSpeed: 1
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
+  m_TileAnimationFlags: 0
