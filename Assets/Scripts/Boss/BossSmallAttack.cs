@@ -7,99 +7,85 @@ using UnityEngine.Serialization;
 public class BossSmallAttack : MonoBehaviour
 {
     [Header("Objects to attach")] [SerializeField]
-    public GameObject SmallBossVisuals;
+    public GameObject smallBossVisuals;
 
-    [SerializeField] private Animator _SmallBossAnimator;
+    [SerializeField] private Animator smallBossAnimator;
     [SerializeField] private BossMovement bossMovement;
     [SerializeField] public Transform attackPoint;
     [SerializeField] private GameObject bubbleProjectile;
     [SerializeField] private GameObject waveProjectile;
 
-   
+
     public LayerMask playerLayers;
 
-    [FormerlySerializedAs("attackSmallRange")] [Header("Values for preferences")] [SerializeField]
+    [Header("Values for preferences")] [SerializeField, Range(0f, 6f)]
     private float attackRange = 4f;
 
-    [SerializeField] private float attackCooldown = 1.5f; // Cooldown between attacks
+    [SerializeField, Range(0f, 3f)] private float attackCooldown = 1.5f;
+    [SerializeField, Range(0.5f, 10f)] private float timerForWaveAttackCooldown = 4.5f;
+    [SerializeField, Range(0, 10)] private int specialBossHealthLimitAttack = 4;
 
-    private AttackBubble attackBubble;
-    
-    private AttackWave attackWave;
-    private AttackBubbleWand attackBubbleWand;
-    
-    private GameObject player;
-    private Health bossHealth;
-    private float timer = 0f;
+    private AttackBubble _attackBubble;
+    private AttackWave _attackWave;
+    private AttackBubbleWand _attackBubbleWand;
+
+    private GameObject _player;
+    private Health _bossHealth;
+    private float _timerForWaveAttack = 0f;
     private float _cooldownTimer = Mathf.Infinity;
+    public static bool IsAttackFinished = true;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        bossHealth = GetComponentInParent<Health>();
-        attackBubble = new AttackBubble(bubbleProjectile, transform.parent, player, bossMovement);
-        attackWave = new AttackWave(waveProjectile, transform.parent, player, bossMovement);
-        attackBubbleWand = new AttackBubbleWand(bossMovement, attackPoint, playerLayers);
-
-
+        _player = GameObject.FindGameObjectWithTag("Player");
+        IsAttackFinished = true;
+        _bossHealth = GetComponentInParent<Health>();
+        _attackBubble = new AttackBubble(bubbleProjectile, transform.parent, _player, bossMovement);
+        _attackWave = new AttackWave(waveProjectile, transform.parent, _player, bossMovement);
+        _attackBubbleWand = new AttackBubbleWand(bossMovement, attackPoint, playerLayers, 1.4f);
     }
 
     private void Update()
     {
-        if (SmallBossVisuals.activeSelf)
+        if (smallBossVisuals.activeSelf && IsAttackFinished)
         {
             _cooldownTimer += Time.deltaTime;
-            timer += Time.deltaTime;
+            _timerForWaveAttack += Time.deltaTime;
 
-            float distanceToPlayer = Vector2.Distance(transform.parent.position, player.transform.position);
-            if (bossHealth.CurrentHealth < (Math.Round((float)(bossHealth.maxHealth / 2) + 1)) && timer >= 5 &&
-                bossMovement.isGrounded())
+            float distanceToPlayer = Vector2.Distance(transform.parent.position, _player.transform.position);
+            if (_bossHealth.CurrentHealth < specialBossHealthLimitAttack &&
+                _timerForWaveAttack >= timerForWaveAttackCooldown && bossMovement.isGrounded())
             {
-                Small_Attack_3();
-                timer = 0;
+                PerformAttack("AttackSmall3", () => _attackWave.AppearWave(1f, 2.4f));
+                _timerForWaveAttack = 0;
                 _cooldownTimer = 0f;
             }
             else
             {
-                if (distanceToPlayer <= attackRange / 4 && _cooldownTimer >= attackCooldown)
+                if (_cooldownTimer >= attackCooldown)
                 {
-                    Small_Attack();
-                    _cooldownTimer = 0f;
-                }
-                else if (distanceToPlayer <= attackRange && _cooldownTimer >= attackCooldown)
-                {
-                    Small_Attack_2();
+                    if (distanceToPlayer <= attackRange / 4)
+                    {
+                        _attackBubbleWand.SmallAttackColliders();
+                        PerformAttack("Attack",
+                            () => _attackBubbleWand.SmallAttackAnimationDuration(0.5f));
+                    }
+                    else if (distanceToPlayer <= attackRange)
+                    {
+                        PerformAttack("AttackSmall2", () => _attackBubble.AppearBubble(0.3f, 1f));
+                    }
+
                     _cooldownTimer = 0f;
                 }
             }
         }
     }
 
-
-    void Small_Attack()
+    void PerformAttack(string attackTrigger, Func<IEnumerator> attackBehaviorCoroutine)
     {
+        IsAttackFinished = false;
         bossMovement.canMove = false;
-
-        _SmallBossAnimator.SetTrigger("Attack");
-        // SmallAttackColliders();
-        // StartCoroutine(SmallAttackAnimationDuration());
-        
-        attackBubbleWand.SmallAttackColliders();
-        StartCoroutine(attackBubbleWand.SmallAttackAnimationDuration());
-    }
-
-    void Small_Attack_2()
-    {
-        bossMovement.canMove = false;
-        _SmallBossAnimator.SetTrigger("AttackSmall2");
-        StartCoroutine(attackBubble.AppearBubble());
-    }
-
-    void Small_Attack_3()
-    {
-        bossMovement.canMove = false;
-        _SmallBossAnimator.SetTrigger("AttackSmall3");
-        StartCoroutine(attackWave.AppearWave());
+        smallBossAnimator.SetTrigger(attackTrigger);
+        StartCoroutine(attackBehaviorCoroutine());
     }
 }
