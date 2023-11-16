@@ -4,52 +4,54 @@ using UnityEngine;
 
 public class AttackBubble : MonoBehaviour
 {
-    private GameObject bubbleProjectile;
-    private Transform parentTransform;
-    private GameObject player;
-    private BossMovement bossMovement;
+    private readonly GameObject _bubbleProjectile;
+    private readonly Transform _parentTransform;
+    private readonly GameObject _player;
+    private readonly BossMovement _bossMovement;
 
-    public AttackBubble(GameObject bubbleProjectile, Transform parentTransform, GameObject player, BossMovement bossMovement)
+    public AttackBubble(GameObject bubbleProjectile, Transform parentTransform, GameObject player,
+        BossMovement bossMovement)
     {
-        this.bubbleProjectile = bubbleProjectile;
-        this.parentTransform = parentTransform;
-        this.player = player;
-        this.bossMovement = bossMovement;
+        _bubbleProjectile = bubbleProjectile;
+        _parentTransform = parentTransform;
+        _player = player;
+        _bossMovement = bossMovement;
     }
 
-    public IEnumerator AppearBubble()
+    public IEnumerator AppearBubble(float timeParticleAppear, float lengthOfAnimation)
     {
-        yield return new WaitForSeconds(0.3f);
-        bubbleProjectile.SetActive(true);
+        yield return new WaitForSeconds(timeParticleAppear);
+        _bubbleProjectile.SetActive(true);
         float time = 0;
-        Vector3 originalScale = bubbleProjectile.transform.localScale;
-        bool isFlip = (parentTransform.position.x - player.transform.position.x) < 0;
+        Vector3 originalScale = _bubbleProjectile.transform.localScale;
+        bool isFlip = (_parentTransform.position.x - _player.transform.position.x) < 0;
         if (isFlip)
         {
-            bubbleProjectile.transform.localPosition = new Vector3(0.05f, -0.09f, 0); //prawo
+            _bubbleProjectile.transform.localPosition = new Vector3(0.05f, -0.09f, 0); //prawo
         }
         else
         {
-            bubbleProjectile.transform.localPosition = new Vector3(-0.08f, -0.09f, 0);
+            _bubbleProjectile.transform.localPosition = new Vector3(-0.08f, -0.09f, 0);
         }
 
-        while (time < 1f)
+        while (time < lengthOfAnimation)
         {
             if (isFlip)
             {
-                bubbleProjectile.transform.localPosition += new Vector3(0.005f, 0, 0);
+                _bubbleProjectile.transform.localPosition += new Vector3(0.005f, 0, 0);
             }
             else
             {
-                bubbleProjectile.transform.localPosition += new Vector3(-0.005f, 0, 0);
+                _bubbleProjectile.transform.localPosition += new Vector3(-0.005f, 0, 0);
             }
 
             yield return null;
             time += Time.deltaTime;
         }
 
-        bubbleProjectile.transform.localScale = originalScale;
-        bubbleProjectile.SetActive(false);
-        bossMovement.canMove = true;
+        _bubbleProjectile.transform.localScale = originalScale;
+        _bubbleProjectile.SetActive(false);
+        _bossMovement.canMove = true;
+        BossSmallAttack.IsAttackFinished = true;
     }
 }

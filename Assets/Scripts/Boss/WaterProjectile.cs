@@ -19,7 +19,6 @@ public class WaterProjectile : MonoBehaviour
         if (collider.GetComponent<Health>() != null)
         {
             collider.GetComponent<Health>().TakeDamage(damageAmount);
-
         }
     }
 

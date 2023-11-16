@@ -4,56 +4,57 @@ using UnityEngine;
 
 public class AttackWave : MonoBehaviour
 {
-    private GameObject waveProjectile;
-    private Transform parentTransform;
-    private GameObject player;
-    private BossMovement bossMovement;
+    private readonly GameObject _waveProjectile;
+    private readonly Transform _parentTransform;
+    private readonly GameObject _player;
+    private readonly BossMovement _bossMovement;
 
     public AttackWave(GameObject waveProjectile, Transform parentTransform, GameObject player, BossMovement bossMovement)
     {
-        this.waveProjectile = waveProjectile;
-        this.parentTransform = parentTransform;
-        this.player = player;
-        this.bossMovement = bossMovement;
+        _waveProjectile = waveProjectile;
+        _parentTransform = parentTransform;
+        _player = player;
+        _bossMovement = bossMovement;
     }
 
-    public IEnumerator AppearWave()
+    public IEnumerator AppearWave(float timeParticleAppear, float lengthOfAnimation)
     {
-        yield return new WaitForSeconds(1.3f);
-        waveProjectile.SetActive(true);
+        yield return new WaitForSeconds(timeParticleAppear);
+        _waveProjectile.SetActive(true);
         float time = 0;
-        Vector3 originalScale = waveProjectile.transform.localScale;
-        bool isFlip = (parentTransform.position.x - player.transform.position.x) < 0;
+        Vector3 originalScale = _waveProjectile.transform.localScale;
+        bool isFlip = (_parentTransform.position.x - _player.transform.position.x) < 0;
         if (isFlip)
         {
-            waveProjectile.GetComponent<WaterProjectile>().changePosition(0, true);
+            _waveProjectile.GetComponent<WaterProjectile>().changePosition(0, true);
 
-            waveProjectile.transform.localPosition = new Vector3(0.35f, 0.071f, 0); //prawo
+            _waveProjectile.transform.localPosition = new Vector3(0.35f, 0.071f, 0); //prawo
         }
         else
         {
-            waveProjectile.GetComponent<WaterProjectile>().changePosition(0, false);
+            _waveProjectile.GetComponent<WaterProjectile>().changePosition(0, false);
 
-            waveProjectile.transform.localPosition = new Vector3(-0.35f, 0.071f, 0);
+            _waveProjectile.transform.localPosition = new Vector3(-0.35f, 0.071f, 0);
         }
 
-        while (time < 2f)
+        while (time < lengthOfAnimation)
         {
+            Debug.Log(time);
             if (isFlip)
             {
-                waveProjectile.transform.localPosition += new Vector3(0.01f, 0, 0);
+                _waveProjectile.transform.localPosition += new Vector3(0.01f, 0, 0);
             }
             else
             {
-                waveProjectile.transform.localPosition += new Vector3(-0.01f, 0, 0);
+                _waveProjectile.transform.localPosition += new Vector3(-0.01f, 0, 0);
             }
-
             yield return null;
             time += Time.deltaTime;
         }
 
-        waveProjectile.transform.localScale = originalScale;
-        waveProjectile.SetActive(false);
-        bossMovement.canMove = true;
+        _waveProjectile.transform.localScale = originalScale;
+        _waveProjectile.SetActive(false);
+        _bossMovement.canMove = true;
+        BossSmallAttack.IsAttackFinished = true;
     }
 }

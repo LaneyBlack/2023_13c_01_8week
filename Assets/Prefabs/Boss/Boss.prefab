@@ -788,8 +788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ec26ff99a25ff4b8ea9e2c7000db7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmallBossVisuals: {fileID: 8635363527088427523}
-  _SmallBossAnimator: {fileID: 8207267066338545053}
+  smallBossVisuals: {fileID: 8635363527088427523}
+  smallBossAnimator: {fileID: 8207267066338545053}
   bossMovement: {fileID: 898442975955321733}
   attackPoint: {fileID: 8272595195437372555}
   bubbleProjectile: {fileID: 6208464182826818195}
@@ -799,6 +799,8 @@ MonoBehaviour:
     m_Bits: 128
   attackRange: 6
   attackCooldown: 1.5
+  timerForWaveAttackCooldown: 4.5
+  specialBossHealthLimitAttack: 6
 --- !u!114 &654938303245079958
 MonoBehaviour:
   m_ObjectHideFlags: 0
