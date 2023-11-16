@@ -112,7 +112,7 @@ public class BasicPlayerMovement : MonoBehaviour
     {
         //determineJumpParamters();
 
-        if(grounded && !isGrounded())        //was grounded on the previous frame and now isnt
+        if(grounded && !isGrounded() && !_inJump)        //was grounded on the previous frame and now isnt
             lastTimeGrounded = Time.time;
 
         _xInput = Input.GetAxis("Horizontal");
