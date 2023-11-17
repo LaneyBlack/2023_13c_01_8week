@@ -6,18 +6,24 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    [Header("Invertory script")]
-    [SerializeField] Inventory inventory;
-    private GridLayoutGroup gridLayout;
-    private List<Image> slotImages;
+    private Inventory _inventory;
+    private GridLayoutGroup _gridLayout;
+    private List<Image> _slotImages;
 
     private void Start()
     {
-        gridLayout = GetComponent<GridLayoutGroup>();
-        slotImages = new List<Image>();
+        FindPlayerInventory();
+        if (_inventory == null)
+        {
+            Debug.LogError("Inventory script not found on player!");
+            return;
+        }
 
-        var images = gridLayout.GetComponentsInChildren<Image>();
-        var texts = gridLayout.GetComponentsInChildren<Text>();
+        _gridLayout = GetComponent<GridLayoutGroup>();
+        _slotImages = new List<Image>();
+
+        var images = _gridLayout.GetComponentsInChildren<Image>();
+        var texts = _gridLayout.GetComponentsInChildren<Text>();
 
         for (int i = 0, itemid = 0; i < images.Length; i++)
         {
@@ -25,8 +31,8 @@ public class InventoryUI : MonoBehaviour
 
             if (x.gameObject.CompareTag("UI_Item"))
             {
-                x.sprite = inventory.itemsData[itemid++].sprite;
-                slotImages.Add(images[i]);
+                x.sprite = _inventory.itemsData[itemid++].sprite;
+                _slotImages.Add(images[i]);
             }
         }
 
@@ -36,21 +42,34 @@ public class InventoryUI : MonoBehaviour
             var x = texts[i];
 
             if (x.gameObject.CompareTag("UI_Key"))
-                x.text = Regex.Replace(inventory.itemsData[itemid++].keycode.ToString(), pattern, "");
+                x.text = Regex.Replace(_inventory.itemsData[itemid++].keycode.ToString(), pattern, "");
+        }
+    }
+
+    private void FindPlayerInventory()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            _inventory = player.GetComponent<Inventory>();
         }
     }
 
     private void Update()
     {
-        slotImages[inventory.currentEquipped].color = new Color(1, 1, 1, 1);
-        slotImages[inventory.currentEquipped].rectTransform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-
-        for (int i = 0; i < slotImages.Count; i++)
+        if (_inventory == null)
         {
-            if (i == inventory.currentEquipped) continue;
-            slotImages[i].color = new Color(0, 0, 0, 0.9f);
-            slotImages[i].rectTransform.localScale = new Vector3(.6f, .6f, 1f);
+            return;
         }
 
+        _slotImages[_inventory.currentEquipped].color = new Color(1, 1, 1, 1);
+        _slotImages[_inventory.currentEquipped].rectTransform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+        for (int i = 0; i < _slotImages.Count; i++)
+        {
+            if (i == _inventory.currentEquipped) continue;
+            _slotImages[i].color = new Color(0, 0, 0, 0.9f);
+            _slotImages[i].rectTransform.localScale = new Vector3(.6f, .6f, 1f);
+        }
     }
 }

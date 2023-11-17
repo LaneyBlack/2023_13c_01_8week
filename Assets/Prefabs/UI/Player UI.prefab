@@ -113,7 +113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d19b9e78e70bf4797063267497ce11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
   healthIconImage: {fileID: 5519879309560018925, guid: 45f9baadb5e08f3458aa4f5325e2fe67, type: 3}
   healthIconPrefab: {fileID: 3312367485689760810, guid: 45f9baadb5e08f3458aa4f5325e2fe67, type: 3}
 --- !u!1 &3285600674503218737
@@ -232,7 +231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449dc2d487f46b14f89a5a54edb6cf0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
 --- !u!1 &4936314875143247565
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2870738937429226540
 RectTransform:
   m_ObjectHideFlags: 0
@@ -483,7 +481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3.1828613, y: -104.799866}
+  m_AnchoredPosition: {x: -3.1829834, y: -104.799866}
   m_SizeDelta: {x: 484.0259, y: 209.5998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3956744232487648592
