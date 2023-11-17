@@ -12,9 +12,13 @@ public class HealthPotion : MonoBehaviour
         health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
 
-    void heal()
+    public void usePotion()
     {
-        health.RestoreHealth(healthRestore);
+        if (InvenoryManagment.NumberOfPotions > 0 && !health.atFullHealth())
+        {
+            health.RestoreHealth(healthRestore);
+            InvenoryManagment.NumberOfPotions--;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

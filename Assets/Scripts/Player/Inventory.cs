@@ -85,6 +85,7 @@ public class Inventory : MonoBehaviour
             itemsData[currentEquipped].setEquipped(true);
         }
 
-
+        if (foundIndex == 2)
+            potionScript.usePotion();
     }
 }

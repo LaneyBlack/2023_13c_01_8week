@@ -31,6 +31,11 @@ public class Health : MonoBehaviour
         return IsDead();
     }
 
+    public bool atFullHealth()
+    {
+        return CurrentHealth == maxHealth;
+    }
+
     public bool IsDead()
     {
         return CurrentHealth == 0;
