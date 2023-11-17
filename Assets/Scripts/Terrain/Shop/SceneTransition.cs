@@ -8,11 +8,11 @@ public class SceneTransition : MonoBehaviour
     {
         Shop,
         Tutorial,
-        Level1TestingAntek,
+        Level1,
     }
 
-    private int currentLevel = 1;
-    private const int MaxLevel = 2; // Total number of levels
+    private int _currentLevel = 1;
+    private const int _maxLevel = 2;
     private string _previousSceneName;
     private bool _isNearShop = false;
     private bool _isNearExit = false;
@@ -67,9 +67,9 @@ public class SceneTransition : MonoBehaviour
 
     private void GoToNextLevel()
     {
-        currentLevel++;
-        if (currentLevel > MaxLevel) currentLevel = 1; // Loop back or handle game end
-        TransitionToScene((GameScene)currentLevel);
+        _currentLevel++;
+        if (_currentLevel > _maxLevel) _currentLevel = 1;
+        TransitionToScene((GameScene)_currentLevel);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
