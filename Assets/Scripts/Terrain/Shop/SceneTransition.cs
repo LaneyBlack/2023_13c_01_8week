@@ -1,10 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SceneTransition : MonoBehaviour
 {
-    [SerializeField] private string _shopSceneName = "Shop";
-    private string _previousSceneName; // Zmienna przechowująca nazwę poprzedniej sceny
+    private enum GameScene
+    {
+        Shop,
+        Tutorial,
+        Level1TestingAntek,
+    }
+
+    private int currentLevel = 1;
+    private const int MaxLevel = 2; // Total number of levels
+    private string _previousSceneName;
     private bool _isNearShop = false;
     private bool _isNearExit = false;
     private static SceneTransition _instance;
@@ -31,21 +40,36 @@ public class SceneTransition : MonoBehaviour
         if (_isNearShop && Input.GetKeyDown(KeyCode.F))
         {
             _currentExitTag = "ExitShop";
-            _previousSceneName = SceneManager.GetActiveScene().name; // Zapisz bieżącą scenę
+            _previousSceneName = SceneManager.GetActiveScene().name;
             _lastPlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-            TransitionToScene(_shopSceneName);
+            TransitionToScene(GameScene.Shop);
         }
 
-        if (_isNearExit && Input.GetKeyDown(KeyCode.F))
+        if (_isNearExit && Input.GetKeyDown(KeyCode.F) && SceneManager.GetActiveScene().name == GameScene.Shop.ToString())
         {
-            _currentExitTag = "EnterShop";
-            TransitionToScene(_previousSceneName); // Powrót do poprzedniej sceny
+            GoToNextLevel();
         }
     }
 
-    private void TransitionToScene(string sceneName)
+    private void TransitionToScene(GameScene scene)
     {
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(LoadSceneAsync(scene));
+    }
+
+    private IEnumerator LoadSceneAsync(GameScene scene)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene.ToString());
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private void GoToNextLevel()
+    {
+        currentLevel++;
+        if (currentLevel > MaxLevel) currentLevel = 1; // Loop back or handle game end
+        TransitionToScene((GameScene)currentLevel);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -61,7 +85,7 @@ public class SceneTransition : MonoBehaviour
             {
                 if (_currentExitTag == "EnterShop")
                 {
-                    player.transform.position = _lastPlayerPosition; // Przywrócenie pozycji gracza
+                    player.transform.position = _lastPlayerPosition;
                 }
                 else
                 {
