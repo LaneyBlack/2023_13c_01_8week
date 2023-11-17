@@ -19,10 +19,8 @@ public class BasicPlayerMovement : MonoBehaviour
         New
     }
 
-
     [Header("Movement Type Pick")]
     [SerializeField] private MovementType movementType = MovementType.Math;
-
 
     [Header("Basic Ground Movement")]
     [SerializeField] private float _walkSpeed = 10;
@@ -32,30 +30,21 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private float _accelerationMath = 2;
     [SerializeField] private float _movementLerpMultiplier = 100;
 
-    [Header("Physics Ground Movement")]
-    [SerializeField] private float _accelerationPhys = 2;
-    [SerializeField] private float _deccelarationPhys = 2;
-    [SerializeField] private float velPower = 1;
-
-
     [Header("Jump Type Pick")]
     [SerializeField] private JumpType jumpType = JumpType.New;
 
     [Header("Jump")]
     [SerializeField] private float _basicJumpForce = 10;
-    [SerializeField] private float jumpHeight = 2;
-    [SerializeField] private float jumpRiseTime = .5f;
-    [SerializeField] private float downGravityScale = 3f;
-    [SerializeField] private float coyoteTime = 0.5f;
-    
+    [SerializeField] [Range(1f, 10f)]  private float jumpHeight = 2;
+    [SerializeField] [Range(0f, 10f)]  private float jumpRiseTime = .5f;
+    [SerializeField] [Range(.1f, 10f)] private float downGravityScale = 3f;
+    [SerializeField] [Range(0f, 2f)]   private float coyoteTime = 0.5f;
     [SerializeField] private List<LayerMask> jumpLayers = new List<LayerMask>();
-
 
     [Header("Grappling Rope")]
     [SerializeField] private GrapplingRope ropeScript;
     [SerializeField] private float _glideBoost = 1.5f;
     [SerializeField] private float _jumpBoost = 1.3f;
-
 
     //external:
     private Rigidbody2D _rb;
