@@ -27,7 +27,7 @@ public class Item
         //    script.enabled = isEquipped;
     }
 
-    public bool isAvailable()
+    public bool isAvailable()   //rewrite
     {
         if (script != null & count == -1)
             return script.isEquipped;
@@ -53,7 +53,7 @@ public class Inventory : MonoBehaviour
     [Header("Potion setup")]
     [SerializeField] private KeyCode potionKey;
     [SerializeField] private Sprite potionIcon;
-    //[TO ADD] skrypt na potionke
+    [SerializeField] private HealthPotion potionScript;
 
     [HideInInspector] public int currentEquipped { get; private set; }
     public List<Item> itemsData;
@@ -78,11 +78,13 @@ public class Inventory : MonoBehaviour
     private void Update()
     {
         int foundIndex = itemsData.FindIndex(item => Input.GetKeyDown(item.keycode));
-        if (foundIndex != -1) 
+        if (foundIndex != -1 && foundIndex < 2) 
         {
             itemsData[currentEquipped].setEquipped(false);
             currentEquipped = foundIndex;
             itemsData[currentEquipped].setEquipped(true);
         }
+
+
     }
 }

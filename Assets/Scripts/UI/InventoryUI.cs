@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,10 @@ public class InventoryUI : MonoBehaviour
 {
     [Header("Invertory script")]
     [SerializeField] Inventory inventory;
+
+    [Header("Potion Text Reference")]
+    [SerializeField] TextMeshProUGUI potionsAmount;
+
     private GridLayoutGroup gridLayout;
     private List<Image> slotImages;
 
@@ -45,11 +50,27 @@ public class InventoryUI : MonoBehaviour
         slotImages[inventory.currentEquipped].color = new Color(1, 1, 1, 1);
         slotImages[inventory.currentEquipped].rectTransform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
 
-        for (int i = 0; i < slotImages.Count; i++)
+        for (int i = 0; i < slotImages.Count - 1; i++)  //always skip potion
         {
             if (i == inventory.currentEquipped) continue;
             slotImages[i].color = new Color(0, 0, 0, 0.9f);
             slotImages[i].rectTransform.localScale = new Vector3(.6f, .6f, 1f);
+        }
+
+        //handle potion
+        potionsAmount.text = InvenoryManagment.NumberOfPotions.ToString();
+
+        if(InvenoryManagment.NumberOfPotions == 0)
+        {
+            slotImages[2].color = new Color(0, 0, 0, 0.9f);
+            slotImages[2].rectTransform.localScale = new Vector3(.6f, .6f, 1f);
+            potionsAmount.enabled = false;
+        }
+        else
+        {
+            potionsAmount.enabled = true;
+            slotImages[2].color = new Color(1, 1, 1, .9f);
+            slotImages[2].rectTransform.localScale = new Vector3(.8f, .8f, .8f);
         }
 
     }
