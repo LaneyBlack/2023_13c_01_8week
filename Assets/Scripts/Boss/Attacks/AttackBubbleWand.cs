@@ -8,6 +8,8 @@ public class AttackBubbleWand : MonoBehaviour
     private readonly Transform _attackPoint;
     private readonly LayerMask _playerLayers;
     private readonly float  _attackRadius;
+    private const float HitForce = 20;
+
     public AttackBubbleWand(BossMovement bossMovement, Transform attackPoint, LayerMask playerLayers, float attackRadius)
     {
         _bossMovement = bossMovement;
@@ -28,7 +30,9 @@ public class AttackBubbleWand : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             Debug.Log("We hit and its currenntHealth =" + enemy.GetComponent<Health>().CurrentHealth);
-            enemy.GetComponent<Health>().TakeDamage(1);
+            enemy.GetComponent<Health>().TakeDamage(1);//_sprite = GetComponent<SpriteRenderer>();
+            enemy.GetComponent<Rigidbody2D>().AddForce(new Vector2(HitForce * (enemy.GetComponent<SpriteRenderer>().flipX?2:-2), HitForce), ForceMode2D.Impulse); // Kicks player
+
         }
     }
 }

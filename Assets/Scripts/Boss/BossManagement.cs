@@ -30,7 +30,7 @@ public class BossManagement : MonoBehaviour
         if (_health.IsDead() && counter == 0)
         {
             counter++;
-            _health.maxHealth = 20;
+            _health.maxHealth *= 2;
             _health.RestoreHealth(_health.maxHealth);
             _healthBarSliderCanvas.transform.localScale += new Vector3(0.001f, 0, 0);
         }
@@ -38,11 +38,8 @@ public class BossManagement : MonoBehaviour
         if (_health.IsDead() && counter == 1 && _deathStarted == false)
         {
             _deathStarted = true;
-            // GameObject effect = ParticleSystemPool.Instance.GetParticle();
             BossVisuals.SetActive(false);
-            // effect.transform.position = transform.position;
-            // effect.transform.rotation = Quaternion.identity;
-            // StartCoroutine(DestroyAfterEffect(effect));
+            
             StartCoroutine(DestroyAfterEffect());
         }
     }
@@ -57,6 +54,7 @@ public class BossManagement : MonoBehaviour
         var spawnedVfx = Instantiate(DeathVfxPrefab,transform.position, Quaternion.identity);
         Destroy(spawnedVfx, 3f);
         yield return new WaitForSeconds(1f);
-        Destroy(_health.gameObject);
+        // Destroy(_health.gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
