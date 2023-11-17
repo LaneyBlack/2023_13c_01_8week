@@ -5,6 +5,17 @@ using UnityEngine;
 public class HealthPotion : MonoBehaviour
 {
     [SerializeField] private int healthRestore = 1;
+    private Health health;
+
+    private void Start()
+    {
+        health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+    }
+
+    void heal()
+    {
+        health.RestoreHealth(healthRestore);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

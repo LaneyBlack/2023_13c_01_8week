@@ -26,8 +26,8 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private float _walkSpeed = 10;
     [SerializeField] private float _runMultiplier = 1.5f;
 
-    [Header("Math Ground Movement")]
-    [SerializeField] private float _accelerationMath = 2;
+    [Header("Ground Movement")]
+    [SerializeField] private float _acceleration = 2;
     [SerializeField] private float _movementLerpMultiplier = 100;
 
     [Header("Jump Type Pick")]
@@ -158,7 +158,7 @@ public class BasicPlayerMovement : MonoBehaviour
         //_currentMovementLerpSpeed = Mathf.MoveTowards(_currentMovementLerpSpeed, 100, _wallJumpMovementLerp * Time.deltaTime);
 
         // This can be done using just X & Y input as they lerp to max values, but this gives greater control over velocity acceleration
-        var acceleration = isGrounded() ? _accelerationMath : _accelerationMath * 0.5f;
+        var acceleration = isGrounded() ? _acceleration : _acceleration * 0.5f;
 
         if (Input.GetKey(KeyCode.A))
         {
