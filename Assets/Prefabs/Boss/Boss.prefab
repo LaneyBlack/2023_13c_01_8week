@@ -581,11 +581,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: maxFollowDistance
-      value: 14
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: minFollowDistance
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: _GrownBossAnimator
@@ -798,8 +798,8 @@ MonoBehaviour:
   playerLayers:
     serializedVersion: 2
     m_Bits: 128
-  bubbleAttackRange: 9
-  wandAttackRange: 1
+  bubbleAttackRange: 8
+  wandAttackRange: 2
   bubbleAttackCooldown: 1.5
   wandAttackCooldown: 1
   waveAttackCooldown: 4
