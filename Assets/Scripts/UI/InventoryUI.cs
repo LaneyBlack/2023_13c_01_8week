@@ -24,7 +24,7 @@ public class InventoryUI : MonoBehaviour
     {
         //find required refereneces:
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
-        potionsAmount = GameObject.FindGameObjectWithTag("UI_Amount").GetComponent<TextMeshProUGUI>();
+        potionsAmount = GameObject.FindGameObjectWithTag("UI_PAmount").GetComponent<TextMeshProUGUI>();
 
 
         gridLayout = GetComponent<GridLayoutGroup>();

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    [SerializeField] private Health playerHealth;
+    private Health playerHealth;
     [SerializeField] private Image healthIconImage;
     [SerializeField] private GameObject healthIconPrefab;
 
@@ -17,6 +17,8 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+
         grid = GetComponent<GridLayoutGroup>();
         hearts = new List<GameObject> ();
 
@@ -32,7 +34,6 @@ public class HealthBar : MonoBehaviour
         {
             var icon = Instantiate(healthIconPrefab, grid.transform);
             hearts.Add(icon);
-
         }
     }
 
