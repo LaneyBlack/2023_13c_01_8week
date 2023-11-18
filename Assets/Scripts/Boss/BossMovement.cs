@@ -98,7 +98,7 @@ public class BossMovement : MonoBehaviour
         var direction = player.transform.position - transform.parent.position;
         float directionSign = Mathf.Sign(direction.x);
 
-        float rayStartOffset = 0.1f;
+        float rayStartOffset = 0.3f;
         Vector2 origin = new Vector2(
             transform.position.x + (boxCollider.bounds.extents.x + rayStartOffset) * directionSign,
             boxCollider.bounds.min.y
@@ -112,9 +112,12 @@ public class BossMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(origin, diagonalDirection, detectionDistance);
 
         Debug.DrawRay(origin, diagonalDirection * detectionDistance, Color.red);
+        // Debug.Log(Mathf.Sign(direction.x)+ " " );
+        Debug.Log("hit point: "+hit.point.y + "     box: " +boxCollider.bounds.min.y);
 
         if (hit.collider != null && Mathf.Abs(hit.point.y - boxCollider.bounds.min.y) > 0.1f && hit.collider)
         {
+
             if (string.IsNullOrEmpty(hit.collider.tag))
             {
                 return hit.point.y > boxCollider.bounds.min.y;
