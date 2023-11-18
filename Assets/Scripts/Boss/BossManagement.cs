@@ -22,7 +22,7 @@ public class BossManagement : MonoBehaviour
 
     private int counter = 0;
 
-    private bool _deathStarted;
+    public static bool _deathStarted;
     
     void Update()
     {

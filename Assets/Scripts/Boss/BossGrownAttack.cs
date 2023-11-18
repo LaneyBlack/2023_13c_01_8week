@@ -43,7 +43,7 @@ public class BossGrownAttack : MonoBehaviour
 
     private void Update()
     {
-        if (bossVisuals.activeSelf && IsGrownAttackFinished)
+        if (bossVisuals.activeSelf && IsGrownAttackFinished&& !BossManagement._deathStarted)
         {
             TimerCounter();
 

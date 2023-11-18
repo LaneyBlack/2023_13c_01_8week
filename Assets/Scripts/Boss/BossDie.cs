@@ -22,16 +22,18 @@ public class BossDie : MonoBehaviour
     private float originalGrowingLocalScaleX;
     private float originalGrowingLocalScaleY;
     private float originalHiForce;
+    private bool isHappend = false;
 
     private void Start()
     {
-        bossHealth = GetComponentInParent<Health>();
-        attackRainbow = new AttackRainbow(_rainbowProjectile, bossMovement);
-        originalRainboColour = _rainbowProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
-        originalRainboLocalScaleVector = _rainbowProjectile.transform.GetChild(0).localScale;
-        originalGrowingLocalScaleX = attackRainbow.growingLocalScaleX;
-        originalGrowingLocalScaleY = attackRainbow.growingLocalScaleY;
-        originalHiForce = _rainbowProjectile.transform.GetChild(0).GetComponent<WaterProjectile>().HitForce;
+    
+            bossHealth = GetComponentInParent<Health>();
+            attackRainbow = new AttackRainbow(_rainbowProjectile, bossMovement);
+            originalRainboColour = _rainbowProjectile.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+            originalRainboLocalScaleVector = _rainbowProjectile.transform.GetChild(0).localScale;
+            originalGrowingLocalScaleX = attackRainbow.growingLocalScaleX;
+            originalGrowingLocalScaleY = attackRainbow.growingLocalScaleY;
+            originalHiForce = _rainbowProjectile.transform.GetChild(0).GetComponent<WaterProjectile>().HitForce;
         
     }
 
@@ -48,7 +50,7 @@ public class BossDie : MonoBehaviour
 
     private void Update()
     {
-        if (bossHealth.IsDead())
+        if (bossHealth.IsDead()&& !isHappend)
         {
             createCustonRainbowAttack();
             bossMovement.canMove = false;
@@ -59,6 +61,7 @@ public class BossDie : MonoBehaviour
             canvasHealth.transform.position += new Vector3(0, 0.9f, 0);
             GetComponentInParent<BoxCollider2D>().size += new Vector2(0, 0.12f);
             GetComponentInParent<BoxCollider2D>().offset += new Vector2(0, 0.06f);
+            isHappend = true;
         }
     }
 
