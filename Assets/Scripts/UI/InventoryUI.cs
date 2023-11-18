@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -30,20 +32,28 @@ public class InventoryUI : MonoBehaviour
         gridLayout = GetComponent<GridLayoutGroup>();
         slotImages = new List<Image>();
 
-        var images = gridLayout.GetComponentsInChildren<Image>();
-        var texts = gridLayout.GetComponentsInChildren<Text>();
+        //var images = gridLayout.GetComponentsInChildren<Image>();
 
-        for (int i = 0, itemid = 0; i < images.Length; i++)
+        //for (int i = 0, itemid = 0; i < images.Length; i++)
+        //{
+        //    var x = images[i];
+
+        //    if (x.gameObject.CompareTag("UI_Item"))
+        //    {
+        //        x.sprite = inventory.itemsData[itemid++].sprite;
+        //        slotImages.Add(images[i]);
+        //    }
+        //}
+
+        var images = GameObject.FindGameObjectsWithTag("UI_Item");
+        for (int i = images.Length - 1; i >= 0; i--)
         {
-            var x = images[i];
-
-            if (x.gameObject.CompareTag("UI_Item"))
-            {
-                x.sprite = inventory.itemsData[itemid++].sprite;
-                slotImages.Add(images[i]);
-            }
+            var image = images[i].GetComponent<Image>();
+            image.sprite = inventory.itemsData[images.Length - 1 - i].sprite;
+            slotImages.Add(image);
         }
 
+        var texts = gridLayout.GetComponentsInChildren<Text>();
         string pattern = "Keypad|Alpha";
         for (int i = 0, itemid = 0; i < texts.Length; i++)
         {
