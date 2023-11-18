@@ -232,8 +232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449dc2d487f46b14f89a5a54edb6cf0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
-  potionsAmount: {fileID: 8657058288534184500}
 --- !u!1 &4936314875143247565
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +364,7 @@ GameObject:
   - component: {fileID: 8657058288534184500}
   m_Layer: 5
   m_Name: PotionsAmount
-  m_TagString: Untagged
+  m_TagString: UI_Amount
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -387,7 +385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 55.8, y: 34.1}
+  m_AnchoredPosition: {x: 57.2, y: 33.4}
   m_SizeDelta: {x: 20, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7285462657907977409
@@ -429,8 +427,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281413951
-  m_fontColor: {r: 0.24528301, g: 0.19090423, b: 0.19090423, a: 1}
+    rgba: 4284709037
+  m_fontColor: {r: 0.6784314, g: 0.47058827, b: 0.38823533, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -447,8 +445,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65
-  m_fontSizeBase: 65
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
