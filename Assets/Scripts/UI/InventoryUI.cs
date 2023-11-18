@@ -7,17 +7,26 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    [Header("Invertory script")]
-    [SerializeField] Inventory inventory;
+    //[Header("Invertory script")]
+    //[SerializeField] Inventory inventory;
 
-    [Header("Potion Text Reference")]
-    [SerializeField] TextMeshProUGUI potionsAmount;
+    //[Header("Potion Text Reference")]
+    //[SerializeField] TextMeshProUGUI potionsAmount;
+
+    private Inventory inventory;
+
+    private TextMeshProUGUI potionsAmount;
 
     private GridLayoutGroup gridLayout;
     private List<Image> slotImages;
 
     private void Start()
     {
+        //find required refereneces:
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        potionsAmount = GameObject.FindGameObjectWithTag("UI_Amount").GetComponent<TextMeshProUGUI>();
+
+
         gridLayout = GetComponent<GridLayoutGroup>();
         slotImages = new List<Image>();
 
