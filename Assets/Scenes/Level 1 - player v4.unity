@@ -85477,14 +85477,6 @@ PrefabInstance:
       propertyPath: potionScript
       value: 
       objectReference: {fileID: 762196270}
-    - target: {fileID: 7160492066179589494, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      propertyPath: components.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7160492066179589494, guid: 29eca595460da024ea0723000bbe298d, type: 3}
-      propertyPath: components.Array.data[5]
-      value: 
-      objectReference: {fileID: 185795991}
     - target: {fileID: 8093405114768699451, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_Name
       value: Player
