@@ -5,14 +5,12 @@ public class HookGun : Equippable
 {
     //[HideInInspector] public bool isEquipped = true;
 
-    [Header("Scripts Ref:")]
-    public GrapplingRope grappleRope;
+    //[Header("Scripts Ref:")]
 
     [Header("Launch Key:")]
     public KeyCode launchKey;
 
     [Header("Layers Settings:")]
-    [SerializeField] private bool grappleToAll = false;
     [SerializeField] private int grappableLayerNumber = 9;
 
     [Header("Main Camera:")]
@@ -27,14 +25,7 @@ public class HookGun : Equippable
     public SpringJoint2D m_springJoint2D;
     public Rigidbody2D m_rigidbody;
 
-    [Header("Rotation:")]
-    [SerializeField] private bool rotateOverTime = true;
-    [Range(0, 60)][SerializeField] private float rotationSpeed = 4;
-
-    //[Header("Distance:")]
-    //[SerializeField] private bool hasMaxDistance = false;
-    //[SerializeField] private float maxDistnace = 20;
-
+    private GrapplingRope grappleRope;
     private enum LaunchType
     {
         Transform_Launch,
@@ -63,6 +54,7 @@ public class HookGun : Equippable
     {
         playerHealth = GetComponentInParent<Health>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        grappleRope = GetComponentInChildren<GrapplingRope>();
     }
 
     private void Start()
@@ -74,7 +66,6 @@ public class HookGun : Equippable
         {
             m_camera = Camera.main;
         }
-
     }
 
     private void OnEnable()
@@ -102,6 +93,8 @@ public class HookGun : Equippable
         if (playerHealth.IsDead() || !isEquipped)
         {
             spriteRenderer.enabled = false;
+            grappleRope.enabled = false;
+            m_springJoint2D.enabled = false;
             return;
         }
         else
@@ -114,14 +107,14 @@ public class HookGun : Equippable
         }
         else if (Input.GetKey(launchKey))
         {
-            if (grappleRope.enabled)
+            if (grappleRope.enabled) //if left-clicked and got a grapple point hit
             {
-                RotateGun(grapplePoint, false);
+                RotateGun(grapplePoint);
             }
-            else
+            else  //if left-clicked and didnt get a grapple point hit just rotate relative to the mouse
             {
                 Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
-                RotateGun(mousePos, true);
+                RotateGun(mousePos);
             }
 
             if (launchToPoint && grappleRope.isGrappling)
@@ -143,23 +136,16 @@ public class HookGun : Equippable
         else
         {
             Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
-            RotateGun(mousePos, true);
+            RotateGun(mousePos);
         }
     }
 
-    void RotateGun(Vector3 lookPoint, bool allowRotationOverTime)
+    void RotateGun(Vector3 lookPoint)
     {
         Vector3 distanceVector = lookPoint - gunPivot.position;
 
         float angle = Mathf.Atan2(distanceVector.y, distanceVector.x) * Mathf.Rad2Deg;
-        if (rotateOverTime && allowRotationOverTime)
-        {
-            gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, Quaternion.AngleAxis(angle, Vector3.forward), Time.deltaTime * rotationSpeed);
-        }
-        else
-        {
-            gunPivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        }
+        gunPivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     void SetGrapplePoint()
@@ -168,7 +154,7 @@ public class HookGun : Equippable
         if (Physics2D.Raycast(firePoint.position, distanceVector.normalized))
         {
             RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized);
-            if (_hit.transform.gameObject.layer == grappableLayerNumber || grappleToAll)
+            if (_hit.transform.gameObject.layer == grappableLayerNumber)
             {
                 //if (Vector2.Distance(_hit.point, firePoint.position) <= maxDistnace || !hasMaxDistance)
                 if(canHook)
@@ -189,6 +175,7 @@ public class HookGun : Equippable
             m_springJoint2D.distance = targetDistance;
             m_springJoint2D.frequency = targetFrequncy;
         }
+
         if (!launchToPoint)
         {
             if (autoConfigureDistance)

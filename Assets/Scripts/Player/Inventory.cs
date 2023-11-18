@@ -60,7 +60,7 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        currentEquipped = 0;
+        currentEquipped = 1;                //set sword to be equipped by default(HOOK FOR TESTING)
         itemsData = new List<Item>
         {
             new Item(weaponKey, weaponIcon, weaponScript),
@@ -71,7 +71,7 @@ public class Inventory : MonoBehaviour
         foreach (Item item in itemsData)
             item.setEquipped(false);        //all is unequipped
 
-        itemsData[0].setEquipped(true);     //set sword to be equipped by default
+        itemsData[currentEquipped].setEquipped(true);     
     }
 
 

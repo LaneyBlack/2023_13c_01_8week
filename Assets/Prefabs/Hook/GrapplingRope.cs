@@ -6,7 +6,7 @@ using UnityEngine;
 public class GrapplingRope : MonoBehaviour
 {
     [Header("General Refernces:")]
-    public HookGun grapplingGun;
+    //public HookGun grapplingGun { get; private set; }
     public LineRenderer m_lineRenderer;
 
     [Header("General Settings:")]
@@ -24,9 +24,15 @@ public class GrapplingRope : MonoBehaviour
 
     float moveTime = 0;
 
-    [HideInInspector] public bool isGrappling = true;
+    [HideInInspector] public bool isGrappling = false;
 
+    public HookGun grapplingGun { get; private set; }
     bool strightLine = true;
+
+    private void Awake()
+    {
+        grapplingGun = GetComponentInParent<HookGun>();
+    }
 
     private void OnEnable()
     {
@@ -64,7 +70,7 @@ public class GrapplingRope : MonoBehaviour
     {
         if (!strightLine)
         {
-            if (m_lineRenderer.GetPosition(percision - 1).x == grapplingGun.grapplePoint.x)
+            if (m_lineRenderer.GetPosition(percision - 1).x == grapplingGun.grapplePoint.x) //if the last point is on the grapple rope is straight
             {
                 strightLine = true;
             }
