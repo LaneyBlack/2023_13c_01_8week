@@ -53,7 +53,7 @@ public class InventoryUI : MonoBehaviour
             slotImages.Add(image);
         }
 
-        var texts = gridLayout.GetComponentsInChildren<Text>();
+        var texts = gridLayout.GetComponentsInChildren<TextMeshProUGUI>();
         string pattern = "Keypad|Alpha";
         for (int i = 0, itemid = 0; i < texts.Length; i++)
         {
