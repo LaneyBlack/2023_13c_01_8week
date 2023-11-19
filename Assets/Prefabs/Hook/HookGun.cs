@@ -99,7 +99,7 @@ public class HookGun : Equippable
         if (canHook)
         {
             float dir = playerMovement.getDirection();
-            Debug.Log(Mathf.Sign(dir));
+            //Debug.Log(Mathf.Sign(dir));
             grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
 
             float right = gunPivot.position.x - grapplePoint.x;

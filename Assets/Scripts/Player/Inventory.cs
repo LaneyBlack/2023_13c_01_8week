@@ -36,8 +36,18 @@ public class Item
     }
 }
 
+enum typeeq
+{
+    Sword,
+    Hook
+}
+
 public class Inventory : MonoBehaviour
 {
+    [Header("Current item")]
+    [SerializeField] private typeeq startItem;
+    [HideInInspector] public int currentEquipped { get; private set; }
+
     [Header("Weapon setup")]
     [SerializeField] private KeyCode weaponKey;
     [SerializeField] private Sprite weaponIcon;
@@ -55,12 +65,11 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Sprite potionIcon;
     [SerializeField] private HealthPotion potionScript;
 
-    [HideInInspector] public int currentEquipped { get; private set; }
     public List<Item> itemsData;
 
     private void Awake()
     {
-        currentEquipped = 1;                //set sword to be equipped by default(HOOK FOR TESTING)
+        currentEquipped = ((int)startItem);                //set sword to be equipped by default(HOOK FOR TESTING)
         itemsData = new List<Item>
         {
             new Item(weaponKey, weaponIcon, weaponScript),
