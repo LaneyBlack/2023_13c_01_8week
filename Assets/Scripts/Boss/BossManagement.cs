@@ -69,6 +69,7 @@ public class BossManagement : MonoBehaviour
         Destroy(_health.gameObject);
         yield return new WaitForSeconds(1f);
         Destroy(transform.parent.gameObject);
+        
     }
 
     private void SpawnKey()
