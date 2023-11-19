@@ -19,6 +19,10 @@ TagManager:
   - Checkpoint
   - Background
   - UI_Slot
+  - UI_CAmount
+  - UI_PAmount
+  - UI_Amount
+  - GrapplePoint
   layers:
   - Default
   - TransparentFX

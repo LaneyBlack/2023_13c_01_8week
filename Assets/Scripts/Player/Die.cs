@@ -6,6 +6,7 @@ public class Die : MonoBehaviour
 {
     private Health playerHealth;
     private Animator _Animator;
+    private Rigidbody2D rb;
     private bool isDead = false;
 
     public Behaviour[] components;
@@ -15,6 +16,8 @@ public class Die : MonoBehaviour
         playerHealth = GetComponent<Health>();
 
         _Animator = GetComponent<Animator>();
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -34,6 +37,8 @@ public class Die : MonoBehaviour
     {
         isDead = true; 
         _Animator.SetTrigger("Die");
+
+        rb.velocity = Vector3.zero;
 
         foreach (var component in components)
             component.enabled = false;
