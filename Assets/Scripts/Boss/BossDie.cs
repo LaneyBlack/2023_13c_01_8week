@@ -14,7 +14,6 @@ public class BossDie : MonoBehaviour
 
     [SerializeField] private GameObject _rainbowProjectile;
 
-    // private readonly BossMovement _bossMovement;
     private Rigidbody2D rb;
     private AttackRainbow attackRainbow;
     private Color originalRainboColour;

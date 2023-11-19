@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    [SerializeField] private int id = 0;
+    [SerializeField] public int id = 0;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
