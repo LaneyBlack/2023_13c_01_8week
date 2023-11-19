@@ -19,26 +19,20 @@ public class BossMovement : MonoBehaviour
     [SerializeField] private float maxFollowDistance;
     [SerializeField] private float minFollowDistance;
 
-
-    private GameObject player;
-
-    private Rigidbody2D _rigidbody;
-
-    private BoxCollider2D boxCollider;
-
-
-    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
-    public bool canMove = true;
-
     [Header("Jump")] [SerializeField] private float jumpForce = 10f;
     [SerializeField] private LayerMask jumpLayer;
     [SerializeField] private List<LayerMask> jumpLayers = new List<LayerMask>();
+    
+    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+    public bool canMove = true;
+    private GameObject player;
+    private Rigidbody2D _rigidbody;
+    private BoxCollider2D boxCollider;
     private float groundRayLength = .1f;
 
     private void Awake()
     {
         _rigidbody = GetComponentInParent<Rigidbody2D>();
-
         boxCollider = GetComponentInParent<BoxCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -104,7 +98,7 @@ public class BossMovement : MonoBehaviour
         var direction = player.transform.position - transform.parent.position;
         float directionSign = Mathf.Sign(direction.x);
 
-        float rayStartOffset = 0.1f;
+        float rayStartOffset = 0.3f;
         Vector2 origin = new Vector2(
             transform.position.x + (boxCollider.bounds.extents.x + rayStartOffset) * directionSign,
             boxCollider.bounds.min.y
@@ -118,11 +112,21 @@ public class BossMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(origin, diagonalDirection, detectionDistance);
 
         Debug.DrawRay(origin, diagonalDirection * detectionDistance, Color.red);
+        // Debug.Log(Mathf.Sign(direction.x)+ " " );
+        // Debug.Log("hit point: "+hit.point.y + "     box: " +boxCollider.bounds.min.y);
 
-        // If an elevation is detected in the path, jump
-        if (hit.collider != null && Mathf.Abs(hit.point.y - boxCollider.bounds.min.y) > 0.1f)
+        if (hit.collider != null && Mathf.Abs(hit.point.y - boxCollider.bounds.min.y) > 0.1f && hit.collider)
         {
-            return hit.point.y > boxCollider.bounds.min.y;
+
+            if (string.IsNullOrEmpty(hit.collider.tag))
+            {
+                return hit.point.y > boxCollider.bounds.min.y;
+            }
+
+            if (!hit.collider.CompareTag("Player") && !hit.collider.CompareTag("bossParticle"))
+            {
+                return hit.point.y > boxCollider.bounds.min.y;
+            }
         }
 
         return false;

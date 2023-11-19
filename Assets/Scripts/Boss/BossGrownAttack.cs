@@ -7,9 +7,9 @@ using UnityEngine.Serialization;
 public class BossGrownAttack : MonoBehaviour
 {
     [Header("Objects to attach")] [SerializeField]
-    public GameObject GrownBossVisuals;
+    public GameObject bossVisuals;
 
-    [SerializeField] private Animator _GrownBossAnimator;
+    [SerializeField] private Animator bossAnimator;
     [SerializeField] private BossMovement bossMovement;
     [SerializeField] private GameObject waterProjectile;
     [SerializeField] private GameObject rainbowProjectile;
@@ -17,110 +17,67 @@ public class BossGrownAttack : MonoBehaviour
     [Header("Values for preferences")] [SerializeField]
     private float attackRange = 3f;
 
-    [SerializeField] private float attackCooldown = 2f; // Cooldown between attacks
+    [SerializeField, Range(0f, 5f)] private float waterProjectileAttackCooldown = 1.5f; 
+    [SerializeField, Range(0f, 10f)] private float rainbowAttackCooldown = 5f;
 
-    private GameObject player;
-    private Health bossHealth;
-    private float timer = 0f;
-    private float _cooldownTimer = Mathf.Infinity;
+    [SerializeField, Range(0, 20)] private int specialBossHealthLimitAttack = 10;
+
+    private GameObject _player;
+    private Health _bossHealth;
+    private float _cooldownTimerRainbow = 0f;
+    private float _cooldownTimer = 0;
+    public static bool IsGrownAttackFinished = true;
+    public AttackWaterProjectile _attackWaterProjectile;
+    public AttackRainbow _attackRainbow;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-
-        bossHealth = GetComponentInParent<Health>();
+        IsGrownAttackFinished = true;
+        _cooldownTimer = 0;
+        _cooldownTimerRainbow = 0;
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _bossHealth = GetComponentInParent<Health>();
+        _attackWaterProjectile = new AttackWaterProjectile(waterProjectile, transform.parent, _player, bossMovement);
+        _attackRainbow = new AttackRainbow(rainbowProjectile, bossMovement);
     }
 
     private void Update()
     {
-        
-        if (GrownBossVisuals.activeSelf)
+        if (bossVisuals.activeSelf && IsGrownAttackFinished&& !BossManagement._deathStarted)
         {
-            _cooldownTimer += Time.deltaTime;
-            timer += Time.deltaTime;
-            float distanceToPlayer = Vector2.Distance(transform.parent.position, player.transform.position);
-            if (bossHealth.CurrentHealth < (Math.Round((float)(bossHealth.maxHealth / 2) + 1)) && timer >= 5 &&
-                bossMovement.isGrounded())
+            TimerCounter();
+
+            float distanceToPlayer = Vector2.Distance(transform.parent.position, _player.transform.position);
+            if (_cooldownTimerRainbow >= rainbowAttackCooldown && bossMovement.isGrounded())
             {
-                Attack2();
-                timer = 0;
+                PerformAttack("Attack2", () => _attackRainbow.AppearRainbow(0.6f, 1.6f));
+
+                _cooldownTimerRainbow = 0;
                 _cooldownTimer = 0f;
             }
-            else if (distanceToPlayer <= attackRange && _cooldownTimer >= attackCooldown)
+            else if (_cooldownTimer >= waterProjectileAttackCooldown && distanceToPlayer <= attackRange)
             {
-                Attack();
+                PerformAttack("Attack", () => _attackWaterProjectile.AppearWaterProjectile(0.3f, 1f));
+
                 _cooldownTimer = 0f;
             }
         }
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
-    void Attack()
+    void PerformAttack(string attackTrigger, Func<IEnumerator> attackBehaviorCoroutine)
     {
+        IsGrownAttackFinished = false;
         bossMovement.canMove = false;
-
-        _GrownBossAnimator.SetTrigger("Attack");
-        StartCoroutine(AppearProjectile());
+        bossAnimator.SetTrigger(attackTrigger);
+        StartCoroutine(attackBehaviorCoroutine());
     }
-    void Attack2()
-    {
-        bossMovement.canMove = false;
-        _GrownBossAnimator.SetTrigger("Attack2");
-        StartCoroutine(AppearRainbow());
-    }
-    // ReSharper disable Unity.PerformanceAnalysis
-    private IEnumerator AppearProjectile()
-    {
-        yield return new WaitForSeconds(0.3f);
-        waterProjectile.SetActive(true);
-        float time = 0;
-        Vector3 originalScale = waterProjectile.transform.localScale;
 
-        while (time < 1f)
+    void TimerCounter()
+    {
+        _cooldownTimer += Time.deltaTime;
+        if (_bossHealth.CurrentHealth < specialBossHealthLimitAttack)
         {
-            bool isFlip = (transform.parent.position.x - player.transform.position.x) < 0;
-            waterProjectile.transform.localScale += new Vector3(0.007f, 0, 0);
-            waterProjectile.GetComponent<SpriteRenderer>().flipX = isFlip;
-            if (isFlip)
-            {
-                waterProjectile.transform.localPosition = new Vector3(-0.07f, 0, 0); //prawo
-
-                waterProjectile.GetComponentInChildren<WaterProjectile>().changePosition(0.15f, true);
-            }
-            else
-            {
-                waterProjectile.transform.localPosition = new Vector3(0.04f, 0, 0);
-                waterProjectile.GetComponentInChildren<WaterProjectile>().changePosition(-0.15f, false);
-            }
-
-            yield return null;
-            time += Time.deltaTime;
+            _cooldownTimerRainbow += Time.deltaTime;
         }
-
-        waterProjectile.transform.localScale = originalScale;
-        waterProjectile.SetActive(false);
-        bossMovement.canMove = true;
-    }
-    // ReSharper disable Unity.PerformanceAnalysis
-    private IEnumerator AppearRainbow()
-    {
-        yield return new WaitForSeconds(1.3f);
-        rainbowProjectile.SetActive(true);
-        float time = 0;
-        Vector3 originalScale = rainbowProjectile.transform.localScale;
-        rainbowProjectile.transform.localPosition = new Vector3(0, 0.1f, 0); 
-
-        while (time < 2f)
-        {
-            rainbowProjectile.transform.localScale += new Vector3(0.001f, 0.0014f, 0);
-            rainbowProjectile.transform.localPosition += new Vector3(0, 0.000075f, 0);
-            // rainbowProjectile. += new Vector3(0.007f, 0.02f, 0);
-            yield return null;
-            time += Time.deltaTime;
-        }
-
-        rainbowProjectile.transform.localScale = originalScale;
-        rainbowProjectile.SetActive(false);
-        bossMovement.canMove = true;
     }
 }
