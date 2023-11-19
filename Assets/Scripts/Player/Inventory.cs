@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item
@@ -63,7 +64,7 @@ public class Inventory : MonoBehaviour
     [Header("Potion setup")]
     [SerializeField] private KeyCode potionKey;
     [SerializeField] private Sprite potionIcon;
-    [SerializeField] private HealthPotion potionScript;
+    private HealthPotion potionScript;
 
     public List<Item> itemsData;
 
@@ -83,6 +84,10 @@ public class Inventory : MonoBehaviour
         itemsData[currentEquipped].setEquipped(true);     
     }
 
+    private void Start()
+    {
+        potionScript = GameObject.FindGameObjectWithTag("HealthPotion").GetComponent<HealthPotion>();
+    }
 
     private void Update()
     {
