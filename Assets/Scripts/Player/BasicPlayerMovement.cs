@@ -6,7 +6,8 @@ public class BasicPlayerMovement : MonoBehaviour
     private enum MovementType
     {
         Math,
-        Curves
+        Curves,
+        Old
     }
 
     [Header("Movement Type Pick")]
@@ -19,6 +20,13 @@ public class BasicPlayerMovement : MonoBehaviour
     [Header("Ground Movement")]
     [SerializeField] private float _acceleration = 2;
     [SerializeField] private float _movementLerpMultiplier = 100;
+
+    [Header("Ground Movement[CURVES]")]
+    [SerializeField] private AnimationCurve accelerationCurve;
+    [SerializeField] private float accelerationTime;
+
+    [SerializeField] private AnimationCurve deccelerationCurve;
+    [SerializeField] private float deccelerationTime;
 
     [Header("Jump")]
     [SerializeField] [Range(1f, 10f)]  private float jumpHeight = 2;
@@ -40,6 +48,9 @@ public class BasicPlayerMovement : MonoBehaviour
     //ground movement:
     private float _xInput;
     private float _currentSpeed;
+    float accTimePassed = 0f;
+    float dccTimePassed = 0f;
+    bool wasMoving;
 
     //jumping:
     private float jumpVely = 0;
@@ -76,7 +87,7 @@ public class BasicPlayerMovement : MonoBehaviour
     private void Start()
     {
         regularGravity = _rb.gravityScale;
-        _rb.velocity = Vector3.zero;
+        //_rb.velocity = Vector3.zero;
         determineJumpParamters();
     }
 
@@ -114,18 +125,32 @@ public class BasicPlayerMovement : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftShift))
             _currentSpeed *= _runMultiplier;
 
-        if(movementType == MovementType.Math)
-            handleGroundMovementMath();
-
-        if (ropeScript.isGrappling)
-            _currentSpeed *= _glideBoost;
+        //if (ropeScript.isGrappling)
+        //    _currentSpeed *= _glideBoost;
 
         falling = (_rb.velocity.y < -0.15f);
+
+        if (movementType == MovementType.Math)
+            handleGroundMovementMath();
+        else if (movementType == MovementType.Curves)
+            handleMovementCurves();
+        else if (movementType == MovementType.Old)
+            _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
 
         handleJump();
 
         Flip(_xInput);
         handleAnimator();
+    }
+
+    private void FixedUpdate()
+    {
+        //if (movementType == MovementType.Math)
+        //    handleGroundMovementMath();
+        //else if (movementType == MovementType.Curves)
+        //    handleMovementCurves();
+        //else if (movementType == MovementType.Old)
+        //    _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
     }
 
     void handleAnimator()
@@ -163,7 +188,52 @@ public class BasicPlayerMovement : MonoBehaviour
 
         var wishVelocity = new Vector3(_xInput * _currentSpeed, _rb.velocity.y);
         // _currentMovementLerpSpeed should be set to something crazy high to be effectively instant. But slowed down after a wall jump and slowly released
+
         _rb.velocity = Vector3.MoveTowards(_rb.velocity, wishVelocity, _movementLerpMultiplier * Time.deltaTime);
+        //_rb.velocity = wishVelocity;
+    }
+
+    private void handleMovementCurves()
+    {
+        Debug.Log(dccTimePassed);
+        //float xvel = 0;
+        if(_xInput != 0)
+        {
+            dccTimePassed = 0;
+            accTimePassed = Mathf.Clamp(accTimePassed + Time.deltaTime, 0, accelerationTime);
+            _xInput *= accelerationCurve.Evaluate(accTimePassed / accelerationTime);
+
+            //xvel = accelerationCurve.Evaluate(accTimePassed / accelerationTime) * _xInput;
+            //wasMoving = true;
+            //_rb.velocity = new Vector2(xvel * _xInput, _rb.velocity.y);
+        }
+        else 
+        {
+            accTimePassed = 0;
+            dccTimePassed = Mathf.Clamp(dccTimePassed + Time.deltaTime, 0, deccelerationTime);
+            _xInput *= deccelerationCurve.Evaluate(dccTimePassed / deccelerationTime);
+
+            //xvel = deccelerationCurve.Evaluate(dccTimePassed / deccelerationTime) * _xInput;
+            //_rb.velocity = new Vector2(xvel, _rb.velocity.y);
+        }
+
+        _rb.velocity = new Vector2(_xInput * _currentSpeed, _rb.velocity.y);
+
+
+
+        //if(xvel == 0)
+        //    wasMoving = false;
+
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    dccTimePassed = 0;
+        //    accTimePassed =  Mathf.Clamp(accTimePassed + Time.deltaTime, 0, accelerationTime);
+        //}
+        //else if (Input.GetKey(KeyCode.D))
+        //{
+        //    dccTimePassed = 0;
+        //    accTimePassed = Mathf.Clamp(accTimePassed + Time.deltaTime, 0, accelerationTime);
+        //}
     }
 
     private void coyoteTimerSetUp()
