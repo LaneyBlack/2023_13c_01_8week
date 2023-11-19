@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &70615566
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -313,11 +313,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7249472963113563445, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.05
+      value: -1.31
       objectReference: {fileID: 0}
     - target: {fileID: 7249472963113563445, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.0699997
+      value: 6.75
       objectReference: {fileID: 0}
     - target: {fileID: 7249472963113563445, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -350,6 +350,10 @@ PrefabInstance:
     - target: {fileID: 7249472963113563445, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7902379652732333371, guid: 442c37501744ecd4bad88e7ea3e707a3, type: 3}
+      propertyPath: attachRadius
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -403,6 +407,10 @@ PrefabInstance:
     - target: {fileID: 2692948081531085355, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343769085241469385, guid: 29eca595460da024ea0723000bbe298d, type: 3}
+      propertyPath: detachAngle
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3343769085241469385, guid: 29eca595460da024ea0723000bbe298d, type: 3}
       propertyPath: launchToPoint
@@ -630,8 +638,8 @@ Transform:
   m_GameObject: {fileID: 1238442584}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.42, y: -0.4, z: 0}
-  m_LocalScale: {x: 10.868994, y: 0.93053055, z: 0}
+  m_LocalPosition: {x: 14.21, y: -0.47, z: 0}
+  m_LocalScale: {x: 20.967377, y: 0.93053055, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

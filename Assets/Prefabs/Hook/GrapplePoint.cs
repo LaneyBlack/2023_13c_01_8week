@@ -27,7 +27,15 @@ public class GrapplePoint : MonoBehaviour
             //Debug.Log("GrapplingGun found. Distance = " + distance);
 
             spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
-            grapplingGun.GetComponent<HookGun>().canHook = (distance - attachError <= attachRadius);
+            var hookgun = grapplingGun.GetComponent<HookGun>();
+            hookgun.canHook = (distance - attachError <= attachRadius);
+            hookgun.grapplePoint = transform.position;
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, attachRadius);
     }
 }

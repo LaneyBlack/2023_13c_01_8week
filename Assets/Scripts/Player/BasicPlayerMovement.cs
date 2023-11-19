@@ -180,6 +180,10 @@ public class BasicPlayerMovement : MonoBehaviour
         _rb.velocity = Vector3.MoveTowards(_rb.velocity, wishVelocity, _movementLerpMultiplier * Time.deltaTime);
     }
 
+    public float getDirection()
+    {
+        return Mathf.Sign(_xInput);
+    }
     void handleJump()
     {
         float g = Physics.gravity.y;
