@@ -35,6 +35,7 @@ public class HookGun : Equippable
     private float targetDistance;
     private SpriteRenderer spriteRenderer;
     private BasicPlayerMovement playerMovement;
+    private Rigidbody2D playerrb;
 
     private void Awake()
     {
@@ -42,6 +43,7 @@ public class HookGun : Equippable
         playerMovement = GetComponentInParent<BasicPlayerMovement>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         grappleRope = GetComponentInChildren<GrapplingRope>();
+        playerrb = GetComponentInParent<Rigidbody2D>();
     }
 
     private void Start()
@@ -94,10 +96,10 @@ public class HookGun : Equippable
         else
             spriteRenderer.enabled = true;
 
-        float dir = playerMovement.getDirection();
-
         if (canHook)
         {
+            float dir = playerMovement.getDirection();
+            Debug.Log(Mathf.Sign(dir));
             grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
 
             float right = gunPivot.position.x - grapplePoint.x;
@@ -109,6 +111,7 @@ public class HookGun : Equippable
                 grappleRope.enabled = true;
                 playerMovement.jumpFullReset();
                 RotateGun(grapplePoint);
+                //playerrb.AddForce(new Vector2(-Mathf.Sign(right) * 40, 20), ForceMode2D.Impulse);
             }
             if (dir * right > 0)    //if player went past the middle point in the swing
             {
@@ -122,7 +125,7 @@ public class HookGun : Equippable
             }
         }
         else
-            RotateGun(gunPivot.position + (Vector3.forward * 3 * Mathf.Sign(dir)), true);
+            RotateGun(gunPivot.position + (Vector3.forward * 3), true);
     }
 
     void findGrapplePoint()
