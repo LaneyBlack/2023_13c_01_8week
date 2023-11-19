@@ -7,15 +7,11 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject _shopUI;
     [SerializeField] private Button _buyPotionButton;
     [SerializeField] private Button _buySwordButton;
-    [SerializeField] private TextMeshProUGUI _playerMoneyText;
 
     private void Start()
     {
         _buyPotionButton.onClick.AddListener(BuyPotion);
         _buySwordButton.onClick.AddListener(BuySword);
-        
-        //TEST
-        InvenoryManagment.NumberOfCoins += 200;
     }
 
     private void BuyPotion()
