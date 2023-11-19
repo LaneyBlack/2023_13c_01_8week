@@ -27,7 +27,7 @@ public class Item
         //    script.enabled = isEquipped;
     }
 
-    public bool isAvailable()
+    public bool isAvailable()   //rewrite
     {
         if (script != null & count == -1)
             return script.isEquipped;
@@ -36,8 +36,18 @@ public class Item
     }
 }
 
+enum typeeq
+{
+    Sword,
+    Hook
+}
+
 public class Inventory : MonoBehaviour
 {
+    [Header("Current item")]
+    [SerializeField] private typeeq startItem;
+    [HideInInspector] public int currentEquipped { get; private set; }
+
     [Header("Weapon setup")]
     [SerializeField] private KeyCode weaponKey;
     [SerializeField] private Sprite weaponIcon;
@@ -53,14 +63,13 @@ public class Inventory : MonoBehaviour
     [Header("Potion setup")]
     [SerializeField] private KeyCode potionKey;
     [SerializeField] private Sprite potionIcon;
-    //[TO ADD] skrypt na potionke
+    [SerializeField] private HealthPotion potionScript;
 
-    [HideInInspector] public int currentEquipped { get; private set; }
     public List<Item> itemsData;
 
     private void Awake()
     {
-        currentEquipped = 0;
+        currentEquipped = ((int)startItem);                //set sword to be equipped by default(HOOK FOR TESTING)
         itemsData = new List<Item>
         {
             new Item(weaponKey, weaponIcon, weaponScript),
@@ -71,18 +80,21 @@ public class Inventory : MonoBehaviour
         foreach (Item item in itemsData)
             item.setEquipped(false);        //all is unequipped
 
-        itemsData[0].setEquipped(true);     //set sword to be equipped by default
+        itemsData[currentEquipped].setEquipped(true);     
     }
 
 
     private void Update()
     {
         int foundIndex = itemsData.FindIndex(item => Input.GetKeyDown(item.keycode));
-        if (foundIndex != -1) 
+        if (foundIndex != -1 && foundIndex < 2) 
         {
             itemsData[currentEquipped].setEquipped(false);
             currentEquipped = foundIndex;
             itemsData[currentEquipped].setEquipped(true);
         }
+
+        if (foundIndex == 2)
+            potionScript.usePotion();
     }
 }

@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class GrapplePoint : MonoBehaviour
 {
-    private float                   promptRadius;           //distance when "can attach" color starts to change       
+    public float                    minSwingRadius = 3f;           //how close can player by to the grapple point in swing
+    private float                   promptRadius;                  //distance when "can attach" color starts to change       
+    private Color                   canAttachColor = Color.green;
+    private Color                   defaultColor = Color.red;
     private SpriteRenderer          spriteRenderer;
     [SerializeField] private float  attachError = 0.5f;            //how much further can player be from attachRadius and still attach
-    [SerializeField] private float  attachRadius = 10f;     //how close player must be to the point to attach himself
-    /*[SerializeField]*/ private Color  canAttachColor = Color.green;
-    /*[SerializeField]*/ private Color  defaultColor = Color.red;
+    [SerializeField] private float  attachRadius = 10f;            //how close player must be to the point to attach himself
+
+    float distance = 0f;
 
     private void Start()
     {
@@ -19,15 +22,23 @@ public class GrapplePoint : MonoBehaviour
 
     private void Update()
     {
-        var grapplingGun = GameObject.FindWithTag("GrapplingGun");
+        spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
+    }
 
-        if (grapplingGun != null) 
-        {
-            float distance = Vector2.Distance(grapplingGun.transform.position, transform.position);
-            //Debug.Log("GrapplingGun found. Distance = " + distance);
+    public bool canAttach(Vector3 position)
+    {
+        distance = Vector2.Distance(position, transform.position);
+        return Vector2.Distance(position, transform.position) <= (attachRadius + attachError);
+    }
 
-            spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
-            grapplingGun.GetComponent<HookGun>().canHook = (distance - attachError <= attachRadius);
-        }
+    private void OnDrawGizmosSelected()
+    {
+        //attach radius
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, attachRadius);
+
+        //swing radius
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, minSwingRadius);
     }
 }

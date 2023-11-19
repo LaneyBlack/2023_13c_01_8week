@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CoinsUI : MonoBehaviour
 {
-    [SerializeField] private Text coinsAmount;
-    //[SerializeField] private InvenoryManagment im;
-
-    //private static CoinsUI instance;
+    private TextMeshProUGUI coinsAmount;
 
     private void Start()
     {
+        coinsAmount = GameObject.FindGameObjectWithTag("UI_CAmount").GetComponent<TextMeshProUGUI>();
         coinsAmount.text = "0";
     }
 
