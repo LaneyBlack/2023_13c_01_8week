@@ -12,8 +12,6 @@ public class InvenoryManagment : MonoBehaviour
     private void Start()
     {
         //_health = GetComponentInParent<Health>();
-        NumberOfPotions = 0;
-        NumberOfCoins = 0;
         IsSwordUpgraded = false;
     }
 }
