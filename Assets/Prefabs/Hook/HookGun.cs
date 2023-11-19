@@ -39,7 +39,6 @@ public class HookGun : Equippable
 
     [Header("No Launch To Point")]
     [SerializeField] private bool autoConfigureDistance = false;
-    [SerializeField] private float targetDistance = 3;
     [SerializeField] private float targetFrequncy = 1;
 
 
@@ -52,6 +51,7 @@ public class HookGun : Equippable
     [HideInInspector] public bool canHook;
 
     private Health playerHealth;
+    private float targetDistance;
     private SpriteRenderer spriteRenderer;
     private BasicPlayerMovement playerMovement;
 
@@ -203,10 +203,12 @@ public class HookGun : Equippable
         var gpoints = GameObject.FindGameObjectsWithTag("GrapplePoint");
         foreach (var g in gpoints)
         {
-            if(g.GetComponent<GrapplePoint>().canAttach(transform.position))
+            var gp = g.GetComponent<GrapplePoint>();
+            if (gp.canAttach(transform.position))
             {
                 canHook = true;
                 grapplePoint = g.transform.position;
+                targetDistance = gp.minSwingRadius;
                 return;
             }
         }
