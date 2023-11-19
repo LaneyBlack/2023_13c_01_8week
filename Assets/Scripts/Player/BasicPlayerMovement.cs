@@ -3,20 +3,10 @@ using UnityEngine;
 
 public class BasicPlayerMovement : MonoBehaviour
 {
-    //DEBUG:
-    int scount = 0;
-    int jcount = 0;  
-
     private enum MovementType
     {
         Math,
-        Old
-    }
-
-    private enum JumpType
-    {
-        Old,
-        New
+        Curves
     }
 
     [Header("Movement Type Pick")]
@@ -30,11 +20,7 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private float _acceleration = 2;
     [SerializeField] private float _movementLerpMultiplier = 100;
 
-    [Header("Jump Type Pick")]
-    [SerializeField] private JumpType jumpType = JumpType.New;
-
     [Header("Jump")]
-    [SerializeField] private float _basicJumpForce = 10;
     [SerializeField] [Range(1f, 10f)]  private float jumpHeight = 2;
     [SerializeField] [Range(0f, 10f)]  private float jumpRiseTime = .5f;
     [SerializeField] [Range(.1f, 10f)] private float downGravityScale = 3f;
@@ -42,9 +28,8 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private List<LayerMask> jumpLayers = new List<LayerMask>();
 
     [Header("Grappling Rope")]
-    [SerializeField] private GrapplingRope ropeScript;
     [SerializeField] private float _glideBoost = 1.5f;
-    [SerializeField] private float _jumpBoost = 1.3f;
+    //[SerializeField] private float _jumpBoost = 1.3f;
 
     //external:
     private Rigidbody2D _rb;
@@ -57,7 +42,6 @@ public class BasicPlayerMovement : MonoBehaviour
     private float _currentSpeed;
 
     //jumping:
-    private float _jumpForce;
     private float jumpVely = 0;
     private float regularGravity;
     private float jumpGravity;
@@ -73,6 +57,11 @@ public class BasicPlayerMovement : MonoBehaviour
     //ground collision:
     private float groundRayLength = .2f;
 
+    //hook scripts references:
+    private GrapplingRope ropeScript;
+    private HookGun hookScript;
+
+
 
     private void Awake()
     {
@@ -80,6 +69,8 @@ public class BasicPlayerMovement : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        ropeScript = GetComponentInChildren<GrapplingRope>(); 
+        hookScript = GetComponentInChildren<HookGun>(); 
     }
 
     private void Start()
@@ -89,7 +80,19 @@ public class BasicPlayerMovement : MonoBehaviour
         determineJumpParamters();
     }
 
-    void determineJumpParamters()
+    public float getDirection()
+    {
+        return _xInput;
+    }
+
+    public void jumpFullReset()
+    {
+        _rb.gravityScale = regularGravity;
+        _inJump = false;
+        wasFalling = false;
+    }
+
+    private void determineJumpParamters()
     {
         jumpVely = 2 * jumpHeight / jumpRiseTime;
         jumpGravity = -2 * jumpHeight / (jumpRiseTime * jumpRiseTime);
@@ -99,26 +102,13 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //determineJumpParamters();
-
-        if(grounded && !isGrounded() && !_inJump)        //was grounded on the previous frame and now isnt
-            lastTimeGrounded = Time.time;
+        coyoteTimerSetUp();
 
         _xInput = Input.GetAxis("Horizontal");
-        Flip(_xInput);
 
         grounded = isGrounded();
-        _jumpForce = _basicJumpForce;
 
-        if (Input.GetButtonDown("Jump") && (grounded || ropeScript.isGrappling || Time.time - lastTimeGrounded <= coyoteTime))
-        {
-            _performJump = true;
-            if (ropeScript.isGrappling)
-                _jumpForce *= _jumpBoost;
-
-            //DEBUG:
-            scount++;
-        }
+        jumpSetUp();
 
         _currentSpeed = _walkSpeed;
         if(Input.GetKey(KeyCode.LeftShift))
@@ -132,33 +122,29 @@ public class BasicPlayerMovement : MonoBehaviour
 
         falling = (_rb.velocity.y < -0.15f);
 
-        if (jumpType == JumpType.New)
-            handleJump();
+        handleJump();
 
+        Flip(_xInput);
         handleAnimator();
-
-        //DEBUG:
-        //Debug.Log("space: " + scount + "\t jump: " + jcount);
-        //Debug.Log(_rb.gravityScale);
     }
 
     void handleAnimator()
     {
         animator.SetBool("Run", _rb.velocity.x != 0);
 
-        //set animator transitions:
         animator.SetBool("Falling", falling);
         animator.SetBool("Grounded", isGrounded());
     }
 
     //requires further working
-    void handleGroundMovementMath()
+    private void handleGroundMovementMath()
     {
         // Slowly release control after wall jump
         //_currentMovementLerpSpeed = Mathf.MoveTowards(_currentMovementLerpSpeed, 100, _wallJumpMovementLerp * Time.deltaTime);
 
         // This can be done using just X & Y input as they lerp to max values, but this gives greater control over velocity acceleration
         var acceleration = isGrounded() ? _acceleration : _acceleration * 0.5f;
+        //var acceleration =  _acceleration; //ignore if in air
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -180,31 +166,33 @@ public class BasicPlayerMovement : MonoBehaviour
         _rb.velocity = Vector3.MoveTowards(_rb.velocity, wishVelocity, _movementLerpMultiplier * Time.deltaTime);
     }
 
-    public float getDirection()
+    private void coyoteTimerSetUp()
     {
-        return _xInput;
+        if (grounded && !isGrounded() && !_inJump)        //was grounded on the previous frame and now isnt
+            lastTimeGrounded = Time.time;
     }
 
-    public void jumpFullReset()
+    private void jumpSetUp()
     {
-        _rb.gravityScale = regularGravity;
-        _inJump = false;
-        wasFalling = false;
+        if (Input.GetButtonDown("Jump") && (grounded || ropeScript.isGrappling || Time.time - lastTimeGrounded <= coyoteTime))
+        {
+            _performJump = true;
+            //if (ropeScript.isGrappling)
+            //    _jumpForce *= _jumpBoost;
+        }
     }
-    void handleJump()
+
+    private void handleJump()
     {
         float g = Physics.gravity.y;
         if (_performJump)
         {
             _performJump = false;
-            ropeScript.enabled = false;
+            hookScript.disableGrappling();
             _inJump = true;
 
             _rb.gravityScale = jumpGravity / g;
             _rb.velocity = new Vector2(_rb.velocity.x, jumpVely);
-
-            //DEBUG:
-            jcount++;
         }
         else if (falling && _inJump)
         {
@@ -214,25 +202,6 @@ public class BasicPlayerMovement : MonoBehaviour
         else if (_inJump && wasFalling && isGrounded())
         {
             jumpFullReset();
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        if(movementType == MovementType.Old)
-            _rb.velocity = new Vector2(_xInput * _currentSpeed, _rb.velocity.y);
-
-        if (jumpType == JumpType.Old)
-        {
-            if (_performJump)
-            {
-                _performJump = false;
-                ropeScript.enabled = false;
-                _rb.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
-
-                //DEBUG:
-                jcount++;
-            }
         }
     }
 
