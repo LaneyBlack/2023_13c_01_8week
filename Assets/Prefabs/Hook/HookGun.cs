@@ -3,15 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class HookGun : Equippable
 {
-    //[HideInInspector] public bool isEquipped = true;
-
-    //[Header("Scripts Ref:")]
-
     [Header("Launch Key:")]
     public KeyCode launchKey;
-
-    [Header("Layers Settings:")]
-    //[SerializeField] private int grappableLayerNumber;
 
     [Header("Main Camera:")]
     public Camera m_camera;
@@ -25,24 +18,11 @@ public class HookGun : Equippable
     public SpringJoint2D m_springJoint2D;
     public Rigidbody2D m_rigidbody;
 
-    private GrapplingRope grappleRope;
-    private enum LaunchType
-    {
-        Transform_Launch,
-        Physics_Launch
-    }
 
     [Header("Launching:")]
-    [SerializeField] private bool launchToPoint = true;
-    [SerializeField] private LaunchType launchType = LaunchType.Physics_Launch;
-    [SerializeField] private float launchSpeed = 1;
-
-    [Header("No Launch To Point")]
-    [SerializeField] private bool autoConfigureDistance = false;
     [SerializeField] private float targetFrequncy = 1;
 
-
-    [Header("TESTING")]
+    [Header("Detach")]
     [SerializeField] private float detachAngle = 45f;
 
     [HideInInspector] public Vector2 grapplePoint;
@@ -50,6 +30,7 @@ public class HookGun : Equippable
 
     [HideInInspector] public bool canHook;
 
+    private GrapplingRope grappleRope;
     private Health playerHealth;
     private float targetDistance;
     private SpriteRenderer spriteRenderer;
@@ -118,22 +99,11 @@ public class HookGun : Equippable
         if (canHook)
         {
             grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
-            //Debug.DrawLine(grapplePoint, gunPivot.position);
-            //bool rightApproach = Vector2.Dot(Vector2.right, ((Vector2)gunPivot.position - grapplePoint)) > 0;
+
             float right = gunPivot.position.x - grapplePoint.x;
-
-            Debug.Log(dir + "\t" + right);
-
-            //if (rightApproach)
-            //    Debug.Log("coming from right");
-            //else
-            //    Debug.Log("coming from left");
 
             RotateGun(grapplePoint, true);
             
-
-            //Debug.Log(Mathf.Acos(angle * Mathf.Rad2Deg));
-
             if (Input.GetKeyDown(launchKey))
             {
                 grappleRope.enabled = true;
@@ -145,7 +115,6 @@ public class HookGun : Equippable
                 var angle = Vector2.Dot(Vector2.down, ((Vector2)gunPivot.position - grapplePoint).normalized);
                 if (angle < Mathf.Cos(detachAngle * Mathf.Deg2Rad))
                 {
-                    //Debug.Log("detach");
                     grappleRope.enabled = false;
                     m_springJoint2D.enabled = false;
                     canHook = false;
@@ -154,48 +123,6 @@ public class HookGun : Equippable
         }
         else
             RotateGun(gunPivot.position + (Vector3.forward * 3 * Mathf.Sign(dir)), true);
-
-
-        //else
-        //{
-        //    Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
-        //    RotateGun(mousePos);
-        //}
-
-        //if (Input.GetKey(launchKey))
-        //{
-        //    if (grappleRope.enabled) //if left-clicked and got a grapple point hit
-        //    {
-        //        RotateGun(grapplePoint);
-        //    }
-        //    else  //if left-clicked and didnt get a grapple point hit just rotate relative to the mouse
-        //    {
-        //        Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
-        //        RotateGun(mousePos);
-        //    }
-
-        //    if (launchToPoint && grappleRope.isGrappling)
-        //    {
-        //        if (launchType == LaunchType.Transform_Launch)
-        //        {
-        //            Vector2 firePointDistnace = firePoint.position - gunHolder.localPosition;
-        //            Vector2 targetPos = grapplePoint - firePointDistnace;
-        //            gunHolder.position = Vector2.Lerp(gunHolder.position, targetPos, Time.deltaTime * launchSpeed);
-        //        }
-        //    }
-        //}
-
-        //if (Input.GetKeyUp(launchKey))
-        //{
-        //    grappleRope.enabled = false;
-        //    m_springJoint2D.enabled = false;
-        //    //m_rigidbody.gravityScale = 1;
-        //}
-        //else
-        //{
-        //    Vector2 mousePos = m_camera.ScreenToWorldPoint(Input.mousePosition);
-        //    RotateGun(mousePos);
-        //}
     }
 
     void findGrapplePoint()
@@ -223,69 +150,15 @@ public class HookGun : Equippable
             gunPivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         else
             gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, Quaternion.AngleAxis(angle, Vector3.forward), Time.deltaTime * 7f);
-    } 
-
-    //void SetGrapplePoint()
-    //{
-    //    //Vector2 distanceVector = m_camera.ScreenToWorldPoint(Input.mousePosition) - gunPivot.position;
-    //    //if (Physics2D.Raycast(firePoint.position, distanceVector.normalized))
-    //    //{
-    //    //    RaycastHit2D _hit = Physics2D.Raycast(firePoint.position, distanceVector.normalized);
-    //    //    if (_hit.transform.gameObject.layer == grappableLayerNumber)
-    //    //    {
-    //    //        //if(canHook)
-    //    //        //{
-    //    //        //    grapplePoint = _hit.point;
-    //    //        //    grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
-    //    //        //    grappleRope.enabled = true;
-    //    //        //}
-
-    //    //        grapplePoint = _hit.point;
-    //    //        grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
-    //    //    }
-    //    //}
-
-    //    grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
-    //}
+    }
 
     public void Grapple()
     {
         m_springJoint2D.autoConfigureDistance = false;
-        if (!launchToPoint && !autoConfigureDistance)
-        {
-            m_springJoint2D.distance = targetDistance;
-            m_springJoint2D.frequency = targetFrequncy;
-        }
+        m_springJoint2D.distance = targetDistance;
+        m_springJoint2D.frequency = targetFrequncy;
 
-        if (!launchToPoint)
-        {
-            if (autoConfigureDistance)
-            {
-                m_springJoint2D.autoConfigureDistance = true;   //auto & !launch
-                m_springJoint2D.frequency = 0;
-            }
-
-            m_springJoint2D.connectedAnchor = grapplePoint;
-            m_springJoint2D.enabled = true;
-        }
-        else
-        {
-            switch (launchType)
-            {
-                case LaunchType.Physics_Launch:
-                    m_springJoint2D.connectedAnchor = grapplePoint; //both ticked
-
-                    Vector2 distanceVector = firePoint.position - gunHolder.position;
-
-                    m_springJoint2D.distance = distanceVector.magnitude;
-                    m_springJoint2D.frequency = launchSpeed;
-                    m_springJoint2D.enabled = true;
-                    break;
-                case LaunchType.Transform_Launch:
-                    m_rigidbody.gravityScale = 0;
-                    m_rigidbody.velocity = Vector2.zero;
-                    break;
-            }
-        }
+        m_springJoint2D.connectedAnchor = grapplePoint;
+        m_springJoint2D.enabled = true;
     }
 }
