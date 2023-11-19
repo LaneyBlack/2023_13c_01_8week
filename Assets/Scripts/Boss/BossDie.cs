@@ -61,6 +61,7 @@ public class BossDie : MonoBehaviour
             GetComponentInParent<BoxCollider2D>().size += new Vector2(0, 0.12f);
             GetComponentInParent<BoxCollider2D>().offset += new Vector2(0, 0.06f);
             isHappend = true;
+            BossManagement._deathStarted = false;
         }
     }
 
