@@ -92,6 +92,13 @@ public class HookGun : Equippable
         }
     }
 
+    public void disableGrappling()
+    {
+        spriteRenderer.enabled = false;
+        grappleRope.enabled = false;
+        m_springJoint2D.enabled = false;
+    }
+
     private void Update()
     {
         findGrapplePoint();
@@ -100,9 +107,7 @@ public class HookGun : Equippable
 
         if (playerHealth.IsDead() || !isEquipped)
         {
-            spriteRenderer.enabled = false;
-            grappleRope.enabled = false;
-            m_springJoint2D.enabled = false;
+            disableGrappling();
             return;
         }
         else
