@@ -7,30 +7,21 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject _shopUI;
     [SerializeField] private Button _buyPotionButton;
     [SerializeField] private Button _buySwordButton;
-    [SerializeField] private TextMeshProUGUI _playerMoneyText;
-
-    private int _playerMoney = 100; // Placeholder
-    
-    //private bool _hasPotion = false;
-    //private bool _hasSword = false;
 
     private void Start()
     {
         _buyPotionButton.onClick.AddListener(BuyPotion);
         _buySwordButton.onClick.AddListener(BuySword);
-
-        //UpdateMoneyDisplay();
     }
 
     private void BuyPotion()
     {
         int potionPrice = 20;
 
-        if (_playerMoney >= potionPrice)
+        if (InvenoryManagment.NumberOfCoins >= potionPrice)
         {
-            _playerMoney -= potionPrice;
-            Debug.Log("Bought a potion!");
-            //UpdateMoneyDisplay();
+            InvenoryManagment.NumberOfCoins -= potionPrice;
+            InvenoryManagment.NumberOfPotions += 1;
         }
         else
         {
@@ -42,20 +33,14 @@ public class ShopManager : MonoBehaviour
     {
         int swordPrice = 50;
 
-        if (_playerMoney >= swordPrice)
+        if (InvenoryManagment.NumberOfCoins >= swordPrice)
         {
-            _playerMoney -= swordPrice;
-            Debug.Log("Bought a sword!");
-            //UpdateMoneyDisplay();
+            InvenoryManagment.NumberOfCoins -= swordPrice;
+            InvenoryManagment.IsSwordUpgraded = true;
         }
         else
         {
             Debug.Log("Not enough money to buy a sword.");
         }
-    }
-
-    private void UpdateMoneyDisplay()
-    {
-        _playerMoneyText.text = "Money: " + _playerMoney;
     }
 }

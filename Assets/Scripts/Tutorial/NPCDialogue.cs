@@ -7,8 +7,6 @@ public class TutorialNPC : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _instructionTextMesh;
     [SerializeField] private float _typingSpeed = 0.05f;
     private int _currentInstructionIndex;
-    private bool _playerInRange;
-    private Coroutine _typingCoroutine;
 
     private string[] _instructions = new string[]
     {
@@ -16,17 +14,23 @@ public class TutorialNPC : MonoBehaviour
         "Alert! Hostile creatures lurk in these lands. Click the left mouse button to defend yourself and keep them at bay. Stay vigilant!",
         "Watch your step! Some platforms have a mind of their own and might shift beneath you. Time your moves carefully.",
         "See that trampoline down there? Use it to catapult yourself across the divide. Bounce your way to uncharted territories!",
-        "Those boxes might come in handy. Push them towards the ledge to create a makeshift staircase. A little extra height could be just what you need to conquer new challenges!"
+        "Those boxes might come in handy. Push them towards the ledge to create a makeshift staircase. A little extra height could be just what you need to conquer new challenges!",
+        "Ahoy! See that flag up ahead? Cross it and it becomes your new spawn point. Should ye fall, you'll respawn there",
+        "I trust you've gathered the coins strewn along your path. When you're ready, press 'F' to open these grand doors. Inside, you'll find a shop brimming with treasures - potions to bolster your strength and swords to enhance your might. After you've stocked up, venture forth and press 'F' at the exit door to embark on the next leg of your journey. Good luck!"
     };
 
     private Vector3[] _positions = new Vector3[]
     {
-        new Vector3(-10f, -2.45f, 0f),
+        new Vector3(-6.5f, -2.45f, 0f),
         new Vector3(8.98f, 0.55f, 0f),
         new Vector3(19.8f, 4.55f, 0f),
         new Vector3(37.5f, 0.55f, 0f),
-        new Vector3(51.5f, 0.55f, 0f)
+        new Vector3(51.5f, 0.55f, 0f),
+        new Vector3(70.5f,0.55f,0f),
+        new Vector3(100f,0.55f,0f)
     };
+
+    private Coroutine _typingCoroutine;
 
     private void Start()
     {
@@ -53,21 +57,15 @@ public class TutorialNPC : MonoBehaviour
         yield return StartCoroutine(DisappearWithEffect());
         transform.position = _positions[_currentInstructionIndex];
         yield return StartCoroutine(AppearWithEffect());
-
-        if (_playerInRange)
-        {
-            DisplayCurrentInstructionText();
-        }
     }
 
     private void DisplayCurrentInstructionText()
     {
-        _instructionTextMesh.gameObject.SetActive(true);
-        if (_typingCoroutine != null)
+        if (_typingCoroutine == null)
         {
-            StopCoroutine(_typingCoroutine);
+            _instructionTextMesh.gameObject.SetActive(true);
+            _typingCoroutine = StartCoroutine(TypeSentence(_instructions[_currentInstructionIndex]));
         }
-        _typingCoroutine = StartCoroutine(TypeSentence(_instructions[_currentInstructionIndex]));
     }
 
     private IEnumerator TypeSentence(string sentence)
@@ -84,11 +82,7 @@ public class TutorialNPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _playerInRange = true;
-            if (_currentInstructionIndex < _positions.Length)
-            {
-                DisplayCurrentInstructionText();
-            }
+            DisplayCurrentInstructionText();
         }
     }
 
@@ -96,11 +90,20 @@ public class TutorialNPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _playerInRange = false;
             _instructionTextMesh.gameObject.SetActive(false);
-            _currentInstructionIndex++;
-            StartCoroutine(TransitionToNextPosition());
+            if (_typingCoroutine != null)
+            {
+                StopCoroutine(_typingCoroutine);
+                _typingCoroutine = null;
+            }
+            MoveToNextInstruction();
         }
+    }
+
+    private void MoveToNextInstruction()
+    {
+        _currentInstructionIndex++;
+        StartCoroutine(TransitionToNextPosition());
     }
 
     private IEnumerator AppearWithEffect()

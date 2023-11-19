@@ -1,15 +1,24 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SceneTransition : MonoBehaviour
 {
-    [SerializeField] private string _shopSceneName = "Shop";
-    [SerializeField] private string _levelSceneName = "ShopTesting";
+    private enum GameScene
+    {
+        Shop,
+        Tutorial,
+        Level1,
+    }
 
+    private int _currentLevel = 1;
+    private const int _maxLevel = 2;
+    private string _previousSceneName;
     private bool _isNearShop = false;
     private bool _isNearExit = false;
     private static SceneTransition _instance;
     private string _currentExitTag;
+    private Vector2 _lastPlayerPosition;
 
     private void Awake()
     {
@@ -31,19 +40,36 @@ public class SceneTransition : MonoBehaviour
         if (_isNearShop && Input.GetKeyDown(KeyCode.F))
         {
             _currentExitTag = "ExitShop";
-            TransitionToScene(_shopSceneName);
+            _previousSceneName = SceneManager.GetActiveScene().name;
+            _lastPlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+            TransitionToScene(GameScene.Shop);
         }
 
-        if (_isNearExit && Input.GetKeyDown(KeyCode.F))
+        if (_isNearExit && Input.GetKeyDown(KeyCode.F) && SceneManager.GetActiveScene().name == GameScene.Shop.ToString())
         {
-            _currentExitTag = "EnterShop";
-            TransitionToScene(_levelSceneName);
+            GoToNextLevel();
         }
     }
 
-    private void TransitionToScene(string sceneName)
+    private void TransitionToScene(GameScene scene)
     {
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(LoadSceneAsync(scene));
+    }
+
+    private IEnumerator LoadSceneAsync(GameScene scene)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(scene.ToString());
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private void GoToNextLevel()
+    {
+        _currentLevel++;
+        if (_currentLevel > _maxLevel) _currentLevel = 1;
+        TransitionToScene((GameScene)_currentLevel);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -57,8 +83,15 @@ public class SceneTransition : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player)
             {
-                float offsetY = 1f;
-                player.transform.position = new Vector2(exitObject.transform.position.x, exitObject.transform.position.y - offsetY);
+                if (_currentExitTag == "EnterShop")
+                {
+                    player.transform.position = _lastPlayerPosition;
+                }
+                else
+                {
+                    float offsetY = 1f;
+                    player.transform.position = new Vector2(exitObject.transform.position.x, exitObject.transform.position.y - offsetY);
+                }
             }
         }
     }

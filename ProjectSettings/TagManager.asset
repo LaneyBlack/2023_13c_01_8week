@@ -18,6 +18,7 @@ TagManager:
   - UI_Key
   - Checkpoint
   - Background
+  - Collectible
   - UI_Slot
   - UI_CAmount
   - UI_PAmount
