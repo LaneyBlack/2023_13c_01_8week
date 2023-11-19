@@ -39,6 +39,7 @@ public class GrapplingRope : MonoBehaviour
         moveTime = 0;
         m_lineRenderer.positionCount = percision;
         waveSize = StartWaveSize;
+
         strightLine = false;
 
         LinePointsToFirePoint();
