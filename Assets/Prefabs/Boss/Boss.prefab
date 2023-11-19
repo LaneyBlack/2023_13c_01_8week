@@ -760,6 +760,9 @@ MonoBehaviour:
   _healthBarSlider: {fileID: 5576695892218034556}
   BossVisuals: {fileID: 3690660344069011281}
   DeathVfxPrefab: {fileID: 6877266486112406340, guid: 75a8ecd665ca7904483e6e7d8f894021, type: 3}
+  keyBossPrefab: {fileID: 371565503769386213, guid: 2e5a255fe2b48874aa2cf9d0583e7e66, type: 3}
+  keyBossForce: 10
+  keyId: 100
 --- !u!114 &6793286761134703927
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -113,7 +113,7 @@ public class BossMovement : MonoBehaviour
 
         Debug.DrawRay(origin, diagonalDirection * detectionDistance, Color.red);
         // Debug.Log(Mathf.Sign(direction.x)+ " " );
-        Debug.Log("hit point: "+hit.point.y + "     box: " +boxCollider.bounds.min.y);
+        // Debug.Log("hit point: "+hit.point.y + "     box: " +boxCollider.bounds.min.y);
 
         if (hit.collider != null && Mathf.Abs(hit.point.y - boxCollider.bounds.min.y) > 0.1f && hit.collider)
         {
