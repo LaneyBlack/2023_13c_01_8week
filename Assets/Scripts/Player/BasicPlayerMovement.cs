@@ -182,7 +182,14 @@ public class BasicPlayerMovement : MonoBehaviour
 
     public float getDirection()
     {
-        return Mathf.Sign(_xInput);
+        return _xInput;
+    }
+
+    public void jumpFullReset()
+    {
+        _rb.gravityScale = regularGravity;
+        _inJump = false;
+        wasFalling = false;
     }
     void handleJump()
     {
@@ -206,9 +213,7 @@ public class BasicPlayerMovement : MonoBehaviour
         }
         else if (_inJump && wasFalling && isGrounded())
         {
-            _rb.gravityScale = regularGravity;
-            _inJump = false;
-            wasFalling = false;
+            jumpFullReset();
         }
     }
 

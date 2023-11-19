@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 624645066121138107}
   m_Layer: 30
   m_Name: GrapplePoint
-  m_TagString: Untagged
+  m_TagString: GrapplePoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachError: 0.5
-  attachRadius: 15
+  attachRadius: 12
 --- !u!61 &624645066121138107
 BoxCollider2D:
   m_ObjectHideFlags: 0
