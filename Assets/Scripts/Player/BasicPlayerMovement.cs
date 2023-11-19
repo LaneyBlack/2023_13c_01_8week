@@ -35,9 +35,8 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] [Range(0f, 2f)]   private float coyoteTime = 0.5f;
     [SerializeField] private List<LayerMask> jumpLayers = new List<LayerMask>();
 
-    [Header("Grappling Rope")]
+    [Header("Hook Controls")]
     [SerializeField] private float _glideBoost = 1.5f;
-    //[SerializeField] private float _jumpBoost = 1.3f;
 
     //external:
     private Rigidbody2D _rb;
