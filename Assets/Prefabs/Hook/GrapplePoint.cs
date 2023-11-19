@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GrapplePoint : MonoBehaviour
 {
-    private float                   promptRadius;           //distance when "can attach" color starts to change       
+    public float                    minSwingRadius = 3f;           //how close can player by to the grapple point in swing
+    private float                   promptRadius;                  //distance when "can attach" color starts to change       
     private SpriteRenderer          spriteRenderer;
     [SerializeField] private float  attachError = 0.5f;            //how much further can player be from attachRadius and still attach
-    [SerializeField] private float  attachRadius = 10f;     //how close player must be to the point to attach himself
+    [SerializeField] private float  attachRadius = 10f;            //how close player must be to the point to attach himself
     /*[SerializeField]*/ private Color  canAttachColor = Color.green;
     /*[SerializeField]*/ private Color  defaultColor = Color.red;
 
