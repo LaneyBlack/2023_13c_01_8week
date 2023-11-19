@@ -11,6 +11,8 @@ public class GrapplePoint : MonoBehaviour
     /*[SerializeField]*/ private Color  canAttachColor = Color.green;
     /*[SerializeField]*/ private Color  defaultColor = Color.red;
 
+    float distance = 0f;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -19,18 +21,30 @@ public class GrapplePoint : MonoBehaviour
 
     private void Update()
     {
-        var grapplingGun = GameObject.FindWithTag("GrapplingGun");
+        //var grapplingGun = GameObject.FindWithTag("GrapplingGun");
 
-        if (grapplingGun != null) 
-        {
-            float distance = Vector2.Distance(grapplingGun.transform.position, transform.position);
-            //Debug.Log("GrapplingGun found. Distance = " + distance);
+        //if (grapplingGun != null) 
+        //{
+        //    float distance = Vector2.Distance(grapplingGun.transform.position, transform.position);
+        //    //Debug.Log("GrapplingGun found. Distance = " + distance);
 
-            spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
-            var hookgun = grapplingGun.GetComponent<HookGun>();
-            hookgun.canHook = (distance - attachError <= attachRadius);
-            hookgun.grapplePoint = transform.position;
-        }
+        //    spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
+        //    //var hookgun = grapplingGun.GetComponent<HookGun>();
+        //    //if (!hookgun.canHook)
+        //    //{
+        //    //    hookgun.canHook = (distance - attachError <= attachRadius);
+        //    //    hookgun.grapplePoint = transform.position;
+        //    //}
+        //}
+
+        //distance = Vector2.Distance(grapplingGun.transform.position, transform.position);
+        spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
+    }
+
+    public bool canAttach(Vector3 position)
+    {
+        distance = Vector2.Distance(position, transform.position);
+        return Vector2.Distance(position, transform.position) <= (attachRadius + attachError);
     }
 
     private void OnDrawGizmosSelected()

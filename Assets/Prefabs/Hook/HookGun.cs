@@ -94,6 +94,8 @@ public class HookGun : Equippable
 
     private void Update()
     {
+        findGrapplePoint();
+
         if (!m_camera) return;
 
         if (playerHealth.IsDead() || !isEquipped)
@@ -106,15 +108,16 @@ public class HookGun : Equippable
         else
             spriteRenderer.enabled = true;
 
+        float dir = playerMovement.getDirection();
+
         if (canHook)
         {
             grappleDistanceVector = grapplePoint - (Vector2)gunPivot.position;
             //Debug.DrawLine(grapplePoint, gunPivot.position);
             //bool rightApproach = Vector2.Dot(Vector2.right, ((Vector2)gunPivot.position - grapplePoint)) > 0;
-            float dir = playerMovement.getDirection();
             float right = gunPivot.position.x - grapplePoint.x;
 
-            //Debug.Log(dir + "\t" + right);
+            Debug.Log(dir + "\t" + right);
 
             //if (rightApproach)
             //    Debug.Log("coming from right");
@@ -129,6 +132,7 @@ public class HookGun : Equippable
             if (Input.GetKeyDown(launchKey))
             {
                 grappleRope.enabled = true;
+                playerMovement.jumpFullReset();
                 RotateGun(grapplePoint);
             }
             if (dir * right > 0)    //if player went past the middle point in the swing
@@ -136,14 +140,15 @@ public class HookGun : Equippable
                 var angle = Vector2.Dot(Vector2.down, ((Vector2)gunPivot.position - grapplePoint).normalized);
                 if (angle < Mathf.Cos(detachAngle * Mathf.Deg2Rad))
                 {
-                    Debug.Log("detach");
+                    //Debug.Log("detach");
                     grappleRope.enabled = false;
                     m_springJoint2D.enabled = false;
+                    canHook = false;
                 }
             }
         }
         else
-            RotateGun(gunPivot.position + Vector3.forward * 3, true);
+            RotateGun(gunPivot.position + (Vector3.forward * 3 * Mathf.Sign(dir)), true);
 
 
         //else
@@ -188,6 +193,20 @@ public class HookGun : Equippable
         //}
     }
 
+    void findGrapplePoint()
+    {
+        var gpoints = GameObject.FindGameObjectsWithTag("GrapplePoint");
+        foreach (var g in gpoints)
+        {
+            if(g.GetComponent<GrapplePoint>().canAttach(transform.position))
+            {
+                canHook = true;
+                grapplePoint = g.transform.position;
+                return;
+            }
+        }
+    }
+
     void RotateGun(Vector3 lookPoint, bool easeIn = false)
     {
         Vector3 distanceVector = lookPoint - gunPivot.position;
@@ -196,7 +215,7 @@ public class HookGun : Equippable
         if(!easeIn)
             gunPivot.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         else
-            gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, Quaternion.AngleAxis(angle, Vector3.forward), Time.deltaTime * 3.5f);
+            gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, Quaternion.AngleAxis(angle, Vector3.forward), Time.deltaTime * 7f);
     } 
 
     //void SetGrapplePoint()
@@ -235,7 +254,7 @@ public class HookGun : Equippable
         {
             if (autoConfigureDistance)
             {
-                m_springJoint2D.autoConfigureDistance = true;
+                m_springJoint2D.autoConfigureDistance = true;   //auto & !launch
                 m_springJoint2D.frequency = 0;
             }
 
@@ -247,7 +266,7 @@ public class HookGun : Equippable
             switch (launchType)
             {
                 case LaunchType.Physics_Launch:
-                    m_springJoint2D.connectedAnchor = grapplePoint;
+                    m_springJoint2D.connectedAnchor = grapplePoint; //both ticked
 
                     Vector2 distanceVector = firePoint.position - gunHolder.position;
 

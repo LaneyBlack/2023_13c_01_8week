@@ -22,6 +22,7 @@ TagManager:
   - UI_CAmount
   - UI_PAmount
   - UI_Amount
+  - GrapplePoint
   layers:
   - Default
   - TransparentFX
