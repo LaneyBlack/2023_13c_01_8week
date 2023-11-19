@@ -149,7 +149,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0039083064, y: -0.09762481}
+  m_Offset: {x: -0.017396756, y: -0.089528024}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -160,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.31733692, y: 0.2985065}
+  m_Size: {x: 0.21594097, y: 0.28231287}
   m_EdgeRadius: 0
 --- !u!50 &732855055904139570
 Rigidbody2D:
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2b6e78c46b5bc4ab8fda7ba0053498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 16
 --- !u!1 &2531706164282746617
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +469,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.268}
+  m_AnchoredPosition: {x: 0, y: 0.15}
   m_SizeDelta: {x: 200.37518, y: 22.72982}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5105319011155836418
@@ -561,7 +561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: movementSpeed
-      value: 4.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: SmallBossVisuals
@@ -581,11 +581,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: maxFollowDistance
-      value: 14
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: minFollowDistance
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 586022437370875288, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
       propertyPath: _GrownBossAnimator
@@ -758,6 +758,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthBarSliderCanvas: {fileID: 7797700873314767882}
   _healthBarSlider: {fileID: 5576695892218034556}
+  BossVisuals: {fileID: 3690660344069011281}
+  DeathVfxPrefab: {fileID: 6877266486112406340, guid: 75a8ecd665ca7904483e6e7d8f894021, type: 3}
+  keyBossPrefab: {fileID: 371565503769386213, guid: 2e5a255fe2b48874aa2cf9d0583e7e66, type: 3}
+  keyBossForce: 10
+  keyId: 100
 --- !u!114 &6793286761134703927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +778,8 @@ MonoBehaviour:
   GrownBossVisuals: {fileID: 4431763902651613800}
   SmallBossVisuals: {fileID: 8635363527088427523}
   bossMovement: {fileID: 898442975955321733}
+  canvasHealth: {fileID: 5105319011155836418}
+  _rainbowProjectile: {fileID: 9063055493990207682}
 --- !u!114 &4545034386078651273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,8 +792,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ec26ff99a25ff4b8ea9e2c7000db7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmallBossVisuals: {fileID: 8635363527088427523}
-  _SmallBossAnimator: {fileID: 8207267066338545053}
+  bossVisuals: {fileID: 8635363527088427523}
+  bossAnimator: {fileID: 8207267066338545053}
   bossMovement: {fileID: 898442975955321733}
   attackPoint: {fileID: 8272595195437372555}
   bubbleProjectile: {fileID: 6208464182826818195}
@@ -794,8 +801,12 @@ MonoBehaviour:
   playerLayers:
     serializedVersion: 2
     m_Bits: 128
-  attackRange: 6
-  attackCooldown: 1.5
+  bubbleAttackRange: 8
+  wandAttackRange: 2
+  bubbleAttackCooldown: 1.5
+  wandAttackCooldown: 1
+  waveAttackCooldown: 4
+  specialBossHealthLimitAttack: 15
 --- !u!114 &654938303245079958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,13 +819,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74405d95e3d5a4544ba113ceea6d8bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrownBossVisuals: {fileID: 4431763902651613800}
-  _GrownBossAnimator: {fileID: 4300974204952878582}
+  bossVisuals: {fileID: 4431763902651613800}
+  bossAnimator: {fileID: 4300974204952878582}
   bossMovement: {fileID: 898442975955321733}
   waterProjectile: {fileID: 8805986497790825657}
   rainbowProjectile: {fileID: 9063055493990207682}
   attackRange: 3
-  attackCooldown: 2
+  waterProjectileAttackCooldown: 1.2
+  rainbowAttackCooldown: 2
+  specialBossHealthLimitAttack: 20
+  _attackWaterProjectile: {fileID: 0}
+  _attackRainbow: {fileID: 0}
 --- !u!4 &4969682830183825727 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4657229272657841954, guid: dfda3ddd3015d2642ab2c806d2597afe, type: 3}
@@ -829,12 +844,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 5285172599302495997}
     m_Modifications:
     - target: {fileID: 504850126289563906, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.311
+      objectReference: {fileID: 0}
+    - target: {fileID: 504850126289563906, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 504850126289563906, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1
+      value: 0.1545
       objectReference: {fileID: 0}
     - target: {fileID: 504850126289563906, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -868,10 +887,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3292029275068479612, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
-      propertyPath: userOfAttack
-      value: 
-      objectReference: {fileID: 4204869501052483391}
     - target: {fileID: 3317070949601734321, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
       propertyPath: m_Name
       value: RainbowProjectile
@@ -879,6 +894,18 @@ PrefabInstance:
     - target: {fileID: 3317070949601734321, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807250430798245209, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
+      propertyPath: HitForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6807250430798245209, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
+      propertyPath: userOfAttack
+      value: 
+      objectReference: {fileID: 4204869501052483391}
+    - target: {fileID: 8702375006201113659, guid: 768964c0fff031b4f81db65c1496ece4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -955,6 +982,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3677949403023238667, guid: cd2fc674d97f9034492cb3579de0716f, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3684469070167784533, guid: cd2fc674d97f9034492cb3579de0716f, type: 3}
+      propertyPath: HitForce
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3684469070167784533, guid: cd2fc674d97f9034492cb3579de0716f, type: 3}
       propertyPath: userOfAttack
       value: 
@@ -988,7 +1023,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 504850126289563906, guid: 7786d182ae294674fa68e7ac05cd908b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 504850126289563906, guid: 7786d182ae294674fa68e7ac05cd908b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1027,6 +1062,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3292029275068479612, guid: 7786d182ae294674fa68e7ac05cd908b, type: 3}
+      propertyPath: HitForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3292029275068479612, guid: 7786d182ae294674fa68e7ac05cd908b, type: 3}
+      propertyPath: isKnockback
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3292029275068479612, guid: 7786d182ae294674fa68e7ac05cd908b, type: 3}
       propertyPath: userOfAttack
       value: 
       objectReference: {fileID: 4204869501052483391}
@@ -1037,6 +1080,14 @@ PrefabInstance:
     - target: {fileID: 3317070949601734321, guid: 7786d182ae294674fa68e7ac05cd908b, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915104171079031305, guid: 7786d182ae294674fa68e7ac05cd908b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.3850146
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915104171079031305, guid: 7786d182ae294674fa68e7ac05cd908b, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.12359515
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1101,6 +1152,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1922161336769368976, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0086
+      objectReference: {fileID: 0}
+    - target: {fileID: 1922161336769368976, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0009
+      objectReference: {fileID: 0}
     - target: {fileID: 1993078247399451734, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1129,6 +1188,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossVisuals
       objectReference: {fileID: 0}
+    - target: {fileID: 6866286822573443332, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1137,6 +1200,11 @@ PrefabInstance:
 --- !u!212 &2371778153458988193 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5518053933559401204, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
+  m_PrefabInstance: {fileID: 7817738208551452245}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3690660344069011281 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6866286822573443332, guid: c79f1a219f775aa4e9fa8857a56c64ea, type: 3}
   m_PrefabInstance: {fileID: 7817738208551452245}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &4300974204952878582 stripped
@@ -1232,6 +1300,10 @@ PrefabInstance:
     - target: {fileID: 2532374184006773380, guid: 6f85b05c8fd78274f9431035fff0ef2c, type: 3}
       propertyPath: m_Name
       value: BubbleProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3292029275068479612, guid: 6f85b05c8fd78274f9431035fff0ef2c, type: 3}
+      propertyPath: HitForce
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3292029275068479612, guid: 6f85b05c8fd78274f9431035fff0ef2c, type: 3}
       propertyPath: userOfAttack

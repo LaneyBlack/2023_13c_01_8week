@@ -8,6 +8,7 @@ public class WaterProjectile : MonoBehaviour
     [SerializeField] private int damageAmount = 1;
 
     [SerializeField] public BoxCollider2D userOfAttack;
+    [SerializeField, Range(0f,40f)] public float HitForce = 0;
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
@@ -20,6 +21,10 @@ public class WaterProjectile : MonoBehaviour
         {
             collider.GetComponent<Health>().TakeDamage(damageAmount);
 
+            collider.GetComponent<Rigidbody2D>()
+                .AddForce(
+                    new Vector2(HitForce * (collider.GetComponent<SpriteRenderer>().flipX ? 2 : -2), HitForce),
+                    ForceMode2D.Impulse);
         }
     }
 

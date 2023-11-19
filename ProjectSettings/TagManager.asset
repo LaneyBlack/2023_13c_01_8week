@@ -24,6 +24,7 @@ TagManager:
   - UI_PAmount
   - UI_Amount
   - GrapplePoint
+  - bossParticle
   layers:
   - Default
   - TransparentFX
