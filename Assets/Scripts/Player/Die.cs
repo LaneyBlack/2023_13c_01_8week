@@ -35,10 +35,11 @@ public class Die : MonoBehaviour
 
     private void HandleDeath()
     {
-        isDead = true; 
+        isDead = true;
+        _Animator.ResetTrigger("takeHit");
         _Animator.SetTrigger("Die");
 
-        rb.velocity = Vector3.zero;
+        rb.bodyType = RigidbodyType2D.Static;
 
         foreach (var component in components)
             component.enabled = false;
@@ -46,6 +47,7 @@ public class Die : MonoBehaviour
 
     public void handleRespawn()
     {
+        rb.bodyType = RigidbodyType2D.Dynamic;
         foreach (var component in components)
             component.enabled = true;
 
