@@ -9,10 +9,12 @@ public class SceneTransition : MonoBehaviour
         Shop,
         Tutorial,
         Level1,
+        Level2,
+        BossLevel
     }
 
     private int _currentLevel = 1;
-    private const int _maxLevel = 2;
+    private const int _maxLevel = 4;
     private string _previousSceneName;
     private bool _isNearShop = false;
     private bool _isNearExit = false;
@@ -114,3 +116,4 @@ public class SceneTransition : MonoBehaviour
             _isNearExit = false;
     }
 }
+
