@@ -31,7 +31,7 @@ public class Health : MonoBehaviour
                 if (tag != "Player")
                     _animator.SetTrigger(TakeHit);
             }
-            else /*if(tag == "Player")*/
+            else
                 _animator.SetTrigger(TakeHit);
         }catch (Exception e) {
             Debug.LogError(e);
