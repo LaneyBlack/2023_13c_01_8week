@@ -1,18 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MainMenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject pressButtonText;
+    [SerializeField] private GameObject bigGameLogo;
+    [SerializeField] private GameObject menu;
+    [SerializeField] private float pressTimeToAppear = 0.7f;
+    private float pressTextTimer;
+    private bool wasButtonPressed;
+
+    private void Awake()
+    {
+        menu.SetActive(false);
+        pressTextTimer = pressTimeToAppear;
+        wasButtonPressed = false;
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        // Wait for any button input to go further
+        if (Input.anyKey && !wasButtonPressed)
+        {
+            wasButtonPressed = true;
+            bigGameLogo.SetActive(false);
+            pressButtonText.SetActive(false);
+            menu.SetActive(true);
+        }
+        // If there was button press there is no need for press button text animation
+        if (wasButtonPressed) return;
+        if (pressTextTimer < 0)
+        {
+            pressButtonText.SetActive(!pressButtonText.activeInHierarchy); // switch
+            pressTextTimer += pressTimeToAppear;
+        }
+        pressTextTimer -= Time.deltaTime;
+    }
+
+    #region MenuButtons
+
+    public void ExitGameClick()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }
