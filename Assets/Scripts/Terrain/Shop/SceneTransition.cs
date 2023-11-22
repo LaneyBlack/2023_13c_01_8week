@@ -6,21 +6,21 @@ public class SceneTransition : MonoBehaviour
 {
     private enum GameScene
     {
-        Shop,
         Tutorial,
+        Shop,
         Level1,
         Level2,
         BossLevel
     }
 
-    private int _currentLevel = 1;
+    private int _currentLevel = 0;
     private const int _maxLevel = 4;
-    private string _previousSceneName;
+    private static SceneTransition _instance;
+
     private bool _isNearShop = false;
     private bool _isNearExit = false;
-    private static SceneTransition _instance;
-    private string _currentExitTag;
-    private Vector2 _lastPlayerPosition;
+
+    private bool _firstTimeInShop = true;
 
     private void Awake()
     {
@@ -41,16 +41,29 @@ public class SceneTransition : MonoBehaviour
     {
         if (_isNearShop && Input.GetKeyDown(KeyCode.F))
         {
-            _currentExitTag = "ExitShop";
-            _previousSceneName = SceneManager.GetActiveScene().name;
-            _lastPlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
             TransitionToScene(GameScene.Shop);
+            if (_firstTimeInShop)
+            {
+                _currentLevel += 1;
+                _firstTimeInShop = false;
+            }
         }
 
         if (_isNearExit && Input.GetKeyDown(KeyCode.F) && SceneManager.GetActiveScene().name == GameScene.Shop.ToString())
         {
-            GoToNextLevel();
+            IncrementLevel();
+            TransitionToScene(GetNextLevelScene());
         }
+    }
+
+    private void IncrementLevel()
+    {
+        _currentLevel = (_currentLevel + 1) % (_maxLevel + 1);
+    }
+
+    private GameScene GetNextLevelScene()
+    {
+        return (GameScene)(_currentLevel % (_maxLevel + 1));
     }
 
     private void TransitionToScene(GameScene scene)
@@ -67,33 +80,16 @@ public class SceneTransition : MonoBehaviour
         }
     }
 
-    private void GoToNextLevel()
-    {
-        _currentLevel++;
-        if (_currentLevel > _maxLevel) _currentLevel = 1;
-        TransitionToScene((GameScene)_currentLevel);
-    }
-
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (string.IsNullOrEmpty(_currentExitTag))
-            return;
-
-        GameObject exitObject = GameObject.FindGameObjectWithTag(_currentExitTag);
+        GameObject exitObject = GameObject.FindGameObjectWithTag("ExitShop");
         if (exitObject)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player)
             {
-                if (_currentExitTag == "EnterShop")
-                {
-                    player.transform.position = _lastPlayerPosition;
-                }
-                else
-                {
-                    float offsetY = 1f;
-                    player.transform.position = new Vector2(exitObject.transform.position.x, exitObject.transform.position.y - offsetY);
-                }
+                player.transform.position = new Vector3(exitObject.transform.position.x, exitObject.transform.position.y - 1, exitObject.transform.position.z);
+
             }
         }
     }
@@ -116,4 +112,3 @@ public class SceneTransition : MonoBehaviour
             _isNearExit = false;
     }
 }
-

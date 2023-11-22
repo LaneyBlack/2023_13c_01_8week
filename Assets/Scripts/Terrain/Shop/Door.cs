@@ -7,6 +7,7 @@ public class DoorController : MonoBehaviour
 
     void Start()
     {
+        
         _animator = GetComponent<Animator>();
     }
 

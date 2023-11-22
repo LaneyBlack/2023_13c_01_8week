@@ -22,7 +22,10 @@ public class Respawn : MonoBehaviour
         transform.position = currentCheckpoint;
         deathsctipt.handleRespawn();
     }
-
+    public void SetCheckpoint(Vector3 newCheckpoint)
+    {
+        currentCheckpoint = newCheckpoint;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Checkpoint"))
@@ -32,4 +35,6 @@ public class Respawn : MonoBehaviour
             collision.GetComponent<Animator>().SetTrigger("Activate");
         }
     }
+    
+    
 }
