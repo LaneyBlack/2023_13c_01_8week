@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AppearDissapear : MonoBehaviour
 {
-    [SerializeField] private GameObject gameObject;
+    [SerializeField] private GameObject appearingObject;
     [SerializeField] private float timeToAppear = 10;
     private float timer;
 
@@ -19,7 +20,7 @@ public class AppearDissapear : MonoBehaviour
     {
         if (timer < 0)
         {
-            gameObject.SetActive(!gameObject.activeInHierarchy); // switch
+            appearingObject.SetActive(!appearingObject.activeInHierarchy); // switch
             timer += timeToAppear;
         }
         timer -= Time.deltaTime;
