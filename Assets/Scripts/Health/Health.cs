@@ -9,10 +9,14 @@ public class Health : MonoBehaviour
     private static readonly int Die = Animator.StringToHash("die");
     private static readonly int TakeHit = Animator.StringToHash("takeHit");
 
+    private bool attachedToPlayer;
+
     private void Awake()
     {
         CurrentHealth = maxHealth;
         _animator = GetComponentInChildren<Animator>();
+
+        Debug.Log(tag);
     }
 
     //damages the player and returns true if player is dead
@@ -23,8 +27,12 @@ public class Health : MonoBehaviour
             if (CurrentHealth <= 0)
             {
                 _animator.SetBool(Die, true);
+
+                if (tag != "Player")
+                    _animator.SetTrigger(TakeHit);
             }
-            _animator.SetTrigger(TakeHit);
+            else /*if(tag == "Player")*/
+                _animator.SetTrigger(TakeHit);
         }catch (Exception e) {
             Debug.LogError(e);
         }
