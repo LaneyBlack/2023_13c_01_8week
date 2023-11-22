@@ -86,7 +86,8 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        potionScript = GameObject.FindGameObjectWithTag("HealthPotion").GetComponent<HealthPotion>();
+        //ToDo uncomment
+        // potionScript = GameObject.FindGameObjectWithTag("HealthPotion").GetComponent<HealthPotion>();
     }
 
     private void Update()
