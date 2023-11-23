@@ -15,8 +15,6 @@ public class Health : MonoBehaviour
     {
         CurrentHealth = maxHealth;
         _animator = GetComponentInChildren<Animator>();
-
-        Debug.Log(tag);
     }
 
     //damages the player and returns true if player is dead
