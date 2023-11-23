@@ -1,0 +1,8 @@
+Source:
+Menu: https://pixabay.com/music/folk-soon-may-the-wellerman-come-traditional-whaler-song-shanty-2943/
+lvlShop: https://pixabay.com/music/traditional-jazz-cafe-music-163375/
+tutorial: https://pixabay.com/music/folk-dread-pirate-roberts-sea-shanty-dance-edm-soundtrack-153022/
+lvl1: https://pixabay.com/music/build-up-scenes-pirate-adventures-112150/
+lvl2: https://pixabay.com/music/folk-irish-tavern-162997/
+lvlBoss: https://pixabay.com/music/main-title-epic-cinematic-trailer-adventure-action-tense-suspenseful-122445/
+
