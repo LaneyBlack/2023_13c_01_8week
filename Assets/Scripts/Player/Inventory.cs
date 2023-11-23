@@ -52,7 +52,9 @@ public class Inventory : MonoBehaviour
     [Header("Weapon setup")]
     [SerializeField] private KeyCode weaponKey;
     [SerializeField] private Sprite weaponIcon;
+    [SerializeField] private Sprite upgradedWeaponIcon;
     [SerializeField] private PlayerAttackSword weaponScript;
+    private bool upgradeNoted = false;
     
 
     [Header("Hook setup")]
@@ -91,6 +93,12 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
+        if(!upgradeNoted && InvenoryManagment.IsSwordUpgraded)
+        {
+            upgradeNoted = true;
+            itemsData[(int)typeeq.Sword].sprite = upgradedWeaponIcon;
+        }
+
         int foundIndex = itemsData.FindIndex(item => Input.GetKeyDown(item.keycode));
         if (foundIndex != -1 && foundIndex < 2) 
         {

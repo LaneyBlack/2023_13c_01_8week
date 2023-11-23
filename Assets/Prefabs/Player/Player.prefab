@@ -182,7 +182,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 7.8193665
+  m_Distance: 7.6796484
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!212 &1640478928580041858
@@ -410,9 +410,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   deccelerationTime: 3
-  jumpHeight: 2.5
-  jumpRiseTime: 0.2
-  downGravityScale: 1.8
+  jumpHeight: 3
+  jumpRiseTime: 0.35
+  downGravityScale: 1.5
   coyoteTime: 0.5
   jumpLayers:
   - serializedVersion: 2
@@ -467,6 +467,7 @@ MonoBehaviour:
   startItem: 1
   weaponKey: 49
   weaponIcon: {fileID: 21300000, guid: 272ef98000fb9424ab09f9d465388761, type: 3}
+  upgradedWeaponIcon: {fileID: 21300000, guid: 95de5365a58520641ab033c6c1cc9404, type: 3}
   weaponScript: {fileID: 6664360064835851929}
   hookKey: 50
   HookIcon: {fileID: 21300000, guid: b6081bb5e7f962742abf9af5f84a619a, type: 3}
