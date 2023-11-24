@@ -66,13 +66,13 @@ public class Inventory : MonoBehaviour
     [Header("Potion setup")]
     [SerializeField] private KeyCode potionKey;
     [SerializeField] private Sprite potionIcon;
-    private HealthPotion potionScript;
+    //private HealthPotion potionScript;
 
     public List<Item> itemsData;
 
     private void Awake()
     {
-        currentEquipped = ((int)startItem);                //set sword to be equipped by default(HOOK FOR TESTING)
+        currentEquipped = (int)startItem;               
         itemsData = new List<Item>
         {
             new Item(weaponKey, weaponIcon, weaponScript),
@@ -86,10 +86,10 @@ public class Inventory : MonoBehaviour
         itemsData[currentEquipped].setEquipped(true);     
     }
 
-    private void Start()
-    {
-        potionScript = GameObject.FindGameObjectWithTag("HealthPotion").GetComponent<HealthPotion>();
-    }
+    //private void Start()
+    //{
+    //    potionScript = GameObject.FindGameObjectWithTag("HealthPotion").GetComponent<HealthPotion>();
+    //}
 
     private void Update()
     {
@@ -108,6 +108,6 @@ public class Inventory : MonoBehaviour
         }
 
         if (foundIndex == 2)
-            potionScript.usePotion();
+            HealthPotion.usePotion();
     }
 }
