@@ -15,7 +15,6 @@ public class BasicPlayerMovement : MonoBehaviour
 
     [Header("Basic Ground Movement")]
     [SerializeField] private float _walkSpeed = 10;
-    [SerializeField] private float _runMultiplier = 1.5f;
 
     [Header("Ground Movement")]
     [SerializeField] private float _acceleration = 2;
@@ -120,8 +119,6 @@ public class BasicPlayerMovement : MonoBehaviour
         jumpSetUp();
 
         _currentSpeed = _walkSpeed;
-        if(Input.GetKey(KeyCode.LeftShift))
-            _currentSpeed *= _runMultiplier;
 
         //if (ropeScript.isGrappling)
         //    _currentSpeed *= _glideBoost;
