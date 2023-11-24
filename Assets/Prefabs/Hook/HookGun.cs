@@ -153,6 +153,7 @@ public class HookGun : Equippable
         {
             var gp = g.GetComponent<GrapplePoint>();
             float dst = Vector2.Distance(g.transform.position, gunHolder.transform.position);
+            //add a ray cast!
             if (gp.canAttach(gunHolder.transform.position) && dst < minDistance)
             {
                 selectedGP = g;

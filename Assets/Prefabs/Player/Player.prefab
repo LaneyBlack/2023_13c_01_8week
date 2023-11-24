@@ -150,7 +150,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 7.8193665
+  m_Distance: 70.69378
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!212 &1640478928580041858
@@ -325,7 +325,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementType: 0
   _walkSpeed: 10
-  _runMultiplier: 1.8
   _acceleration: 2
   _movementLerpMultiplier: 70
   accelerationCurve:
