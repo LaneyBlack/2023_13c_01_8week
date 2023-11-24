@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttackSword : Equippable
@@ -10,10 +7,10 @@ public class PlayerAttackSword : Equippable
 
     [Header("Attack Data")]
     [SerializeField] private float attackRange;
+    [SerializeField] private float offsetFromCenter = .5f;
     [SerializeField] private float attackCooldown;
     [SerializeField] private int damageValue = 1;
     [SerializeField] private int upgradedDamageValue = 2;
-    [SerializeField] private float offsetFromCenter = .5f;
 
     [Header("Attack Layers")]
     [SerializeField] private LayerMask layerMask;

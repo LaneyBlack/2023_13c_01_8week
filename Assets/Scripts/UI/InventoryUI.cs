@@ -9,12 +9,6 @@ using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
-    //[Header("Invertory script")]
-    //[SerializeField] Inventory inventory;
-
-    //[Header("Potion Text Reference")]
-    //[SerializeField] TextMeshProUGUI potionsAmount;
-
     private Inventory inventory;
 
     private TextMeshProUGUI potionsAmount;
@@ -32,25 +26,17 @@ public class InventoryUI : MonoBehaviour
         gridLayout = GetComponent<GridLayoutGroup>();
         slotImages = new List<Image>();
 
-        //var images = gridLayout.GetComponentsInChildren<Image>();
+        var images = gridLayout.GetComponentsInChildren<Image>();
 
-        //for (int i = 0, itemid = 0; i < images.Length; i++)
-        //{
-        //    var x = images[i];
-
-        //    if (x.gameObject.CompareTag("UI_Item"))
-        //    {
-        //        x.sprite = inventory.itemsData[itemid++].sprite;
-        //        slotImages.Add(images[i]);
-        //    }
-        //}
-
-        var images = GameObject.FindGameObjectsWithTag("UI_Item");
-        for (int i = images.Length - 1; i >= 0; i--)
+        for (int i = 0, itemid = 0; i < images.Length; i++)
         {
-            var image = images[i].GetComponent<Image>();
-            image.sprite = inventory.itemsData[images.Length - 1 - i].sprite;
-            slotImages.Add(image);
+            var x = images[i];
+
+            if (x.gameObject.CompareTag("UI_Item"))
+            {
+                x.sprite = inventory.itemsData[itemid++].sprite;
+                slotImages.Add(images[i]);
+            }
         }
 
         var texts = gridLayout.GetComponentsInChildren<TextMeshProUGUI>();

@@ -432,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa29f2558fa33e4982563a5a55ca1e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startItem: 1
+  startItem: 0
   weaponKey: 49
   weaponIcon: {fileID: 21300000, guid: 272ef98000fb9424ab09f9d465388761, type: 3}
   upgradedWeaponIcon: {fileID: 21300000, guid: 95de5365a58520641ab033c6c1cc9404, type: 3}
@@ -481,10 +481,10 @@ MonoBehaviour:
   isEquipped: 0
   _keyCode: 323
   attackRange: 2.5
+  offsetFromCenter: 0.3
   attackCooldown: 0.5
   damageValue: 1
   upgradedDamageValue: 2
-  offsetFromCenter: 0.3
   layerMask:
     serializedVersion: 2
     m_Bits: 512
