@@ -120,8 +120,8 @@ public class BasicPlayerMovement : MonoBehaviour
 
         _currentSpeed = _walkSpeed;
 
-        //if (ropeScript.isGrappling)
-        //    _currentSpeed *= _glideBoost;
+        if (ropeScript.isGrappling)
+            _currentSpeed *= _glideBoost;
 
         falling = (_rb.velocity.y < -0.15f);
 
