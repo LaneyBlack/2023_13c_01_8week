@@ -125,14 +125,14 @@ public class BasicPlayerMovement : MonoBehaviour
 
         falling = (_rb.velocity.y < -0.15f);
 
-        if (movementType == MovementType.Math)
-            handleGroundMovementMath();
-        else if (movementType == MovementType.Curves)
-            handleMovementCurves();
-        else if (movementType == MovementType.Old)
-            _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
+        //handleJump();
 
-        handleJump();
+        //if (movementType == MovementType.Math)
+        //    handleGroundMovementMath();
+        //else if (movementType == MovementType.Curves)
+        //    handleMovementCurves();
+        //else if (movementType == MovementType.Old)
+        //    _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
 
         Flip(_xInput);
         handleAnimator();
@@ -140,12 +140,14 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (movementType == MovementType.Math)
-        //    handleGroundMovementMath();
-        //else if (movementType == MovementType.Curves)
-        //    handleMovementCurves();
-        //else if (movementType == MovementType.Old)
-        //    _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
+        handleJump();
+
+        if (movementType == MovementType.Math)
+            handleGroundMovementMath();
+        else if (movementType == MovementType.Curves)
+            handleMovementCurves();
+        else if (movementType == MovementType.Old)
+            _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
     }
 
     void handleAnimator()
@@ -159,28 +161,28 @@ public class BasicPlayerMovement : MonoBehaviour
     //requires further working
     private void handleGroundMovementMath()
     {
-        //var acceleration = isGrounded() ? _acceleration : _acceleration * 0.5f;
-        var acceleration = _acceleration; //ignore if in air
+        var acceleration = isGrounded() ? _acceleration : _acceleration * 0.5f;
+        //var acceleration = _acceleration; //ignore if in air
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            if (_rb.velocity.x > 0) _xInput = 0; 
-            _xInput = Mathf.MoveTowards(_xInput, -1, acceleration * Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            if (_rb.velocity.x < 0) _xInput = 0;
-            _xInput = Mathf.MoveTowards(_xInput, 1, acceleration * Time.deltaTime);
-        }
-        else
-        {
-            _xInput = Mathf.MoveTowards(_xInput, 0, acceleration * Time.deltaTime);
-        }
+        //if (Input.GetKey(KeyCode.A))
+        //{
+        //    if (_rb.velocity.x > 0) _xInput = 0; 
+        //    _xInput = Mathf.MoveTowards(_xInput, -1, acceleration * Time.deltaTime);
+        //}
+        //else if (Input.GetKey(KeyCode.D))
+        //{
+        //    if (_rb.velocity.x < 0) _xInput = 0;
+        //    _xInput = Mathf.MoveTowards(_xInput, 1, acceleration * Time.deltaTime);
+        //}
+        //else
+        //{
+        //    _xInput = Mathf.MoveTowards(_xInput, 0, acceleration * Time.deltaTime);
+        //}
 
         var wishVelocity = new Vector3(_xInput * _currentSpeed, _rb.velocity.y);
 
-        _rb.velocity = Vector3.MoveTowards(_rb.velocity, wishVelocity, _movementLerpMultiplier * Time.deltaTime);
-        //_rb.velocity = wishVelocity;
+        //_rb.velocity = Vector3.MoveTowards(_rb.velocity, wishVelocity, _movementLerpMultiplier * Time.deltaTime);
+        _rb.velocity = wishVelocity;
     }
 
     private void handleMovementCurves()
