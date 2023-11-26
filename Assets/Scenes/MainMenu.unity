@@ -140,6 +140,22 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 249941606173851236, guid: 4935a7d7ecbf83c459f99c7a8c533c64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 345892642}
+    - target: {fileID: 249941606173851236, guid: 4935a7d7ecbf83c459f99c7a8c533c64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 249941606173851236, guid: 4935a7d7ecbf83c459f99c7a8c533c64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 249941606173851236, guid: 4935a7d7ecbf83c459f99c7a8c533c64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenuManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1858694882601363305, guid: 4935a7d7ecbf83c459f99c7a8c533c64, type: 3}
       propertyPath: m_Type
       value: 1
@@ -511,6 +527,7 @@ MonoBehaviour:
   bigGameLogo: {fileID: 1189287474}
   menu: {fileID: 1748196867}
   pressTimeToAppear: 0.7
+  sceneName: Tutorial
 --- !u!4 &384191605 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1536229888062080563, guid: 1f8f48475763db04f99fbe448be92858, type: 3}
@@ -8248,7 +8265,7 @@ Tilemap:
       - {fileID: 21300000, guid: 0d020c9ef7b6ec14983e8aee0982b3a1, type: 3}
       - {fileID: 21300000, guid: 52f1ca83dd9418840abd2002cfb6f9ab, type: 3}
       - {fileID: 21300000, guid: 187bfacf1164b2648a0bdf7df2cd7b50, type: 3}
-      m_AnimationSpeed: 6
+      m_AnimationSpeed: 6.0000005
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -10, y: -2, z: 0}

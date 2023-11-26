@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class MainMenuManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject bigGameLogo;
     [SerializeField] private GameObject menu;
     [SerializeField] private float pressTimeToAppear = 0.7f;
+    [SerializeField] public string sceneName;
     private float pressTextTimer;
     private bool wasButtonPressed;
 
@@ -44,7 +46,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void ExitGameClick()
     {
-        
+        Application.Quit();
+    }
+    
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
     #endregion
