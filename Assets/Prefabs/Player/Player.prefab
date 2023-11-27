@@ -150,7 +150,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 53.056717
+  m_Distance: 15.612316
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!212 &1640478928580041858
@@ -378,7 +378,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   deccelerationTime: 3
   jumpHeight: 3
-  jumpRiseTime: 0.35
+  jumpRiseTime: 0.3
   downGravityScale: 1.5
   coyoteTime: 0.5
   jumpLayers:
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEquipped: 0
-  _keyCode: 323
+  _keyCode: 101
   attackRange: 2.5
   offsetFromCenter: 0.3
   attackCooldown: 0.5
