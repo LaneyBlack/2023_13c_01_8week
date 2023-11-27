@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class HealthPotion : MonoBehaviour
 {
-    [SerializeField] private int healthRestore = 1;
-    private Health health;
+    private static int healthRestore = 1;
+    private static Health health;
 
     private void Start()
     {
         health = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
     }
 
-    public void usePotion()
+    public static void usePotion()
     {
         if (InvenoryManagment.NumberOfPotions > 0 && !health.atFullHealth())
         {
