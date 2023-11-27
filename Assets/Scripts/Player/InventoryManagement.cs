@@ -11,7 +11,10 @@ public class InvenoryManagment : MonoBehaviour
 
     private void Start()
     {
+        //Debug.Log("start of InvenoryManagment");
         //_health = GetComponentInParent<Health>();
         IsSwordUpgraded = false;
+        //NumberOfCoins = 0;
+        //NumberOfPotions = 0;
     }
 }

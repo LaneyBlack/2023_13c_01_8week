@@ -10,6 +10,7 @@ public class ShopManager : MonoBehaviour
 
     private void Start()
     {
+        //InvenoryManagment.NumberOfCoins = 1000;
         _buyPotionButton.onClick.AddListener(BuyPotion);
         _buySwordButton.onClick.AddListener(BuySword);
     }

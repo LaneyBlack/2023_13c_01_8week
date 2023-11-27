@@ -37,6 +37,8 @@ public class HookGun : Equippable
     private BasicPlayerMovement playerMovement;
     private Rigidbody2D playerrb;
 
+    //private bool hasGrapplePoint = false;
+
     private void Awake()
     {
         playerHealth = GetComponentInParent<Health>();
@@ -84,7 +86,6 @@ public class HookGun : Equippable
 
     private void Update()
     {
-        findGrapplePoint();
 
         if (!m_camera) return;
 
@@ -96,6 +97,7 @@ public class HookGun : Equippable
         else
             spriteRenderer.enabled = true;
 
+        findGrapplePoint();
         if (canHook)
         {
             float dir = playerMovement.getDirection();
@@ -130,18 +132,43 @@ public class HookGun : Equippable
 
     void findGrapplePoint()
     {
+        //var gpoints = GameObject.FindGameObjectsWithTag("GrapplePoint");
+        //foreach (var g in gpoints)
+        //{
+        //    var gp = g.GetComponent<GrapplePoint>();
+        //    if (gp.canAttach(transform.position) && !canHook)
+        //    {
+        //        canHook = true;
+        //        grapplePoint = g.transform.position;
+        //        targetDistance = gp.minSwingRadius;
+        //        return;
+        //    }
+        //}
+
+        float minDistance = Mathf.Infinity;
+        GameObject selectedGP = null;
+
         var gpoints = GameObject.FindGameObjectsWithTag("GrapplePoint");
         foreach (var g in gpoints)
         {
             var gp = g.GetComponent<GrapplePoint>();
-            if (gp.canAttach(transform.position))
+            float dst = Vector2.Distance(g.transform.position, gunHolder.transform.position);
+            //add a ray cast!
+            if (gp.canAttach(gunHolder.transform.position) && dst < minDistance)
             {
-                canHook = true;
-                grapplePoint = g.transform.position;
-                targetDistance = gp.minSwingRadius;
-                return;
+                selectedGP = g;
+                minDistance = dst;
             }
         }
+
+        if (selectedGP != null && !canHook)
+        {
+            canHook = true;
+            grapplePoint = selectedGP.transform.position;
+            targetDistance = selectedGP.GetComponent<GrapplePoint>().minSwingRadius;
+        }
+        if(selectedGP == null)
+            canHook = false;
     }
 
     void RotateGun(Vector3 lookPoint, bool easeIn = false)

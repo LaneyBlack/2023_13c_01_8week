@@ -22,16 +22,17 @@ public class GrapplePoint : MonoBehaviour
 
     private void Update()
     {
+        //spriteRenderer.color = distance <= attachRadius ? canAttachColor : defaultColor;
         spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
     }
 
     public bool canAttach(Vector3 position)
     {
         distance = Vector2.Distance(position, transform.position);
-        return Vector2.Distance(position, transform.position) <= (attachRadius + attachError);
+        return distance <= (attachRadius + attachError);
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         //attach radius
         Gizmos.color = Color.green;

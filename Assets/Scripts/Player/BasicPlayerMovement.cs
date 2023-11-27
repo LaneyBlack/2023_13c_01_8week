@@ -15,7 +15,6 @@ public class BasicPlayerMovement : MonoBehaviour
 
     [Header("Basic Ground Movement")]
     [SerializeField] private float _walkSpeed = 10;
-    [SerializeField] private float _runMultiplier = 1.5f;
 
     [Header("Ground Movement")]
     [SerializeField] private float _acceleration = 2;
@@ -86,7 +85,6 @@ public class BasicPlayerMovement : MonoBehaviour
     private void Start()
     {
         regularGravity = _rb.gravityScale;
-        //_rb.velocity = Vector3.zero;
         determineJumpParamters();
     }
 
@@ -121,22 +119,20 @@ public class BasicPlayerMovement : MonoBehaviour
         jumpSetUp();
 
         _currentSpeed = _walkSpeed;
-        if(Input.GetKey(KeyCode.LeftShift))
-            _currentSpeed *= _runMultiplier;
 
-        //if (ropeScript.isGrappling)
-        //    _currentSpeed *= _glideBoost;
+        if (ropeScript.isGrappling)
+            _currentSpeed *= _glideBoost;
 
         falling = (_rb.velocity.y < -0.15f);
 
-        if (movementType == MovementType.Math)
-            handleGroundMovementMath();
-        else if (movementType == MovementType.Curves)
-            handleMovementCurves();
-        else if (movementType == MovementType.Old)
-            _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
+        //handleJump();
 
-        handleJump();
+        //if (movementType == MovementType.Math)
+        //    handleGroundMovementMath();
+        //else if (movementType == MovementType.Curves)
+        //    handleMovementCurves();
+        //else if (movementType == MovementType.Old)
+        //    _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
 
         Flip(_xInput);
         handleAnimator();
@@ -144,12 +140,14 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //if (movementType == MovementType.Math)
-        //    handleGroundMovementMath();
-        //else if (movementType == MovementType.Curves)
-        //    handleMovementCurves();
-        //else if (movementType == MovementType.Old)
-        //    _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
+        handleJump();
+
+        if (movementType == MovementType.Math)
+            handleGroundMovementMath();
+        else if (movementType == MovementType.Curves)
+            handleMovementCurves();
+        else if (movementType == MovementType.Old)
+            _rb.velocity = new Vector3(_currentSpeed * _xInput, _rb.velocity.y, 0);
     }
 
     void handleAnimator()
@@ -163,16 +161,12 @@ public class BasicPlayerMovement : MonoBehaviour
     //requires further working
     private void handleGroundMovementMath()
     {
-        // Slowly release control after wall jump
-        //_currentMovementLerpSpeed = Mathf.MoveTowards(_currentMovementLerpSpeed, 100, _wallJumpMovementLerp * Time.deltaTime);
-
-        // This can be done using just X & Y input as they lerp to max values, but this gives greater control over velocity acceleration
-        var acceleration = isGrounded() ? _acceleration : _acceleration * 0.5f;
-        //var acceleration =  _acceleration; //ignore if in air
+        //var acceleration = isGrounded() ? _acceleration : _acceleration * 0.5f;
+        var acceleration = _acceleration; //ignore if in air
 
         if (Input.GetKey(KeyCode.A))
         {
-            if (_rb.velocity.x > 0) _xInput = 0; // Immediate stop and turn. Just feels better
+            if (_rb.velocity.x > 0) _xInput = 0;
             _xInput = Mathf.MoveTowards(_xInput, -1, acceleration * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.D))
@@ -186,7 +180,6 @@ public class BasicPlayerMovement : MonoBehaviour
         }
 
         var wishVelocity = new Vector3(_xInput * _currentSpeed, _rb.velocity.y);
-        // _currentMovementLerpSpeed should be set to something crazy high to be effectively instant. But slowed down after a wall jump and slowly released
 
         _rb.velocity = Vector3.MoveTowards(_rb.velocity, wishVelocity, _movementLerpMultiplier * Time.deltaTime);
         //_rb.velocity = wishVelocity;
@@ -237,7 +230,7 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void coyoteTimerSetUp()
     {
-        if (grounded && !isGrounded() && !_inJump)        //was grounded on the previous frame and now isnt
+        if (grounded && !isGrounded() && !_inJump && _rb.velocity.y < 0.1f)        //was grounded on the previous frame and now isnt
             lastTimeGrounded = Time.time;
     }
 
@@ -246,8 +239,6 @@ public class BasicPlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && (grounded || ropeScript.isGrappling || Time.time - lastTimeGrounded <= coyoteTime))
         {
             _performJump = true;
-            //if (ropeScript.isGrappling)
-            //    _jumpForce *= _jumpBoost;
         }
     }
 

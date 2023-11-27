@@ -6,7 +6,6 @@ using UnityEngine;
 public class GrapplingRope : MonoBehaviour
 {
     [Header("General Refernces:")]
-    //public HookGun grapplingGun { get; private set; }
     public LineRenderer m_lineRenderer;
 
     [Header("General Settings:")]
