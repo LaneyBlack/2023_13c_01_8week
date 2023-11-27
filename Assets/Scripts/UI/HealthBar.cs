@@ -24,7 +24,7 @@ public class HealthBar : MonoBehaviour
         grid = GetComponent<GridLayoutGroup>();
         hearts = new List<GameObject>();
 
-        previousHealth = playerHealth.CurrentHealth;
+        previousHealth = playerHealth.maxHealth;
 
         var rectTransform = GetComponent<RectTransform>();
         int bckWidth = grid.padding.left * 2 + previousHealth * Mathf.RoundToInt(grid.cellSize.x) 
