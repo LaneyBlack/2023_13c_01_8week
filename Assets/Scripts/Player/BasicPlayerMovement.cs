@@ -152,8 +152,8 @@ public class BasicPlayerMovement : MonoBehaviour
 
     void handleAnimator()
     {
-        animator.SetBool("Run", _rb.velocity.x != 0);
-
+        var velocity = _rb.velocity;
+        animator.SetBool("Run", velocity.x > 0.15f || velocity.x < -0.15f );
         animator.SetBool("Falling", falling);
         animator.SetBool("Grounded", isGrounded());
     }
