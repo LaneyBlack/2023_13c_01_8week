@@ -16,7 +16,8 @@ public class TutorialNPC : MonoBehaviour
         "See that trampoline down there? Use it to catapult yourself across the divide. Bounce your way to uncharted territories!",
         "Those boxes might come in handy. Push them towards the ledge to create a makeshift staircase. A little extra height could be just what you need to conquer new challenges!",
         "Ahoy! See that flag up ahead? Cross it and it becomes your new spawn point. Should ye fall, you'll respawn there",
-        "I trust you've gathered the coins strewn along your path. When you're ready, press 'F' to open these grand doors. Inside, you'll find a shop brimming with treasures - potions to bolster your strength and swords to enhance your might. After you've stocked up, venture forth and press 'F' at the exit door to embark on the next leg of your journey. Good luck!"
+        "Quickly switch between your tools and weapons by pressing '1' for your sword and '2' for your hook gun. Ready to swing across chasms or slice through foes? Try grappling to the grapple point ahead by clicking the left mouse button. Each tool has its own use in your thrilling quest, so master the art of switching swiftly to overcome any obstacle or enemy that dares cross your path!",
+        "I trust you've gathered the coins strewn along your path. When you're ready, press 'F' to open these grand doors. Inside, you'll find a shop brimming with treasures - potions to bolster your strength and swords to enhance your might. After you've stocked up, venture forth and press 'F' at the door to embark on the next leg of your journey. Good luck!"
     };
 
     private Vector3[] _positions = new Vector3[]
@@ -27,7 +28,8 @@ public class TutorialNPC : MonoBehaviour
         new Vector3(37.5f, 0.55f, 0f),
         new Vector3(51.5f, 0.55f, 0f),
         new Vector3(70.5f,0.55f,0f),
-        new Vector3(100f,0.55f,0f)
+        new Vector3(100f,0.55f,0f),
+        new Vector3(118.5f, 0.55f, 0f)
     };
 
     private Coroutine _typingCoroutine;
