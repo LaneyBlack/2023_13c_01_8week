@@ -11,7 +11,7 @@ public class TutorialNPC : MonoBehaviour
     private string[] _instructions = new string[]
     {
         "Welcome to Pirate Bay! Navigate through the realm using 'A' and 'D' to move left and right. Press 'SPACE' to leap over obstacles and reach new heights!",
-        "Alert! Hostile creatures lurk in these lands. Click the left mouse button to defend yourself and keep them at bay. Stay vigilant!",
+        "Alert! Hostile creatures lurk in these lands. Click 'E' to defend yourself and keep them at bay. Stay vigilant!",
         "Watch your step! Some platforms have a mind of their own and might shift beneath you. Time your moves carefully.",
         "See that trampoline down there? Use it to catapult yourself across the divide. Bounce your way to uncharted territories!",
         "Those boxes might come in handy. Push them towards the ledge to create a makeshift staircase. A little extra height could be just what you need to conquer new challenges!",
