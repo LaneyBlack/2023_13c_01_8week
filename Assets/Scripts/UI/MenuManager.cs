@@ -67,7 +67,7 @@ public class MenuManager : MonoBehaviour
         pauseMenuUI.SetActive(false);
         areYouSureMenu.SetActive(false);
         Time.timeScale = 0;
-        //ToDo Main menu exit
+        Application.Quit();
     }
 
     public void ExitNoClicked()
