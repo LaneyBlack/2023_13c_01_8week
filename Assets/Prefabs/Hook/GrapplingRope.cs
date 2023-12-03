@@ -72,6 +72,7 @@ public class GrapplingRope : MonoBehaviour
 
     void DrawRope()
     {
+        //arrow.transform.rotation = Quaternion.identity;
         if (!strightLine)
         {
             if (m_lineRenderer.GetPosition(percision - 1).x == grapplingGun.grapplePoint.x) //if the last point is on the grapple rope is straight
