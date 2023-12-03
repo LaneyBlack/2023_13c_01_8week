@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -40,7 +41,7 @@ public class HookGun : Equippable
 
     //private bool hasGrapplePoint = false;
 
-    RaycastHit2D[] dupa;
+    RaycastHit2D[] hits;
 
     private void Awake()
     {
@@ -93,6 +94,8 @@ public class HookGun : Equippable
     private void Update()
     {
         //flip the sprite in the correct direcion:
+
+        
 
         if (!m_camera) return;
 
@@ -161,32 +164,27 @@ public class HookGun : Equippable
             //add a ray cast!
             if (gp.canAttach(holderPos) && dst < minDistance)
             {
-                dupa = Physics2D.RaycastAll(firePos, (g.transform.position - firePos).normalized, (g.transform.position - firePos).magnitude);
-                Debug.DrawRay(firePos, (g.transform.position - firePos).normalized, Color.red);
-                //var hits = Physics2D.RaycastAll(firePos, (g.transform.position - firePos).normalized, Mathf.Infinity);
+                hits = Physics2D.RaycastAll(firePos, (g.transform.position - firePos).normalized, (g.transform.position - firePos).magnitude);
 
-                //foreach(var hit in hits)
-                //{
-                //    if (hit.collider != null)
-                //    {
-                //        Debug.DrawLine(firePos, hit.point, Color.yellow);
-                //        Gizmos.color = Color.yellow;
-                //        Gizmos.DrawCube(hit.point, new Vector3(.1f, .1f));
-                //        Debug.Log(hit.collider.gameObject.tag);
-                //    }
-                //}
+                bool finalAttach = true;
+                foreach (var hit in hits)
+                {
+                    if (hit.collider != null)
+                    {
+                        if(hit.collider.gameObject.CompareTag("Terrain"))
+                        {
+                            finalAttach = false;
+                            break;
+                        }
+                    }
+                }
 
-                //if(hit.collider != null && hit.collider.gameObject.CompareTag("GrapplePoint"))
-                //{
-                //    //Debug.DrawLine(holderPos, hit.point, Color.magenta);
-
-                //    Debug.Log("got hit");
-                //    selectedGP = g;
-                //    minDistance = dst;
-                //    attachPointPos = hit.point;
-                //}
-
-                //TODO: write code that ignores enemies, collectibles etc when raycasting and sets the attach point correctly
+                if(finalAttach)
+                {
+                    selectedGP = g;
+                    minDistance = dst;
+                    attachPointPos = hits.Last().point;
+                }
             }
         }
 
@@ -223,8 +221,8 @@ public class HookGun : Equippable
 
     private void OnDrawGizmosSelected()
     {
-        Debug.Log("hits = " + dupa.Length);
-        foreach(var hit in dupa)
+        Debug.Log("hits = " + hits.Length);
+        foreach(var hit in hits)
         {
             Debug.DrawLine(firePoint.transform.position, hit.point, Color.yellow);
             Gizmos.color = Color.yellow;
