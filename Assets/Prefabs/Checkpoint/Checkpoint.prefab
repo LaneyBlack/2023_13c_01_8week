@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3429363409330851061}
   - component: {fileID: 5679239278166637478}
   - component: {fileID: 3654411190645243862}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Checkpoint
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fc46534fa1efd68469fe6dcc093fc8e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.34, y: 0.93}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8646222782772942719}
   - component: {fileID: 8477183032750754891}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Pole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 614c5bbd0504da14e932d8381a8839e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 423955152222733717}
   - component: {fileID: 6764511873757988214}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cloth
   m_TagString: Untagged
   m_Icon: {fileID: 0}

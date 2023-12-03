@@ -9,8 +9,7 @@ public class GrapplePoint : MonoBehaviour
     private Color                   canAttachColor = Color.green;
     private Color                   defaultColor = Color.red;
     private SpriteRenderer          spriteRenderer;
-    [SerializeField] private float  attachError = 0.5f;            //how much further can player be from attachRadius and still attach
-    [SerializeField] private float  attachRadius = 10f;            //how close player must be to the point to attach himself
+    public float attachRadius = 10f;           //how close player must be to the point to attach himself
 
     float distance = 0f;
 
@@ -29,7 +28,7 @@ public class GrapplePoint : MonoBehaviour
     public bool canAttach(Vector3 position)
     {
         distance = Vector2.Distance(position, transform.position);
-        return distance <= (attachRadius + attachError);
+        return distance <= (attachRadius + .5f);
     }
 
     private void OnDrawGizmos()
