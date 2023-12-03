@@ -17,6 +17,7 @@ public class HookGun : Equippable
     [Header("Physics Ref:")]
     public SpringJoint2D m_springJoint2D;
     public Rigidbody2D m_rigidbody;
+    public BoxCollider2D boxcol;
 
 
     [Header("Launching:")]
@@ -39,6 +40,8 @@ public class HookGun : Equippable
 
     //private bool hasGrapplePoint = false;
 
+    RaycastHit2D[] dupa;
+
     private void Awake()
     {
         playerHealth = GetComponentInParent<Health>();
@@ -46,6 +49,7 @@ public class HookGun : Equippable
         spriteRenderer = GetComponent<SpriteRenderer>();
         grappleRope = GetComponentInChildren<GrapplingRope>();
         playerrb = GetComponentInParent<Rigidbody2D>();
+        boxcol = GetComponentInParent<BoxCollider2D>();
     }
 
     private void Start()
@@ -82,6 +86,8 @@ public class HookGun : Equippable
         spriteRenderer.enabled = false;
         grappleRope.enabled = false;
         m_springJoint2D.enabled = false;
+
+        grappleRope.arrow.enabled = false;
     }
 
     private void Update()
@@ -96,7 +102,10 @@ public class HookGun : Equippable
             return;
         }
         else
+        {
             spriteRenderer.enabled = true;
+            grappleRope.arrow.enabled = true;
+        }
 
         //spriteRenderer.flipX = playerMovement.getDirection() < 0;
 
@@ -135,39 +144,56 @@ public class HookGun : Equippable
 
     void findGrapplePoint()
     {
-        //var gpoints = GameObject.FindGameObjectsWithTag("GrapplePoint");
-        //foreach (var g in gpoints)
-        //{
-        //    var gp = g.GetComponent<GrapplePoint>();
-        //    if (gp.canAttach(transform.position) && !canHook)
-        //    {
-        //        canHook = true;
-        //        grapplePoint = g.transform.position;
-        //        targetDistance = gp.minSwingRadius;
-        //        return;
-        //    }
-        //}
-
         float minDistance = Mathf.Infinity;
         GameObject selectedGP = null;
+        Vector2 attachPointPos = new Vector2(0, 0);
 
         var gpoints = GameObject.FindGameObjectsWithTag("GrapplePoint");
+        //Debug.Log(gpoints.Length);
         foreach (var g in gpoints)
         {
             var gp = g.GetComponent<GrapplePoint>();
-            float dst = Vector2.Distance(g.transform.position, gunHolder.transform.position);
+
+            var firePos = firePoint.transform.position;
+            var holderPos = gunHolder.transform.position;
+
+            float dst = Vector2.Distance(g.transform.position, holderPos);
             //add a ray cast!
-            if (gp.canAttach(gunHolder.transform.position) && dst < minDistance)
+            if (gp.canAttach(holderPos) && dst < minDistance)
             {
-                selectedGP = g;
-                minDistance = dst;
+                dupa = Physics2D.RaycastAll(firePos, (g.transform.position - firePos).normalized, (g.transform.position - firePos).magnitude);
+                Debug.DrawRay(firePos, (g.transform.position - firePos).normalized, Color.red);
+                //var hits = Physics2D.RaycastAll(firePos, (g.transform.position - firePos).normalized, Mathf.Infinity);
+
+                //foreach(var hit in hits)
+                //{
+                //    if (hit.collider != null)
+                //    {
+                //        Debug.DrawLine(firePos, hit.point, Color.yellow);
+                //        Gizmos.color = Color.yellow;
+                //        Gizmos.DrawCube(hit.point, new Vector3(.1f, .1f));
+                //        Debug.Log(hit.collider.gameObject.tag);
+                //    }
+                //}
+
+                //if(hit.collider != null && hit.collider.gameObject.CompareTag("GrapplePoint"))
+                //{
+                //    //Debug.DrawLine(holderPos, hit.point, Color.magenta);
+
+                //    Debug.Log("got hit");
+                //    selectedGP = g;
+                //    minDistance = dst;
+                //    attachPointPos = hit.point;
+                //}
+
+                //TODO: write code that ignores enemies, collectibles etc when raycasting and sets the attach point correctly
             }
         }
 
         if (selectedGP != null && !canHook)
         {
             canHook = true;
-            grapplePoint = selectedGP.transform.position;
+            grapplePoint = attachPointPos;
             targetDistance = selectedGP.GetComponent<GrapplePoint>().minSwingRadius;
         }
         if(selectedGP == null)
@@ -193,5 +219,17 @@ public class HookGun : Equippable
 
         m_springJoint2D.connectedAnchor = grapplePoint;
         m_springJoint2D.enabled = true;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Debug.Log("hits = " + dupa.Length);
+        foreach(var hit in dupa)
+        {
+            Debug.DrawLine(firePoint.transform.position, hit.point, Color.yellow);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawCube(hit.point, new Vector3(.3f, .3f));
+            Debug.Log(hit.collider.gameObject.tag);
+        }
     }
 }

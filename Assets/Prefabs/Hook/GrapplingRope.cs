@@ -28,9 +28,12 @@ public class GrapplingRope : MonoBehaviour
     public HookGun grapplingGun { get; private set; }
     bool strightLine = true;
 
+    public SpriteRenderer arrow { get; private set; }
+
     private void Awake()
     {
         grapplingGun = GetComponentInParent<HookGun>();
+        arrow = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -50,6 +53,7 @@ public class GrapplingRope : MonoBehaviour
     {
         m_lineRenderer.enabled = false;
         isGrappling = false;
+        arrow.transform.localPosition = Vector3.zero;
     }
 
     private void LinePointsToFirePoint()
@@ -101,6 +105,8 @@ public class GrapplingRope : MonoBehaviour
                 DrawRopeNoWaves();
             }
         }
+
+        arrow.transform.position = m_lineRenderer.GetPosition(m_lineRenderer.positionCount - 1);
     }
 
     void DrawRopeWaves()
