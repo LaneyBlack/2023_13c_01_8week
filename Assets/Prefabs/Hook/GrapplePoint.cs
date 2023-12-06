@@ -11,7 +11,7 @@ public class GrapplePoint : MonoBehaviour
     private SpriteRenderer          spriteRenderer;
     public float attachRadius = 10f;           //how close player must be to the point to attach himself
 
-    float distance = 0f;
+    float distance;
     Animator animator;
     bool didset = false;
 
@@ -21,6 +21,7 @@ public class GrapplePoint : MonoBehaviour
         animator = GetComponent<Animator>();
         promptRadius = attachRadius * 1.5f;
         didset = false;
+        distance = 10000f;
         //transform.position -= new Vector3(0, -2f, 0);
         //spriteRenderer.color = 
     }
