@@ -95,7 +95,7 @@ public class HookGun : Equippable
     {
         //flip the sprite in the correct direcion:
 
-        
+        findGrapplePoint();
 
         if (!m_camera) return;
 
@@ -112,7 +112,7 @@ public class HookGun : Equippable
 
         //spriteRenderer.flipX = playerMovement.getDirection() < 0;
 
-        findGrapplePoint();
+        
         if (canHook)
         {
             float dir = playerMovement.getDirection();
