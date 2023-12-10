@@ -120,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.3583431, y: -0.033350706}
+  m_Offset: {x: 1.415309, y: 0.66594267}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -131,7 +131,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.647705, y: 1.1332293}
+  m_Size: {x: 4.7616367, y: 2.5318158}
   m_EdgeRadius: 0
 --- !u!114 &5907730938362609731
 MonoBehaviour:
@@ -161,7 +161,8 @@ MonoBehaviour:
   _shopUI: {fileID: 0}
   _buyPotionButton: {fileID: 0}
   _buySwordButton: {fileID: 0}
-  _playerMoneyText: {fileID: 0}
+  potionPriceText: {fileID: 0}
+  swordPriceText: {fileID: 0}
 --- !u!95 &909097741220501618
 Animator:
   serializedVersion: 5
