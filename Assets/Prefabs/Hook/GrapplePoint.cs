@@ -9,27 +9,45 @@ public class GrapplePoint : MonoBehaviour
     private Color                   canAttachColor = Color.green;
     private Color                   defaultColor = Color.red;
     private SpriteRenderer          spriteRenderer;
-    [SerializeField] private float  attachError = 0.5f;            //how much further can player be from attachRadius and still attach
-    [SerializeField] private float  attachRadius = 10f;            //how close player must be to the point to attach himself
+    public float attachRadius = 10f;           //how close player must be to the point to attach himself
 
-    float distance = 0f;
+    float distance;
+    Animator animator;
+    bool didset = false;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         promptRadius = attachRadius * 1.5f;
+        didset = false;
+        distance = 10000f;
+        //transform.position -= new Vector3(0, -2f, 0);
+        //spriteRenderer.color = 
     }
 
     private void Update()
     {
         //spriteRenderer.color = distance <= attachRadius ? canAttachColor : defaultColor;
-        spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
+        //spriteRenderer.color = Color.Lerp(canAttachColor, defaultColor, (distance - attachRadius) / (promptRadius - attachRadius));
+        if (distance <= (attachRadius + .5f))
+        {
+            animator.SetBool("appear", true);
+            //didset = true;
+        }
+        else
+        {
+            animator.SetBool("appear", false);
+            //animator.Play("idle");
+            //didset = false;
+        }
+
     }
 
     public bool canAttach(Vector3 position)
     {
         distance = Vector2.Distance(position, transform.position);
-        return distance <= (attachRadius + attachError);
+        return distance <= (attachRadius + .5f);
     }
 
     private void OnDrawGizmos()

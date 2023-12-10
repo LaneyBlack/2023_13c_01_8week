@@ -19,7 +19,7 @@ public class GrapplingRope : MonoBehaviour
 
     [Header("Rope Progression:")]
     public AnimationCurve ropeProgressionCurve;
-    [SerializeField][Range(1, 50)] private float ropeProgressionSpeed = 1;
+    [SerializeField][Range(1, 10000)] private float ropeProgressionSpeed = 1;
 
     float moveTime = 0;
 
@@ -28,9 +28,12 @@ public class GrapplingRope : MonoBehaviour
     public HookGun grapplingGun { get; private set; }
     bool strightLine = true;
 
+    public SpriteRenderer arrow { get; private set; }
+
     private void Awake()
     {
         grapplingGun = GetComponentInParent<HookGun>();
+        arrow = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -50,6 +53,7 @@ public class GrapplingRope : MonoBehaviour
     {
         m_lineRenderer.enabled = false;
         isGrappling = false;
+        arrow.transform.localPosition = Vector3.zero;
     }
 
     private void LinePointsToFirePoint()
@@ -68,6 +72,7 @@ public class GrapplingRope : MonoBehaviour
 
     void DrawRope()
     {
+        //arrow.transform.rotation = Quaternion.identity;
         if (!strightLine)
         {
             if (m_lineRenderer.GetPosition(percision - 1).x == grapplingGun.grapplePoint.x) //if the last point is on the grapple rope is straight
@@ -101,6 +106,8 @@ public class GrapplingRope : MonoBehaviour
                 DrawRopeNoWaves();
             }
         }
+
+        arrow.transform.position = m_lineRenderer.GetPosition(m_lineRenderer.positionCount - 1);
     }
 
     void DrawRopeWaves()
