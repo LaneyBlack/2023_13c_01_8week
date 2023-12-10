@@ -234,7 +234,7 @@ SpringJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 14.8732815
+  m_Distance: 7.6242833
   m_DampingRatio: 1
   m_Frequency: 1
 --- !u!212 &1640478928580041858
@@ -656,6 +656,10 @@ PrefabInstance:
       propertyPath: gunHolder
       value: 
       objectReference: {fileID: 2692948081531085355}
+    - target: {fileID: 1616455611066073587, guid: 18828164d614b4243be9127c4a3b11f4, type: 3}
+      propertyPath: launchKey
+      value: 101
+      objectReference: {fileID: 0}
     - target: {fileID: 1616455611066073587, guid: 18828164d614b4243be9127c4a3b11f4, type: 3}
       propertyPath: detachAngle
       value: 50
